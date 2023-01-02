@@ -8,6 +8,7 @@ import {
   onAuthStateChanged,
 } from 'firebase/auth';
 import { getDatabase, ref, set, get } from 'firebase/database';
+import { async } from '@firebase/util';
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
@@ -57,4 +58,14 @@ export async function addNewProduct(product, image) {
     image,
     options: product.options.split(','),
   });
+}
+
+export async function getProducts(){
+  return get(ref(database,'products')).then(snapshot =>{
+    if(snapshot.exists()){ //snapshot이 존재하면 제품들을 보여준다.
+      return Object.values(snapshot.val())
+    }
+    return [];
+    //없을시
+  })
 }

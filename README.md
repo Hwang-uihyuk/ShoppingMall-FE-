@@ -220,5 +220,18 @@
         - doc→web→read and write
     - cloudinary
         - guides→uploading assets
-
+        
+    - 각 상품마다 고유의 id를 주어야 한다.
+        -in terminal
+            - yarn add uuid
+            - firebase
+            import { v4 as uuid } from 'uuid';
+            - addNewProduct에 return set(ref(database,`products/${id}`),
+                                  ...product,
+                                  id,  
+                                  price: parseInt(product.price),
+                                  image,
+                                  options:product.options.split(',')
+                                  
+    - 상품등록 ui 해결하기
 #### Netlify 베포하기

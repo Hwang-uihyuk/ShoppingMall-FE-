@@ -235,3 +235,15 @@
                                   
     - 상품등록 ui 해결하기
 #### Netlify 베포하기
+
+#### Netlify 베포하기
+
+    create react app
+
+     ![스크린샷 2023-01-03 오후 2 25 39](https://user-images.githubusercontent.com/79883776/210304110-77890f75-bbe2-40da-b587-1f696896b306.png)
+
+
+    - 네모로 체크한 부분은 한 번 베포 목적이면 이렇게 하고
+
+    - git 허브에 연동하고 지속적인 베포가 목적이면
+    - To setup continuous delivery를 사용하면 된다.

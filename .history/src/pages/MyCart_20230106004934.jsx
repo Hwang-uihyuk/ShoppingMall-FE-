@@ -1,7 +1,7 @@
 import React from 'react';
 import { getCart } from '../api/firebase';
 import { useQuery } from '@tanstack/react-query';
-import { useAuthContext } from '../components/context/AuthContext';
+import { useAuthContext } from '../../context/AuthContext';
 import CartItem from '../components/CartItem';
 import { BsFillPlusCircleFill } from 'react-icons/bs';
 import { FaEquals } from 'react-icons/fa';

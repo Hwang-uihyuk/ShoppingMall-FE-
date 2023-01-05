@@ -98,9 +98,9 @@
     ]
     )]}
 
-    그 밑 
-    render쪽에 
-    <RouterProvider router = {router} 해주어야함.
+    
+    
+    <RouterProvider router = {router} 
     ```
 
     - pages 폴더 생성

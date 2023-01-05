@@ -3,7 +3,7 @@ import React from 'react';
 import { getProducts } from '../api/firebase';
 
 
-import ProductCard from '../ProductCard';
+import ProductCard from './ProductCard';
 import useProducts from './hooks/useProducts';
 
 

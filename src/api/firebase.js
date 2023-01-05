@@ -7,7 +7,7 @@ import {
   signOut,
   onAuthStateChanged,
 } from 'firebase/auth';
-import { getDatabase, ref, set, get } from 'firebase/database';
+import { getDatabase, ref, set, get, remove } from 'firebase/database';
 import { async } from '@firebase/util';
 
 const firebaseConfig = {
@@ -59,6 +59,14 @@ export async function addNewProduct(product, image) {
     options: product.options.split(','),
   });
 }
+//보내는 method 형식이 무엇이냐 ?
+//Header엔 뭐가 들어가냐? ( JWT, json, )
+
+// 규칙 : 인가된 사용자에 대해서 
+//user - 일반 사용자 
+//resigter - 등록만 할 수 있는거고
+//admin - 등록이랑 관리(권한 줄 수 있는 )할 수 있는거고
+
 
 export async function getProducts(){
   return get(ref(database,'products')).then(snapshot =>{
@@ -68,4 +76,20 @@ export async function getProducts(){
     return [];
     //없을시
   })
+}
+
+export async function getCart(userId) {
+  return get(ref(database, `carts/${userId}`)) //
+    .then((snapshot) => {
+      const items = snapshot.val() || {};
+      return Object.values(items);
+    });
+}
+
+export async function addOrUpdateToCart(userId, product) {
+  return set(ref(database, `carts/${userId}/${product.id}`), product);
+}
+
+export async function removeFromCart(userId, productId) {
+  return remove(ref(database, `carts/${userId}/${productId}`));
 }

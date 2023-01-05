@@ -17,6 +17,8 @@ export default function ProtectedRoute({children,requirAdmin}) {
   //requireAdmin이 true인 경우에는 로그인도 되어 있어야 하고, 어드민 권한도 가지고 있어야 함
   //조건에 맞지 않으면/ 상위 경로로 이동
   // 조건에 맞는 경우메나 전달된 children 보여줌
+  // <결론>
+  // url이랑 어떤 요청 메서드
   return (
     <div>ProtectedRoute</div>
   )

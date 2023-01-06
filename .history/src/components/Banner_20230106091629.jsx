@@ -1,12 +1,18 @@
 import React from 'react';
-
+import Slider from "react-slick";
 
 
 
 export default function Banner() {
- 
+  render() {
+    const settings = {
+      dots: true,
+      infinite: true,
+      speed: 500,
+      slidesToShow: 1,
+      slidesToScroll: 1
+    };
   return (
-    
     <section className='h-96 bg-yellow-900 relative'>
       <div className='w-full h-full bg-cover bg-banner opacity-80' />
       <div className='absolute w-full top-32 text-center text-gray-50 drop-shadow-2xl'>
@@ -15,5 +21,6 @@ export default function Banner() {
       </div>
     </section>
 
-   )
+    //이미지 배너
+  );
 }

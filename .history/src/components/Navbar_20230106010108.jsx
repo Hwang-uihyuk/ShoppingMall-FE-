@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { FiShoppingBag } from 'react-icons/fi';
-import { AiFillShop } from 'react-icons/ai'
+import {AiFillShop } from 'react-icons/ai'
 import { BsFillPencilFill } from 'react-icons/bs';
 import User from './User';
 import Button from './ui/Button';
@@ -13,7 +13,7 @@ export default function Navbar() {
   return (
     <header className='flex justify-between border-b border-gray-300 p-2'>
       <Link to='/' className='flex items-center text-4xl text-brand'>
-        <AiFillShop />
+        <FiShoppingBag />
         <h1>Hyuk's mall</h1>
       </Link>
       <nav className='flex items-center gap-4 font-semibold'>

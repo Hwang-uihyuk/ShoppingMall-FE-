@@ -8,7 +8,7 @@ export default function Home() {
   return (
     <>
       <SimpleSlider/>
-      {/* <Banner/> */}
+      <Banner/>
       <Products />
     </>
   );

@@ -13,6 +13,7 @@ import AllProducts from './pages/AllProducts';
 import NewProduct from './pages/NewProduct';
 import Home from './pages/Home';
 import ProtectedRoute from './pages/ProtectedRoute';
+import Register from './pages/Register';
 
 const router = createBrowserRouter([
   {
@@ -36,14 +37,23 @@ const router = createBrowserRouter([
      ),
     },
 
-    {path:'/products/:id', element: <ProductDetail/>},
-
     {
-    path:'/carts',
-    element: 
-    <ProtectedRoute>
-      <MyCart/>
-    </ProtectedRoute>}]
+      path:'/products/:id', element: <ProductDetail/>
+    },
+    {
+      path:'/carts',
+      element: 
+      <ProtectedRoute>
+        <MyCart/>
+      </ProtectedRoute>
+    },
+    {
+      path : '/join',
+      element :
+        <Register>
+        </Register>
+    }
+    ]
   }
 ])
 

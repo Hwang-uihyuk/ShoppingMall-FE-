@@ -30,6 +30,9 @@ export default function Navbar() {
         )}
         {user && <User user={user} />}
         {!user && <Button text={'Login'} onClick={login} />}
+        <Link to='/join'>
+          {user && <Button text={'JOIN'} />}
+        </Link>
         {user && <Button text={'Logout'} onClick={logout} />}
       </nav>
     </header>

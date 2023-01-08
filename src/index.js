@@ -13,23 +13,34 @@ import AllProducts from './pages/AllProducts';
 import NewProduct from './pages/NewProduct';
 import Home from './pages/Home';
 import ProtectedRoute from './pages/ProtectedRoute';
+<<<<<<< HEAD
 import Register from './pages/Register';
+=======
+import Login from './pages/Login';
+import SignUp from './pages/SignUp';
+import EditUser from './pages/EditUser';
+
+>>>>>>> f8c6262959d657c966fdbbf5e7ad9d05acea4e41
 
 const router = createBrowserRouter([
   {
     path:'/',
     element :<App/>,
     errorElement:<NotFound/>,
-    children :[{
+    children :[
+      {
       index:true,
       path:'/', //이렇게 해줘야 오류 ㄴㄴ
       element: <Home/>
-
     },
-    {path: '/products', element:<AllProducts/>},
 
     {
-      path: '/products/new',
+      path:'/products',
+      element:<AllProducts/>
+    },
+
+    {
+     path: '/products/new',
      element: (
      <ProtectedRoute requireAdmin>
       <NewProduct/>
@@ -37,6 +48,7 @@ const router = createBrowserRouter([
      ),
     },
 
+<<<<<<< HEAD
     {
       path:'/products/:id', element: <ProductDetail/>
     },
@@ -55,6 +67,44 @@ const router = createBrowserRouter([
     }
     ]
   }
+=======
+    {
+      path:'/products/:id',
+       element: <ProductDetail/>
+    },
+
+    {
+      path :'/login',
+      element: <Login/>
+        
+    },
+    {
+        path:'/signup',
+        element:<SignUp/>
+    },
+
+    {
+    path:'/carts',
+    element: 
+    <ProtectedRoute>
+      <MyCart/>
+    </ProtectedRoute>
+    },
+
+    {
+      path:'/edituser',
+      element:<EditUser/>,
+    },
+  
+  ]
+
+
+
+  },
+
+  
+  
+>>>>>>> f8c6262959d657c966fdbbf5e7ad9d05acea4e41
 ])
 
 const root = ReactDOM.createRoot(document.getElementById('root'));

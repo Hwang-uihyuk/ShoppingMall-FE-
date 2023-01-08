@@ -44,7 +44,7 @@ export default function Navbar() {
 
 
         {user && <User user={user} />}
-        {!user && <Button text={'GoogleLogin'} onClick={login} />}
+        {!user && <Button text={'Login'} onClick={login} />}
         {user && <Button text={'Logout'} onClick={logout} />}
 
         {user && <Link to="/edituser"> 회원정보수정 </Link>}

@@ -13,7 +13,7 @@ function App() {
     <QueryClientProvider client={queryClient}>
       <AuthContextProvier>
         <Navbar/>
-        <Categories />
+        <Categories/>
         <Outlet/>
       </AuthContextProvier>
     </QueryClientProvider>

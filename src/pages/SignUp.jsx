@@ -95,12 +95,14 @@ function SignUp() {
   const onCheckIdHandler = async (event) => {
     event.preventDefault();
     let param = {
-      username:id
+      username : id
     }
     await axios
+      // .get(tmpUrl+"/check_id/"+id)
       .get(tmpUrl+"/check_id/"+id)
       .then((response) => {
-        setIsIdChecked(response.data)
+        console.log(response.data)
+        // setIsIdChecked(response.data)
       })
       .catch((error) => {
         console.log("error!")
@@ -113,17 +115,17 @@ function SignUp() {
       username: username,
       nickName: nickName,
       pw: pw,
+      email:email,
       telephone: telephone,
       address: address,
     }
     console.log(body);
     await axios
-      .post(tmpUrl + "/join", body)
+      .post(tmpUrl + "/join/",body)
       .then((response) => {
         console.log(response.data);
       })
       .catch((error) => {
-        console.log("error!")
         console.log(error)
       });
   }

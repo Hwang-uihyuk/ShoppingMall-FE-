@@ -21,18 +21,17 @@ const Partition = styled.h2`
     float: left;
     margin : 0 10px 0 10px;
     font-size : 20px;
-
 `
 export default function Categories(){
     return (
         <CategoriesContainer>
-            <Category>Shirts</Category>
+            <Category cat = "Shirts">Shirts</Category>
             <Partition>|</Partition>
-            <Category>Outer</Category>
+            <Category cat ="Outer">Outer</Category>
             <Partition>|</Partition>
-            <Category>Pants</Category>
+            <Category cat ="Pants">Pants</Category>
             <Partition>|</Partition>
-            <Category>Shoes</Category>
+            <Category cat = "Shoes">Shoes</Category>
         </CategoriesContainer>
     )
 }

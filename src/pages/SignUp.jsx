@@ -61,19 +61,14 @@ const CheckIdButton = styled.button`
     };
 `
 function SignUp() {
-  const [id, setID] = useState("");
   const [username, setUserName] = useState("");
-  const [nickName, setNickName] = useState("");
-  const [pw, setPw] = useState("");
+  const [nickname, setNickName] = useState("");
+  const [password, setPassword] = useState("");
   const [telephone, setTelephone] = useState("");
   const [email, setEmail] = useState("");
   const [address, setUserAddress] = useState("");
 
-  const [isIdChecked, setIsIdChecked] = useState("false")
-
-  const onIDHandler = (event) => {
-    setID(event.currentTarget.value);
-  }
+  const [isChecked, setIsChecked] = useState(false);
   const onUserNameHandler = (event) => {
     setUserName(event.currentTarget.value);
   }
@@ -81,7 +76,7 @@ function SignUp() {
     setNickName(event.currentTarget.value);
   }
   const onPwHandler = (event) => {
-    setPw(event.currentTarget.value);
+    setPassword(event.currentTarget.value);
   }
   const onTelephoneHandler = (event) => {
     setTelephone(event.currentTarget.value);
@@ -94,15 +89,11 @@ function SignUp() {
   }
   const onCheckIdHandler = async (event) => {
     event.preventDefault();
-    let param = {
-      username : id
-    }
     await axios
-      // .get(tmpUrl+"/check_id/"+id)
-      .get(tmpUrl+"/check_id/"+id)
+      .get(tmpUrl+"/check_id/"+username)
       .then((response) => {
+        setIsChecked(true);
         console.log(response.data)
-        // setIsIdChecked(response.data)
       })
       .catch((error) => {
         console.log("error!")
@@ -111,17 +102,24 @@ function SignUp() {
   }
   const onSubmitHandler = async (event) => {
     event.preventDefault();
-    let body = {
-      username: username,
-      nickName: nickName,
-      pw: pw,
-      email:email,
-      telephone: telephone,
-      address: address,
-    }
+    let body = JSON.stringify(
+      {
+        'username': username,
+        'nickname': nickname,
+        'password': password,
+        'e_mail':email,
+        'telephone': telephone,
+        'address': address
+      }
+    )
+    const joinConfig = {
+      headers:{
+        "Content-Type" : "application/json"
+      }
+    };
     console.log(body);
-    await axios
-      .post(tmpUrl + "/join/",body)
+    axios
+      .post(tmpUrl+"/join",body,joinConfig)
       .then((response) => {
         console.log(response.data);
       })
@@ -133,16 +131,13 @@ function SignUp() {
     <RegisterContainer>
       <RegisterForm>
         <label >JOIN</label>
-        <InputForm value={id} onChange={onIDHandler} placeholder="아이디"></InputForm>
+        <InputForm value={username} onChange={onUserNameHandler} placeholder="아이디"></InputForm>
         <CheckIdButton onClick={onCheckIdHandler}>중복체크</CheckIdButton>
-        <InputForm value={username} onChange={onUserNameHandler} placeholder="이름"></InputForm>
-        <InputForm value={nickName} onChange={onNickNameHandler} placeholder="닉네임"></InputForm>
-        <InputForm value={pw} onChange={onPwHandler} placeholder="비밀번호"></InputForm>
+        <InputForm value={nickname} onChange={onNickNameHandler} placeholder="닉네임"></InputForm>
+        <InputForm value={password} onChange={onPwHandler} placeholder="비밀번호"></InputForm>
         <InputForm value={telephone} onChange={onTelephoneHandler} placeholder="전화번호"></InputForm>
-        {/* <InputForm value ={pw} onChange={}placeholder="비밀번호 확인"></InputForm> */}
         <InputForm value={email} onChange={onEmailHandler} placeholder="이메일"></InputForm>
         <InputForm value={address} onChange={onAddressHandler} placeholder="주소"></InputForm>
-        {/* <InputForm value ={address} onChange={}placeholder="상세주소"></InputForm> */}
         <JoinButton onClick={onSubmitHandler}>회원가입</JoinButton>
       </RegisterForm>
     </RegisterContainer>

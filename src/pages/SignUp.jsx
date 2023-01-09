@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { useState } from "react";
 import styled from "styled-components";
 
-const tmpUrl = "https://93fc44b8-c8a6-4b5a-b75d-6d2206f5f941.mock.pstmn.io";
+const tmpUrl = "http://3.38.35.43:8080";
 const RegisterContainer = styled.div`
     display: flex;
     justify-content: left;
@@ -95,12 +95,14 @@ function SignUp() {
   const onCheckIdHandler = async (event) => {
     event.preventDefault();
     let param = {
-      id: id,
+      username : id
     }
     await axios
-      .get(tmpUrl + "/check_id", param)
+      // .get(tmpUrl+"/check_id/"+id)
+      .get(tmpUrl+"/check_id/"+id)
       .then((response) => {
-        setIsIdChecked(response.data)
+        console.log(response.data)
+        // setIsIdChecked(response.data)
       })
       .catch((error) => {
         console.log("error!")
@@ -110,22 +112,20 @@ function SignUp() {
   const onSubmitHandler = async (event) => {
     event.preventDefault();
     let body = {
-      id: id,
       username: username,
       nickName: nickName,
       pw: pw,
+      email:email,
       telephone: telephone,
       address: address,
-      idCheck: isIdChecked
     }
     console.log(body);
     await axios
-      .post(tmpUrl + "/join", body)
+      .post(tmpUrl + "/join/",body)
       .then((response) => {
         console.log(response.data);
       })
       .catch((error) => {
-        console.log("error!")
         console.log(error)
       });
   }

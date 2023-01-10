@@ -2,9 +2,11 @@ import React, { useState } from "react";
 import styled from "styled-components";
 
 const CategoriesContainer = styled.div`
-    height : 60px;
+    height : 80px;
     width : 100%;
     padding : 12px 20px 10px 5px;
+    position : relative;
+    top : 30px;
 `
 const Category = styled.h2`
     color : black;
@@ -22,16 +24,19 @@ const Partition = styled.h2`
     margin : 0 10px 0 10px;
     font-size : 20px;
 `
-export default function Categories(){
+export default function Categories(props){
+    function sendCategory(cat){
+        props.setCategory(cat);
+    }
     return (
         <CategoriesContainer>
-            <Category cat = "Shirts">Shirts</Category>
+            <Category onClick={sendCategory("shirts")}>Shirts</Category>
             <Partition>|</Partition>
-            <Category cat ="Outer">Outer</Category>
+            <Category onClick={sendCategory("outer")}>Outer</Category>
             <Partition>|</Partition>
-            <Category cat ="Pants">Pants</Category>
+            <Category onClick={sendCategory("pants")}>Pants</Category>
             <Partition>|</Partition>
-            <Category cat = "Shoes">Shoes</Category>
+            <Category onClick={sendCategory("shoes")}>Shoes</Category>
         </CategoriesContainer>
     )
 }

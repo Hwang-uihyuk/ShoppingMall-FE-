@@ -23,7 +23,7 @@ export default function Products() {
               if(category==="all"){
                 return product
               }
-              else if(product.category.toLowerCase()==="outer"){
+              else if(product.category.toLowerCase()==="shirts"){
                 return product
               }
             }).map((product)=>(

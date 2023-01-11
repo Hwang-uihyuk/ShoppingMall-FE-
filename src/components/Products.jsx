@@ -8,7 +8,7 @@ import styled from "styled-components";
 const CategoriesContainer = styled.div`
     height : 80px;
     width : 100%;
-    padding : 12px 20px 10px 5px;
+    padding : 20px 20px 10px 10px;
     position : relative;
     top : 30px;
 `
@@ -16,7 +16,7 @@ const Category = styled.h2`
     color : black;
     float: left;
     font-size: 20px;
-    margin: 0 10px 0 10px;
+    margin: 0 20px 0 20px;
     &:hover{
         color : #666666e0;
         cursor : pointer;
@@ -45,13 +45,11 @@ export default function Products() {
     return (
       <>
         <CategoriesContainer>
-          <Category onClick={()=>handleCategoryClick("shirts")}>Shirts</Category>
-          <Partition>|</Partition>
-          <Category onClick={() => handleCategoryClick("outer")}>Outer</Category>
-          <Partition>|</Partition>
-          <Category onClick={() => handleCategoryClick("pants")}>Pants</Category>
-          <Partition>|</Partition>
-          <Category onClick={() => handleCategoryClick("shoes")}>Shoes</Category>
+          <Category onClick={() => handleCategoryClick("all")}>ALL</Category>
+          <Category onClick={()=>handleCategoryClick("shirts")}>SHIRTS</Category>
+          <Category onClick={() => handleCategoryClick("outer")}>OUTER</Category>
+          <Category onClick={() => handleCategoryClick("pants")}>PANTS</Category>
+          <Category onClick={() => handleCategoryClick("shoes")}>SHOES</Category>
         </CategoriesContainer>
         {isLoading && <p>Loading...</p>}
         {error && <p>{error}</p>}

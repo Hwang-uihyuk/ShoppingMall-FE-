@@ -1,8 +1,7 @@
 import axios from "axios";
 import React, { useState } from "react";
 import styled from "styled-components";
-
-const test = "secondtest";
+import { PostSignUp } from "../api/api";
 
 const tmpUrl = "http://3.38.35.43:8080";
 const RegisterContainer = styled.div`
@@ -114,20 +113,7 @@ function SignUp() {
         'address': address
       }
     )
-    const joinConfig = {
-      headers:{
-        "Content-Type" : "application/json"
-      }
-    };
-    console.log(body);
-    axios
-      .post(tmpUrl+"/join",body,joinConfig)
-      .then((response) => {
-        console.log(response.data);
-      })
-      .catch((error) => {
-        console.log(error)
-      });
+    PostSignUp(body);
   }
   return (
     <RegisterContainer>

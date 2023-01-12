@@ -32,11 +32,20 @@ export default function Navbar() {
         )}
         
          {/* login form */}
-         {!user && (
+        {/* login form */} 
+          
+        {!window.localStorage.getItem('Login') && (
           <Link to ='/login'> 
             login(axios) 
             </Link>
           )}
+
+          {window.localStorage.getItem('Login') && 
+          <button onClick ={()=>{window.localStorage.removeItem('Login')
+          document.location.href = '/'}
+            
+
+          }> logout </button>}
 
           <Link to = '/signup'>
             Sign up ㅣ

@@ -1,10 +1,11 @@
 import React from 'react'
 import { useState } from 'react';
 import axios from 'axios'
+import { useAxiosAuthContext } from '../components/context/UserStateContext';
 import { PostLogin } from '../api/api';
-import { onLog } from 'firebase/app';
 
 export default function Login() {
+  const { user, login, logout } = useAxiosAuthContext();
   const [Id, setId] = useState("");
   const [Password, setPassword] = useState("");
 
@@ -21,14 +22,11 @@ export default function Login() {
   }
 
   axios.defaults.withCredentials = true;
-    
   const onLogin = (e)=>{
-    const data = JSON.stringify({
-      "username": Id,
-      "password": Password,
-    });
-    PostLogin(data);
-  }    
+    e.preventDefault();
+    PostLogin(Id,Password);
+  }
+
   return (
     <div className='flex justify-center items-center w-full h-screen' >
         <form className='flex flex-col' onChange={onSubmitHandler}>
@@ -67,5 +65,4 @@ export default function Login() {
     </div>
   )
 }
-
 

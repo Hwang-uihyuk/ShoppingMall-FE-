@@ -5,11 +5,11 @@ import { AiFillShop } from 'react-icons/ai'
 import { BsFillPencilFill } from 'react-icons/bs';
 import User from './User';
 import Button from './ui/Button';
-import { useAuthContext } from './context/AuthContext';
+import { useAxiosAuthContext } from './context/UserStateContext';
 import CartStatus from './CartStatus';
 
 export default function Navbar() {
-  const { user, login, logout } = useAuthContext();
+  const { user, logout } = useAxiosAuthContext();
   return (
     <header className='flex justify-between border-b border-gray-300 p-2'>
       <Link to='/' className='flex items-center text-4xl text-brand'>
@@ -34,7 +34,7 @@ export default function Navbar() {
          {/* login form */}
          {!user && (
           <Link to ='/login'> 
-            login(axios) ㅣ
+            login(axios) 
             </Link>
           )}
 
@@ -42,14 +42,10 @@ export default function Navbar() {
             Sign up ㅣ
           </Link>
 
-
         {user && <User user={user} />}
-        {!user && <Button text={'Login'} onClick={login} />}
+        {/* {!user && <Button text={'Login(axios)'} onClick={login} />} */}
         {user && <Button text={'Logout'} onClick={logout} />}
-
         {user && <Link to="/edituser"> 회원정보수정 </Link>}
-        
-       
 
       </nav>
     </header>

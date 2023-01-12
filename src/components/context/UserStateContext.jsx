@@ -1,14 +1,16 @@
-import { createContext, useState } from 'react';
-export const UserStateContext = createContext();
+import { createContext, useContext,useState,useEffect } from 'react';
+import { PostLogin,LogOut } from '../../api/api';
+
+const UserStateContext = createContext();
 
 export function UserStateProvider({ children }) {
-    const [user, setUser] = useState(false);
+    const [user, setUser] = useState();
 
-    return <UserStateContext.Provider value={{ user }}>
+    return <UserStateContext.Provider value={{ user,setuser : setUser,login : PostLogin, logout:LogOut}}>
         {children}
     </UserStateContext.Provider>
 }
 
-// export function useAuthContext(){
-//     return useContext()
-// }
+export function useAxiosAuthContext(){
+    return useContext(UserStateContext);
+}

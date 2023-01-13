@@ -2,7 +2,6 @@ import axios from "axios";
 import React, { useState } from "react";
 import styled from "styled-components";
 import { PostSignUp } from "../api/api";
-
 const tmpUrl = "http://3.38.35.43:8080";
 const RegisterContainer = styled.div`
     display: flex;
@@ -75,6 +74,7 @@ const CheckIdButton = styled.button`
     };
 `
 function SignUp() {
+  const [checked,setChecked] = useState(false);
   const [username, setUserName] = useState("");
   const [nickname, setNickName] = useState("");
   const [password, setPassword] = useState("");
@@ -82,7 +82,6 @@ function SignUp() {
   const [email, setEmail] = useState("");
   const [address, setUserAddress] = useState("");
 
-  const [isChecked, setIsChecked] = useState(false);
   const onUserNameHandler = (event) => {
     setUserName(event.currentTarget.value);
   }
@@ -104,21 +103,22 @@ function SignUp() {
   //중복체크
   const onCheckIdHandler = async (event) => {
     event.preventDefault();
-    await axios
-      .get(tmpUrl+"/check_id/"+username)
+    axios
+      .get(tmpUrl + "/check_id/" + username)
       .then((response) => {
         setIsChecked(true);
-        alert("이 아이디를 사용할 수 있습니다.")
         console.log(response.data)
       })
       .catch((error) => {
-        alert("이 아이디를 사용할 수 없습니다.")
         console.log("error!")
         console.log(error)
+        setChecked(false)
+        alert("이미 사용중인 아이디입니다")
       });
   }
   const onSubmitHandler = async (event) => {
     event.preventDefault();
+
     let body = JSON.stringify(
       {
         'username': username,
@@ -130,8 +130,6 @@ function SignUp() {
       }
     )
     PostSignUp(body);
-    document.location.href = '/'
-    alert("회원가입이 완료되었습니다.")
   }
 
   return (

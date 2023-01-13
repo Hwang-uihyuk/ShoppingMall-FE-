@@ -11,7 +11,7 @@ import CartStatus from './CartStatus';
 export default function Navbar() {
   const { user, logout } = useAxiosAuthContext();
   return (
-    <header className='flex justify-between border-b border-gray-300 p-2'>
+    <header className='flex justify-between border-b border-gray-300 p-2 sticky top-0 bg-white z-10'>
       <Link to='/' className='flex items-center text-4xl text-brand'>
         {/* <AiFillShop /> */}
         <h1>Hyuk's mall</h1>
@@ -47,9 +47,7 @@ export default function Navbar() {
 
           }> logout </button>}
 
-          <Link to = '/signup'>
-            Sign up ㅣ
-          </Link>
+        {<Link to='/signup'>Sign up ㅣ</Link>}  
 
         {user && <User user={user} />}
         {/* {!user && <Button text={'Login(axios)'} onClick={login} />} */}

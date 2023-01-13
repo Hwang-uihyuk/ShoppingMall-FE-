@@ -15,50 +15,65 @@ const RegisterContainer = styled.div`
     z-index: 1;
 `
 const RegisterForm = styled.form`
-    margin : 50px 0 0 50px;
+    grid-template-columns: 300px 300px;
+    grid-template-rows: 60px 60px 60px 60px;
+
+    align-self: center;
+    align-items: center;
+    margin : 10px;
     padding : 10px;
     display: flex;
-    height : 600px;
-    width : 300px;
+    height : 900px;
+    width : flex;
     flex-direction: column;
-    background-color: #c4c4c4;
+    background-color: white;
     position: relative;
     z-index: 2;
     font-family: "RalewayBold";
 `
-
+const Wrapper =  styled.div`
+  &+&{
+    margin-top : 1.3rem;
+  }
+`
 const InputForm = styled.input`
-    border-style: none;
-    height : 40px;
+    border-style: 1px dotted;
+    height : 50px;
+    width: 400px;
     font-family: "RalewayLight";
     font-size: 17px;
     margin-top: 10px;
-    padding-left : 10px;
+    padding-left : 20px;
+    border-radius: 30px;
 `
+const Label = styled.div`
+  margin-left: 8px;
+  font-size : 1rem;
+  color : #252525;
+  left : rem;
+`
+const SingUpLabel = styled.label`
+  font-size: 30px;
+  color : #252525;
+  margin: 35px;
+
+`
+const LabelledInput = ({label, ...rest}) =>(
+  <Wrapper>
+    <Label>{label}</Label>
+    <InputForm {...rest} />
+  </Wrapper>
+)
+
 
 //비밀번호폼변경
 const PassWordForm = styled.input`
-    
     border-style: none;
     height : 40px;
     font-family: "RalewayLight";
     font-size: 17px;
     margin-top: 10px;
     padding-left : 10px;
-`
-
-const JoinButton = styled.button`
-    height: 40px;
-    font-family: "RalewayLight";
-    font-size: 17px;
-    margin-top: 10px;
-    background-color: #252525;
-    color : white;
-    border-style: none;
-    &:hover{
-        background-color: #666666e0;
-        cursor : pointer;
-    }
 `
 const CheckIdButton = styled.button`
     height: 40px;
@@ -73,8 +88,32 @@ const CheckIdButton = styled.button`
         cursor : pointer;
     };
 `
+const JoinButton = styled.button`
+    height: 50px;
+    width : 170px;
+    align-self: center;
+    font-family: "RalewayLight";
+    font-size: 17px;
+    margin-top: 30px;
+    background-color: #252525;
+    color : white;
+    border-style: none;
+    border-radius: 30px;
+    &:hover{
+        background-color: #666666e0;
+        cursor : pointer;
+    }
+`
+const Container = styled.div`
+  display: inline-block;
+`
+const ShowError = styled.label`
+  color : red;
+  
+`
+
 function SignUp() {
-  const [checked,setChecked] = useState(false);
+  const [idChecked,setIdChecked] = useState(false);
   const [username, setUserName] = useState("");
   const [nickname, setNickName] = useState("");
   const [password, setPassword] = useState("");
@@ -106,13 +145,13 @@ function SignUp() {
     axios
       .get(tmpUrl + "/check_id/" + username)
       .then((response) => {
-        setIsChecked(true);
+        setIdChecked(true);
         console.log(response.data)
       })
       .catch((error) => {
         console.log("error!")
         console.log(error)
-        setChecked(false)
+        setIdChecked(false)
         alert("이미 사용중인 아이디입니다")
       });
   }
@@ -129,50 +168,70 @@ function SignUp() {
         'address': address
       }
     )
+    if(idChecked)
     PostSignUp(body);
   }
 
   return (
-    <RegisterContainer>
       <RegisterForm>
-        <label >JOIN (아이디는 4글자 이상입니다.)</label>
-        <InputForm
+        <SingUpLabel>회원가입</SingUpLabel>
+        <LabelledInput
+          label="아이디"
+          type="text"
+          minlength="4"
+          value={username}
+          onChange={onUserNameHandler}
+          placeholder="아이디를 입력해주세요 (4~12자) "
+        />
+        {/* <CheckIdButton
+          onClick={onCheckIdHandler}>
+          중복체크
+        </CheckIdButton> */}
+        <LabelledInput
+          label="닉네임"
+          onChange={onNickNameHandler}
+          placeholder="닉네임"
+        />
+        <LabelledInput
+          label="비밀번호"
+          value={password}
+          onChange={onPwHandler}
+          placeholder="비밀번호 (8~12자)"
+          type="password"
+        />
+
+          <LabelledInput label="전화번호" value={telephone} onChange={onTelephoneHandler} placeholder="전화번호 (ex.01023456789)"></LabelledInput >
+          <LabelledInput label="이메일" value={email} onChange={onEmailHandler} placeholder="이메일 (welcome@example.com)"></LabelledInput >
+          <LabelledInput label="주소" value={address} onChange={onAddressHandler} placeholder="주소"></LabelledInput >
+        {/* <InputForm
           type = "text"
           minlength= "4"
           value={username}
           onChange={onUserNameHandler}
           placeholder="아이디">
-        </InputForm>
+        </InputForm> */}
 
-        <CheckIdButton
-         onClick={onCheckIdHandler}>
-          중복체크
-          </CheckIdButton>
-
-        <InputForm 
+        {/* <InputForm 
          value={nickname}
          onChange={onNickNameHandler
         }
          placeholder="닉네임">
 
-        </InputForm>
+        </InputForm> */}
 
-
-        <PassWordForm
-         value={password}
+        {/* <PassWordForm
+          value={password}
           onChange={onPwHandler}
-           placeholder="비밀번호"
-           type="password"
-           >
-          </PassWordForm>
+          placeholder="비밀번호"
+          type="password">
+        </PassWordForm> */}
         
 
-        <InputForm value={telephone} onChange={onTelephoneHandler} placeholder="전화번호"></InputForm>
+        {/* <InputForm value={telephone} onChange={onTelephoneHandler} placeholder="전화번호"></InputForm>
         <InputForm value={email} onChange={onEmailHandler} placeholder="이메일"></InputForm>
-        <InputForm value={address} onChange={onAddressHandler} placeholder="주소"></InputForm>
+        <InputForm value={address} onChange={onAddressHandler} placeholder="주소"></InputForm> */}
         <JoinButton onClick={onSubmitHandler}>회원가입</JoinButton>
       </RegisterForm>
-    </RegisterContainer>
   )
 }
 

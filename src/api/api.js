@@ -57,21 +57,6 @@ export function PostSignUp(body){
         });
 }
 
-export function CheckID(username){
-    let checked = false;
-    axios
-      .get(baseURL+"/check_id/"+username)
-      .then((response) => {
-        checked = true
-      })
-      .catch((error) => {
-        console.log(error)
-        checked = false;
-      });
-    console.log(checked)
-    return checked;
-
-}
 
 
 export function LogOut(){

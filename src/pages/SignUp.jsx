@@ -27,6 +27,7 @@ const RegisterForm = styled.form`
     z-index: 2;
     font-family: "RalewayBold";
 `
+
 const InputForm = styled.input`
     border-style: none;
     height : 40px;
@@ -35,6 +36,18 @@ const InputForm = styled.input`
     margin-top: 10px;
     padding-left : 10px;
 `
+
+//비밀번호폼변경
+const PassWordForm = styled.input`
+    
+    border-style: none;
+    height : 40px;
+    font-family: "RalewayLight";
+    font-size: 17px;
+    margin-top: 10px;
+    padding-left : 10px;
+`
+
 const JoinButton = styled.button`
     height: 40px;
     font-family: "RalewayLight";
@@ -88,15 +101,18 @@ function SignUp() {
   const onAddressHandler = (event) => {
     setUserAddress(event.currentTarget.value);
   }
+  //중복체크
   const onCheckIdHandler = async (event) => {
     event.preventDefault();
     await axios
       .get(tmpUrl+"/check_id/"+username)
       .then((response) => {
         setIsChecked(true);
+        alert("이 아이디를 사용할 수 있습니다.")
         console.log(response.data)
       })
       .catch((error) => {
+        alert("이 아이디를 사용할 수 없습니다.")
         console.log("error!")
         console.log(error)
       });
@@ -114,15 +130,45 @@ function SignUp() {
       }
     )
     PostSignUp(body);
+    document.location.href = '/'
+    alert("회원가입이 완료되었습니다.")
   }
+
   return (
     <RegisterContainer>
       <RegisterForm>
-        <label >JOIN</label>
-        <InputForm value={username} onChange={onUserNameHandler} placeholder="아이디"></InputForm>
-        <CheckIdButton onClick={onCheckIdHandler}>중복체크</CheckIdButton>
-        <InputForm value={nickname} onChange={onNickNameHandler} placeholder="닉네임"></InputForm>
-        <InputForm value={password} onChange={onPwHandler} placeholder="비밀번호"></InputForm>
+        <label >JOIN (아이디는 4글자 이상입니다.)</label>
+        <InputForm
+          type = "text"
+          minlength= "4"
+          value={username}
+          onChange={onUserNameHandler}
+          placeholder="아이디">
+        </InputForm>
+
+        <CheckIdButton
+         onClick={onCheckIdHandler}>
+          중복체크
+          </CheckIdButton>
+
+        <InputForm 
+         value={nickname}
+         onChange={onNickNameHandler
+        }
+         placeholder="닉네임">
+
+        </InputForm>
+
+
+        <PassWordForm
+         value={password}
+          onChange={onPwHandler}
+           placeholder="비밀번호"
+           type="password"
+           >
+          </PassWordForm>
+        
+
         <InputForm value={telephone} onChange={onTelephoneHandler} placeholder="전화번호"></InputForm>
         <InputForm value={email} onChange={onEmailHandler} placeholder="이메일"></InputForm>
         <InputForm value={address} onChange={onAddressHandler} placeholder="주소"></InputForm>

@@ -43,9 +43,13 @@ export default function Navbar() {
           {window.localStorage.getItem('Login') && 
           <button onClick ={()=>{window.localStorage.removeItem('Login')
           document.location.href = '/'}
-            
-
+  
           }> logout </button>}
+
+          {window.localStorage.getItem('Login') && (
+            <Link to = 'mypage'> mypage</Link>
+          )}
+          
 
         {<Link to='/signup'>Sign up ㅣ</Link>}  
 

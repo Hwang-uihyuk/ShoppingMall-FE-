@@ -16,6 +16,7 @@ import ProtectedRoute from './pages/ProtectedRoute';
 import Login from './pages/Login';
 import SignUp from './pages/SignUp';
 import EditUser from './pages/EditUser';
+import Mypage from './pages/Mypage';
 
 const router = createBrowserRouter([
   {
@@ -71,6 +72,10 @@ const router = createBrowserRouter([
       element:<EditUser/>,
     },
   
+    {
+      path :'/mypage',
+      element:<Mypage/>
+    }
   ]
   },
 ])

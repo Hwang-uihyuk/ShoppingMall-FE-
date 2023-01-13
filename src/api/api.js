@@ -36,9 +36,6 @@ export function PostLogin(id,password){
             console.log(error)
         });
 }
-
-
-
 // Post : 회원가입
 export function PostSignUp(body){
     const joinConfig = {
@@ -51,13 +48,13 @@ export function PostSignUp(body){
         .post(baseURL + "/join", body, joinConfig)
         .then((response) => {
             console.log(response.data);
+            alert("회원가입이 완료되었습니다")
+            document.location.href = '/'
         })
         .catch((error) => {
             console.log(error)
         });
 }
-
-
 
 export function LogOut(){
     // const { setUser } = useAxiosAuthContext();

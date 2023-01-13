@@ -33,8 +33,13 @@ const RegisterForm = styled.form`
 `
 const Wrapper =  styled.div`
   &+&{
-    margin-top : 1.3rem;
+    margin-top : 1rem;
   }
+`
+const ShowError = styled.div`
+  color : red;
+  font-size : 7px;
+  margin : 3px 0 0 10px;
 `
 const InputForm = styled.input`
     border-style: 1px dotted;
@@ -53,15 +58,15 @@ const Label = styled.div`
   left : rem;
 `
 const SingUpLabel = styled.label`
-  font-size: 30px;
+  font-size: 25px;
   color : #252525;
-  margin: 35px;
-
+  margin: 15px 10px 10px 10px;
 `
-const LabelledInput = ({label, ...rest}) =>(
+const LabelledInput = ({label,msg, ...rest}) =>(
   <Wrapper>
     <Label>{label}</Label>
     <InputForm {...rest} />
+    <ShowError>{msg}</ShowError>
   </Wrapper>
 )
 
@@ -95,7 +100,7 @@ const JoinButton = styled.button`
     font-family: "RalewayLight";
     font-size: 17px;
     margin-top: 30px;
-    background-color: #252525;
+    background-color: black;
     color : white;
     border-style: none;
     border-radius: 30px;
@@ -103,13 +108,7 @@ const JoinButton = styled.button`
         background-color: #666666e0;
         cursor : pointer;
     }
-`
-const Container = styled.div`
-  display: inline-block;
-`
-const ShowError = styled.label`
-  color : red;
-  
+    
 `
 
 function SignUp() {
@@ -119,25 +118,85 @@ function SignUp() {
   const [password, setPassword] = useState("");
   const [telephone, setTelephone] = useState("");
   const [email, setEmail] = useState("");
-  const [address, setUserAddress] = useState("");
+  const [address, setAddress] = useState("");
+
+  const [msgId,setIdMsg] = useState("");
+  const [msgNickname,setNicknameMsg] = useState("");
+  const [msgPw,setPwMsg] = useState("");
+  const [msgPhone,setPhoneMsg] = useState("");
+  const [msgEmail,setEmailMsg] = useState("");
+  const [msgAddress,setAddressMsg] = useState("");  
+
+  const [isId,setIsId] = useState(false);  
+  const [isNickname,setIsNickname] = useState(false);
+  const [isPw,setIsPw] = useState(false);
+  const [isPhone,setIsPhone] = useState(false);
+  const [isEmail,setIsEmail] = useState(false);
+  const [isAddress,setIsAddress] = useState(false);
 
   const onUserNameHandler = (event) => {
-    setUserName(event.currentTarget.value);
+    const currentId = event.currentTarget.value;
+    setUserName(currentId);
+    const idRegExp = /^[a-z0-9]{4,12}$/;
+    if(!idRegExp.test(currentId)){
+      setIdMsg("아이디를 4자 이상 12자 이하로 입력해주세요")
+    }else{
+      setIdMsg("");
+      setIsId(true);
+    }
   }
   const onNickNameHandler = (event) => {
-    setNickName(event.currentTarget.value);
+    const currentNickName = event.currentTarget.value;
+    setNickName(currentNickName);
+    if (nickname.length===0){
+      setNickName("닉네임은 공백일 수 없습니다")
+    }else{
+      setNicknameMsg("");
+      setIsNickname(true);
+    }
   }
   const onPwHandler = (event) => {
-    setPassword(event.currentTarget.value);
+    const currentPw = event.currentTarget.value
+    setPassword(currentPw);
+    const pwRegExp = /^[a-z0-9]{8,12}$/;
+    if(!pwRegExp.test(currentPw)){
+      setPwMsg("비밀번호를 8자 이상 12자 이하로 입력해주세요")
+    }else{
+      setPwMsg("");
+      setIsPw(true);
+    }
   }
   const onTelephoneHandler = (event) => {
-    setTelephone(event.currentTarget.value);
+    const currentPhone = event.currentTarget.value
+    setTelephone(currentPhone);
+    const phoneRegExp = /^[0-9]{8,13}$/;
+    if (!phoneRegExp.test(currentPhone)) {
+      setPhoneMsg("올바르지 않은 전화번호입니다")
+    } else {
+      setPhoneMsg("");
+      setIsPhone(true);
+    }
   }
   const onEmailHandler = (event) => {
-    setEmail(event.currentTarget.value);
+    const currentEmail = event.currentTarget.value
+    setEmail(currentEmail);
+    const emailRegExp = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+.[A-Za-z]{2,6}$/;
+    if (!emailRegExp.test(currentEmail)) {
+      setEmailMsg("이메일 형식(welcome@example.com)에 맞게 입력해주세요")
+    } else {
+      setEmailMsg("");
+      setIsEmail(true);
+    }
   }
   const onAddressHandler = (event) => {
-    setUserAddress(event.currentTarget.value);
+    const currentAddress = event.currentTarget.value;
+    setAddress(currentAddress);
+    if (nickname.length===0){
+      setNicknameMsg("주소는 공백일 수 없습니다")
+    }else{
+      setNicknameMsg("");
+      setIsNickname(true);
+    }
   }
   //중복체크
   const onCheckIdHandler = async (event) => {
@@ -157,19 +216,24 @@ function SignUp() {
   }
   const onSubmitHandler = async (event) => {
     event.preventDefault();
-
-    let body = JSON.stringify(
-      {
-        'username': username,
-        'nickname': nickname,
-        'password': password,
-        'e_mail':email,
-        'telephone': telephone,
-        'address': address
-      }
-    )
-    if(idChecked)
-    PostSignUp(body);
+    if(isId&&isPw&&isPhone&&isNickname&&isPhone&&isEmail){
+      let body = JSON.stringify(
+        {
+          'username': username,
+          'nickname': nickname,
+          'password': password,
+          'telephone': telephone,
+          'e_mail': email,
+          'address': address
+        }
+      )
+      PostSignUp(body);
+    }
+    else{
+      alert("정보가 올바르게 입력되지 않았습니다.")
+    }
+    
+    
   }
 
   return (
@@ -177,9 +241,9 @@ function SignUp() {
         <SingUpLabel>회원가입</SingUpLabel>
         <LabelledInput
           label="아이디"
+          msg={msgId}
           type="text"
           minlength="4"
-          value={username}
           onChange={onUserNameHandler}
           placeholder="아이디를 입력해주세요 (4~12자) "
         />
@@ -194,14 +258,17 @@ function SignUp() {
         />
         <LabelledInput
           label="비밀번호"
-          value={password}
+          msg ={msgPw}
           onChange={onPwHandler}
           placeholder="비밀번호 (8~12자)"
           type="password"
         />
-
-          <LabelledInput label="전화번호" value={telephone} onChange={onTelephoneHandler} placeholder="전화번호 (ex.01023456789)"></LabelledInput >
-          <LabelledInput label="이메일" value={email} onChange={onEmailHandler} placeholder="이메일 (welcome@example.com)"></LabelledInput >
+          <LabelledInput
+            label="전화번호"
+            msg ={msgPhone}
+            onChange={onTelephoneHandler}
+            placeholder="전화번호 (ex.01023456789)"></LabelledInput >
+          <LabelledInput label="이메일" msg = {msgEmail} value={email} onChange={onEmailHandler} placeholder="이메일 (welcome@example.com)"></LabelledInput >
           <LabelledInput label="주소" value={address} onChange={onAddressHandler} placeholder="주소"></LabelledInput >
         {/* <InputForm
           type = "text"

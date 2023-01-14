@@ -3,17 +3,6 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { PostSignUp } from "../api/api";
 const tmpUrl = "http://3.38.35.43:8080";
-const RegisterContainer = styled.div`
-    display: flex;
-    justify-content: left;
-    align-items: left;
-    background-color: #dadada;
-    width : 100%;
-    height : 100vh;
-    margin : 30px 20px 20px 30px;
-    position: relative;
-    z-index: 1;
-`
 const RegisterForm = styled.form`
     grid-template-columns: 300px 300px;
     grid-template-rows: 60px 60px 60px 60px;
@@ -71,26 +60,17 @@ const SingUpLabel = styled.label`
   color : #252525;
   margin: 15px 10px 10px 10px;
 `
-const LabelledInput = ({label,msg,handler, ...rest}) =>(
+const LabelledInput = ({label,msg,handler,isValidated,...rest}) =>(
   <Wrapper>
     <Label>{label}</Label>
       <InputWrapper>
         <InputForm {...rest} />
-        {label == "아이디" && <CheckIdButton onClick={handler}>중복확인</CheckIdButton>}
+        {label === "아이디" && <CheckIdButton onClick={handler}>중복확인</CheckIdButton>}
       </InputWrapper>
-      <ShowMsg>{msg}</ShowMsg>
+    <ShowMsg isValidated={isValidated}>{msg}</ShowMsg>
   </Wrapper>
 )
 
-//비밀번호폼변경
-const PassWordForm = styled.input`
-    border-style: none;
-    height : 40px;
-    font-family: "RalewayLight";
-    font-size: 17px;
-    margin-top: 10px;
-    padding-left : 10px;
-`
 const CheckIdButton = styled.button`
     height: 50px;
     width : 180px;
@@ -156,7 +136,7 @@ function SignUp() {
       setIdMsg("아이디를 4자 이상 12자 이하로 입력해주세요")
       setIsId(false);
     }else{
-      setIdMsg(" ");
+      setIdMsg("아이디 중복 확인을 해주세요");
       setIsId(true);
     }
   }
@@ -165,6 +145,7 @@ function SignUp() {
     setNickName(currentNickName);
     if (nickname.length===0){
       setNickName("닉네임은 공백일 수 없습니다")
+      setIsNickname(false);
     }else{
       setNicknameMsg("사용 가능한 닉네임 입니다");
       setIsNickname(true);
@@ -176,6 +157,7 @@ function SignUp() {
     const pwRegExp = /^[a-z0-9]{8,12}$/;
     if(!pwRegExp.test(currentPw)){
       setPwMsg("비밀번호를 8자 이상 12자 이하로 입력해주세요")
+      setIsPw(false)
     }else{
       setPwMsg("사용 가능한 비밀번호 입니다");
       setIsPw(true);
@@ -186,7 +168,8 @@ function SignUp() {
     setTelephone(currentPhone);
     const phoneRegExp = /^[0-9]{8,13}$/;
     if (!phoneRegExp.test(currentPhone)) {
-      setPhoneMsg("올바르지 않은 전화번호입니다")
+      setPhoneMsg("올바르지 않은 전화번호입니다");
+      setIsPhone(false);
     } else {
       setPhoneMsg("사용 가능한 전화번호입니다");
       setIsPhone(true);
@@ -197,7 +180,8 @@ function SignUp() {
     setEmail(currentEmail);
     const emailRegExp = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+.[A-Za-z]{2,6}$/;
     if (!emailRegExp.test(currentEmail)) {
-      setEmailMsg("이메일 형식(welcome@example.com)에 맞게 입력해주세요")
+      setEmailMsg("이메일 형식(welcome@example.com)에 맞게 입력해주세요");
+      setIsEmail(false);
     } else {
       setEmailMsg("사용 가능한 이메일입니다");
       setIsEmail(true);
@@ -207,10 +191,11 @@ function SignUp() {
     const currentAddress = event.currentTarget.value;
     setAddress(currentAddress);
     if (nickname.length===0){
-      setNicknameMsg("주소는 공백일 수 없습니다")
+      setAddressMsg("주소는 공백일 수 없습니다");
+      setIsAddress(false)
     }else{
-      setNicknameMsg("사용 가능한 주소입니다");
-      setIsNickname(true);
+      setAddressMsg("사용 가능한 주소입니다");
+      setIsAddress(true);
     }
   }
   //중복체크
@@ -220,6 +205,7 @@ function SignUp() {
       .get(tmpUrl + "/check_id/" + username)
       .then((response) => {
         setIdChecked(true);
+        setIdMsg("사용 가능한 아이디입니다")
         console.log(response.data)
       })
       .catch((error) => {
@@ -231,7 +217,7 @@ function SignUp() {
   }
   const onSubmitHandler = async (event) => {
     event.preventDefault();
-    if(isId&&isPw&&isPhone&&isNickname&&isAddress&&isEmail){
+    if(isId&&isPw&&isPhone&&isNickname&&isAddress&&isEmail&&idChecked){
       let body = JSON.stringify(
         {
           'username': username,
@@ -245,77 +231,70 @@ function SignUp() {
       PostSignUp(body);
     }
     else{
-      alert("정보가 올바르게 입력되지 않았습니다.")
+      if(!idChecked){
+        alert("아이디 중복확인을 해주세요")
+      }else{
+        alert("정보가 올바르게 입력되지 않았습니다.")
+      }
+
     }
   }
 
   return (
       <RegisterForm>
         <SingUpLabel>회원가입</SingUpLabel>
-          <IdWrapper>
-            <LabelledInput
-              label="아이디"
-              msg={msgId}
-              minlength="4"
-              handler={onCheckIdHandler}
-              onChange={onUserNameHandler}
-              placeholder="아이디를 입력해주세요 (4~12자) "
-              isValidated={isId}/>
-
-        {/* <CheckIdButton
-          onClick={onCheckIdHandler}>
-          중복체크
-        </CheckIdButton> */}
+        <IdWrapper>
+          <LabelledInput
+          label="아이디"
+          msg={msgId}
+          minlength="4"
+          disabled={idChecked}
+          handler={onCheckIdHandler}
+          onChange={onUserNameHandler}
+          placeholder="아이디를 입력해주세요 (4~12자) "
+            isValidated={isId}/>
         </IdWrapper>
+
         <LabelledInput
           label="닉네임"
+          msg ={msgNickname}
           onChange={onNickNameHandler}
           placeholder="닉네임"
-          isValidated={isNickname}
-        />
+          isValidated={isNickname}/>
+
         <LabelledInput
           label="비밀번호"
           msg ={msgPw}
           onChange={onPwHandler}
           placeholder="비밀번호 (8~12자)"
           type="password"
-          isValidated={isPw}
-        />
-          <LabelledInput
-            label="전화번호"
-            msg ={msgPhone}
-            onChange={onTelephoneHandler}
-            placeholder="전화번호 (ex.01023456789)"></LabelledInput >
-          <LabelledInput label="이메일" msg = {msgEmail} value={email} onChange={onEmailHandler} placeholder="이메일 (welcome@example.com)"></LabelledInput >
-          <LabelledInput label="주소" value={address} onChange={onAddressHandler} placeholder="주소"></LabelledInput >
-        {/* <InputForm
-          type = "text"
-          minlength= "4"
-          value={username}
-          onChange={onUserNameHandler}
-          placeholder="아이디">
-        </InputForm> */}
+          isValidated={isPw}/>
 
-        {/* <InputForm 
-         value={nickname}
-         onChange={onNickNameHandler
-        }
-         placeholder="닉네임">
+        <LabelledInput
+          label="전화번호"
+          msg ={msgPhone}
+          onChange={onTelephoneHandler}
+          placeholder="전화번호 (ex.01023456789)"
+          isValidated={isPhone}/>
 
-        </InputForm> */}
+        <LabelledInput
+          label="이메일"
+          msg = {msgEmail}
+          value={email}
+          onChange={onEmailHandler}
+          placeholder="이메일 (welcome@example.com)"
+          isValidated={isEmail}/>
 
-        {/* <PassWordForm
-          value={password}
-          onChange={onPwHandler}
-          placeholder="비밀번호"
-          type="password">
-        </PassWordForm> */}
-        
+        <LabelledInput
+          label="주소"
+          msg ={msgAddress}
+          value={address}
+          onChange={onAddressHandler}
+          placeholder="주소"
+          isValidated={isAddress}/>
 
-        {/* <InputForm value={telephone} onChange={onTelephoneHandler} placeholder="전화번호"></InputForm>
-        <InputForm value={email} onChange={onEmailHandler} placeholder="이메일"></InputForm>
-        <InputForm value={address} onChange={onAddressHandler} placeholder="주소"></InputForm> */}
         <JoinButton onClick={onSubmitHandler}>회원가입</JoinButton>
+
       </RegisterForm>
   )
 }

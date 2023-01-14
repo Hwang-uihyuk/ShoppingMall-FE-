@@ -23,7 +23,7 @@ const RegisterForm = styled.form`
     margin : 10px;
     padding : 10px;
     display: flex;
-    height : 900px;
+    height : 1000px;
     width : flex;
     flex-direction: column;
     background-color: white;
@@ -32,24 +32,33 @@ const RegisterForm = styled.form`
     font-family: "RalewayBold";
 `
 const Wrapper =  styled.div`
-  &+&{
-    margin-top : 1rem;
-  }
+  margin-top : 20px;
+  background-color: white;
+  width : 600px
+
 `
-const ShowError = styled.div`
-  color : red;
-  font-size : 7px;
+const InputWrapper = styled.div`
+  display : flex;
+`
+const IdWrapper = styled.div`
+  justify-content: left;
+`
+const ShowMsg = styled.div`
+  color : ${props => (props.isValidated ? 'green' : 'red')};
+  font-size : 8px;
   margin : 3px 0 0 10px;
 `
 const InputForm = styled.input`
     border-style: 1px dotted;
     height : 50px;
-    width: 400px;
+    width: 600px;
     font-family: "RalewayLight";
     font-size: 17px;
     margin-top: 10px;
     padding-left : 20px;
     border-radius: 30px;
+    /* border-color : ${props => (props.isValidated ? 'white' : '#252525')};
+    box-shadow : ${props => (props.isValidated ? '0 0 5px blue':null) }; */
 `
 const Label = styled.div`
   margin-left: 8px;
@@ -62,14 +71,16 @@ const SingUpLabel = styled.label`
   color : #252525;
   margin: 15px 10px 10px 10px;
 `
-const LabelledInput = ({label,msg, ...rest}) =>(
+const LabelledInput = ({label,msg,handler, ...rest}) =>(
   <Wrapper>
     <Label>{label}</Label>
-    <InputForm {...rest} />
-    <ShowError>{msg}</ShowError>
+      <InputWrapper>
+        <InputForm {...rest} />
+        {label == "아이디" && <CheckIdButton onClick={handler}>중복확인</CheckIdButton>}
+      </InputWrapper>
+      <ShowMsg>{msg}</ShowMsg>
   </Wrapper>
 )
-
 
 //비밀번호폼변경
 const PassWordForm = styled.input`
@@ -81,13 +92,16 @@ const PassWordForm = styled.input`
     padding-left : 10px;
 `
 const CheckIdButton = styled.button`
-    height: 40px;
+    height: 50px;
+    width : 180px;
+    margin-left: 10px;
     font-family: "RalewayLight";
     font-size: 17px;
     margin-top: 10px;
     background-color: #252525;
     color : white;
     border-style: none;
+    border-radius: 30px;
     &:hover{
         background-color: #666666e0;
         cursor : pointer;
@@ -100,7 +114,7 @@ const JoinButton = styled.button`
     font-family: "RalewayLight";
     font-size: 17px;
     margin-top: 30px;
-    background-color: black;
+    background-color: #252525;
     color : white;
     border-style: none;
     border-radius: 30px;
@@ -108,7 +122,7 @@ const JoinButton = styled.button`
         background-color: #666666e0;
         cursor : pointer;
     }
-    
+
 `
 
 function SignUp() {
@@ -140,8 +154,9 @@ function SignUp() {
     const idRegExp = /^[a-z0-9]{4,12}$/;
     if(!idRegExp.test(currentId)){
       setIdMsg("아이디를 4자 이상 12자 이하로 입력해주세요")
+      setIsId(false);
     }else{
-      setIdMsg("");
+      setIdMsg(" ");
       setIsId(true);
     }
   }
@@ -151,7 +166,7 @@ function SignUp() {
     if (nickname.length===0){
       setNickName("닉네임은 공백일 수 없습니다")
     }else{
-      setNicknameMsg("");
+      setNicknameMsg("사용 가능한 닉네임 입니다");
       setIsNickname(true);
     }
   }
@@ -162,7 +177,7 @@ function SignUp() {
     if(!pwRegExp.test(currentPw)){
       setPwMsg("비밀번호를 8자 이상 12자 이하로 입력해주세요")
     }else{
-      setPwMsg("");
+      setPwMsg("사용 가능한 비밀번호 입니다");
       setIsPw(true);
     }
   }
@@ -173,7 +188,7 @@ function SignUp() {
     if (!phoneRegExp.test(currentPhone)) {
       setPhoneMsg("올바르지 않은 전화번호입니다")
     } else {
-      setPhoneMsg("");
+      setPhoneMsg("사용 가능한 전화번호입니다");
       setIsPhone(true);
     }
   }
@@ -184,7 +199,7 @@ function SignUp() {
     if (!emailRegExp.test(currentEmail)) {
       setEmailMsg("이메일 형식(welcome@example.com)에 맞게 입력해주세요")
     } else {
-      setEmailMsg("");
+      setEmailMsg("사용 가능한 이메일입니다");
       setIsEmail(true);
     }
   }
@@ -194,7 +209,7 @@ function SignUp() {
     if (nickname.length===0){
       setNicknameMsg("주소는 공백일 수 없습니다")
     }else{
-      setNicknameMsg("");
+      setNicknameMsg("사용 가능한 주소입니다");
       setIsNickname(true);
     }
   }
@@ -216,7 +231,7 @@ function SignUp() {
   }
   const onSubmitHandler = async (event) => {
     event.preventDefault();
-    if(isId&&isPw&&isPhone&&isNickname&&isPhone&&isEmail){
+    if(isId&&isPw&&isPhone&&isNickname&&isAddress&&isEmail){
       let body = JSON.stringify(
         {
           'username': username,
@@ -232,29 +247,31 @@ function SignUp() {
     else{
       alert("정보가 올바르게 입력되지 않았습니다.")
     }
-    
-    
   }
 
   return (
       <RegisterForm>
         <SingUpLabel>회원가입</SingUpLabel>
-        <LabelledInput
-          label="아이디"
-          msg={msgId}
-          type="text"
-          minlength="4"
-          onChange={onUserNameHandler}
-          placeholder="아이디를 입력해주세요 (4~12자) "
-        />
+          <IdWrapper>
+            <LabelledInput
+              label="아이디"
+              msg={msgId}
+              minlength="4"
+              handler={onCheckIdHandler}
+              onChange={onUserNameHandler}
+              placeholder="아이디를 입력해주세요 (4~12자) "
+              isValidated={isId}/>
+
         {/* <CheckIdButton
           onClick={onCheckIdHandler}>
           중복체크
         </CheckIdButton> */}
+        </IdWrapper>
         <LabelledInput
           label="닉네임"
           onChange={onNickNameHandler}
           placeholder="닉네임"
+          isValidated={isNickname}
         />
         <LabelledInput
           label="비밀번호"
@@ -262,6 +279,7 @@ function SignUp() {
           onChange={onPwHandler}
           placeholder="비밀번호 (8~12자)"
           type="password"
+          isValidated={isPw}
         />
           <LabelledInput
             label="전화번호"

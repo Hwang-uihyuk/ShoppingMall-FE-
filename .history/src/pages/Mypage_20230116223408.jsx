@@ -164,43 +164,6 @@ const onAddressChangeHandler = (e) =>{
     .catch((error) => console.log(error))
 }
 
-
-
-// 비밀번호 변경하기
-const [pw, setPw] = useState('')
-const [pwchange, setPwChange] = useState('')
-const [hidePw, setHidePw] = useState(false)
-
-const PwData = JSON.stringify({
-    "origin_password" : pw,
-    "new_password" : pwchange
-}) 
-
-const onPwChange = (e) => {
-    e.preventDefault();
-    axios.post('http://3.38.35.43:8080/user/pwd_change',PwData, {
-        headers : {
-            'Content-Type' : 'application/json',
-            'Authorization' : window.localStorage.getItem('Login')
-        }
-    })
-    .then(response => {
-        console.log(response.data)
-        document.location.href = '/mypage'
-
-    })
-    .catch(error => console.log(error))
-}
-
-const onPwHandler = (e) => {
-    setPw(e.currentTarget.value)
-}
-const onPwChangeHandler = (e) => {
-    setPwChange(e.currentTarget.value)
-}
-
-console.log(pw)
-console.log(pwchange)
   return (
     <div className='flex flex-col justify-center items-center w-full h-screen' >
 
@@ -335,60 +298,10 @@ console.log(pwchange)
 
 
         </form>    
-        <div>
-        <button className='border-4' onClick={(e) => {
-            e.preventDefault();
-            setHidePw(mode => !mode)
-        }}> 비밀번호 변경</button>
-        </div>
-
-        {hidePw && <div className='border p-5 m-3'>
-            <div>
-                <label>현재비밀번호 : </label>
-                <input
-                type= "text"
-                placeholder = "현재비밀번호"
-                onChange ={onPwHandler}/>
-            </div>
-            <div>
-                <label>변경비밀번호 : </label>
-                <input
-                type='text'
-                placeholder = "변경비밀번호"
-                onChange={onPwChangeHandler}/>
-            </div>
-            <div className="">
-                <button onClick={onPwChange} className="border" >비밀번호변경하기</button>           
-            </div>
-            </div>}
+        
+        <button> 비밀번호 변경</button>
+        
     </div>
     
   )
 }
-//   {/* 닉네임 변경 form */}
-//   <div>
-//   nickname : {userstate.nickname}
-//   <button className='border-4' onClick={(e)=>{
-//       e.preventDefault();
-//       setHide1(mode => !mode)
-//   }}>닉네임 변경</button> 
-// </div>
-
-// {/* 버튼 클릭하면 이 form이 나타나야함. */}
-// {hide1 &&<div className='border p-5 m-3'>
-//   <div>
-//       <label>닉네임 변경하기 : </label>
-//       <input 
-//       type ="text" 
-//       placeholder ="닉네임을 변경하세요."
-//       onChange={onNickNameHandler}></input>
-//   </div>
-
-//   <div>
-//   <button className="border p-2"> 취소 </button>
-//   <button 
-//   className="border p-2"
-//   onClick={onNickNameChangeHandler}
-//   > 확인 </button>
-//   </div>
-// </div>}

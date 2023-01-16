@@ -178,7 +178,7 @@ const PwData = JSON.stringify({
 
 const onPwChange = (e) => {
     e.preventDefault();
-    axios.post('http://3.38.35.43:8080/user/pwd_change',PwData, {
+    axios.post('http://3.38.35.43:8080/user/pwd_change', PwData, {
         headers : {
             'Content-Type' : 'application/json',
             'Authorization' : window.localStorage.getItem('Login')

@@ -175,10 +175,8 @@ const PwData = JSON.stringify({
     "origin_password" : pw,
     "new_password" : pwchange
 }) 
-
-const onPwChange = (e) => {
-    e.preventDefault();
-    axios.post('http://3.38.35.43:8080/user/pwd_change',PwData, {
+const onPwChange = () => {
+    axios.post('user/pwd_change', PwData, {
         headers : {
             'Content-Type' : 'application/json',
             'Authorization' : window.localStorage.getItem('Login')
@@ -186,21 +184,15 @@ const onPwChange = (e) => {
     })
     .then(response => {
         console.log(response.data)
-        document.location.href = '/mypage'
-
     })
     .catch(error => console.log(error))
 }
-
 const onPwHandler = (e) => {
     setPw(e.currentTarget.value)
 }
 const onPwChangeHandler = (e) => {
     setPwChange(e.currentTarget.value)
 }
-
-console.log(pw)
-console.log(pwchange)
   return (
     <div className='flex flex-col justify-center items-center w-full h-screen' >
 

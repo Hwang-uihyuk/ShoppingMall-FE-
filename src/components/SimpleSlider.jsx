@@ -15,9 +15,8 @@ export default function SimpleSlider() {
       slidesToScroll: 1
     }
     return (
-    
       <>
-        <h2> Single Item</h2>
+        <h2></h2>
         <Slider {...settings}>
 
         <div>
@@ -39,7 +38,7 @@ export default function SimpleSlider() {
             </div>
             </section>
         </div>
-
+{/* 
 
           <div>
             <h3>3</h3>
@@ -52,7 +51,7 @@ export default function SimpleSlider() {
           </div>
           <div>
             <h3>6</h3>
-          </div>
+          </div> */}
         </Slider>
       
         </>      

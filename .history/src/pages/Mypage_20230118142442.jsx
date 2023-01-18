@@ -376,10 +376,7 @@ console.log(pwchange)
                                 'Content-Type' : 'ap[lication/json',
                                 'Authorization' : window.localStorage.getItem('Login')
                             }
-                        }).then(response => {console.log("성공")
-                        document.location.href = '/'})
-                        
-                           
+                        }).then(response => console.log("성공"))
                         .catch(error => console.log("에러입니당."))
                         
                     }

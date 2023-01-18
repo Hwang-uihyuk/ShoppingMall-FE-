@@ -377,7 +377,7 @@ console.log(pwchange)
                                 'Authorization' : window.localStorage.getItem('Login')
                             }
                         }).then(response => {console.log("성공")
-                        document.location.href = '/'})
+                        document.location.href = '/mypage'})
                         
                            
                         .catch(error => console.log("에러입니당."))

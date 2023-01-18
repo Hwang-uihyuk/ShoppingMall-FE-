@@ -371,15 +371,12 @@ console.log(pwchange)
                     const quickmessage = window.confirm('진짜로 탈퇴하시겠습니가?')
                     
                     if(quickmessage === true){
-                        axios.delete(`http://3.38.35.43:8080/user/delete/${userstate.username}`,{
+                        axios.delete(`http://3.38.35.43:8080/${userstate.username}`,{
                             headers :{
                                 'Content-Type' : 'ap[lication/json',
                                 'Authorization' : window.localStorage.getItem('Login')
                             }
-                        }).then(response => {console.log("성공")
-                        document.location.href = '/'})
-                        
-                           
+                        }).then(response => console.log("성공"))
                         .catch(error => console.log("에러입니당."))
                         
                     }

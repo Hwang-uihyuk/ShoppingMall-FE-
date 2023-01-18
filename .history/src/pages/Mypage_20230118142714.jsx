@@ -366,7 +366,7 @@ console.log(pwchange)
             {/* 회원탈퇴 폼 */}
             <div className='border'>
                 <button onClick={(e)=>{
-                    e.preventDefault();
+                    e.preventDefault()''
                     
                     const quickmessage = window.confirm('진짜로 탈퇴하시겠습니가?')
                     
@@ -376,8 +376,8 @@ console.log(pwchange)
                                 'Content-Type' : 'ap[lication/json',
                                 'Authorization' : window.localStorage.getItem('Login')
                             }
-                        }).then(response => {console.log("성공")
-                        document.location.href = '/'})
+                        }).then(response => console.log("성공")
+                        ,document.location.href = '/mypage')
                         
                            
                         .catch(error => console.log("에러입니당."))

@@ -53,6 +53,7 @@ export function PostSignUp(body){
         })
         .catch((error) => {
             console.log(error)
+            alert("이메일 혹은 전화번호 혹은 배송지가 중복됩니다")
         });
 }
 

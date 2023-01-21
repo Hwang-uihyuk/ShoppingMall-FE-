@@ -44,14 +44,14 @@ export default function Navbar() {
           <button onClick ={()=>{window.localStorage.removeItem('Login')
           document.location.href = '/'}
   
-          }> logout </button>}
+          }> LOGOUT </button>}
 
           {window.localStorage.getItem('Login') && (
             <Link to = 'mypage'> MYPAGE</Link>
           )}
           
 
-        {<Link to='/signup'>JOIN </Link>}  
+        {!window.localStorage.getItem('Login') &&<Link to='/signup'>JOIN </Link>}  
 
         {user && <User user={user} />}
         {/* {!user && <Button text={'Login(axios)'} onClick={login} />} */}

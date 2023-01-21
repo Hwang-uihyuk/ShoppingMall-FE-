@@ -23,7 +23,6 @@ const Wrapper =  styled.div`
   margin-top : 20px;
   background-color: white;
   width : 600px
-
 `
 const InputWrapper = styled.div`
   display : flex;

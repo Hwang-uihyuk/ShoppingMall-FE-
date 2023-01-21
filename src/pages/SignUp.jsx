@@ -6,7 +6,6 @@ const tmpUrl = "http://3.38.35.43:8080";
 const RegisterForm = styled.form`
     grid-template-columns: 300px 300px;
     grid-template-rows: 60px 60px 60px 60px;
-
     align-self: center;
     align-items: center;
     margin : 10px;
@@ -137,14 +136,13 @@ function SignUp() {
       setIsId(false);
     }else{
       setIdMsg("아이디 중복 확인을 해주세요");
-      setIsId(true);
     }
   }
   const onNickNameHandler = (event) => {
     const currentNickName = event.currentTarget.value;
     setNickName(currentNickName);
-    if (nickname.length===0){
-      setNickName("닉네임은 공백일 수 없습니다")
+    if (currentNickName.length===0){
+      setNicknameMsg("닉네임은 공백일 수 없습니다")
       setIsNickname(false);
     }else{
       setNicknameMsg("사용 가능한 닉네임 입니다");
@@ -190,7 +188,7 @@ function SignUp() {
   const onAddressHandler = (event) => {
     const currentAddress = event.currentTarget.value;
     setAddress(currentAddress);
-    if (nickname.length===0){
+    if (currentAddress.length===0){
       setAddressMsg("주소는 공백일 수 없습니다");
       setIsAddress(false)
     }else{
@@ -205,6 +203,7 @@ function SignUp() {
       .get(tmpUrl + "/check_id/" + username)
       .then((response) => {
         setIdChecked(true);
+        setIsId(true);
         setIdMsg("사용 가능한 아이디입니다")
         console.log(response.data)
       })

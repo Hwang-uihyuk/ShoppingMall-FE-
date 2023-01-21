@@ -14,11 +14,11 @@ export default function Navbar() {
     <header className='flex justify-between border-b border-gray-300 p-2 sticky top-0 bg-white z-10'>
       <Link to='/' className='flex items-center text-4xl text-brand'>
         {/* <AiFillShop /> */}
-        <h1>Hyuk's mall</h1>
+        <h1>SHOPPY</h1>
       </Link>
 
       <nav className='flex items-center gap-4 font-semibold'>
-        <Link to='/products'>Products ㅣ</Link>
+        <Link to='/products'>PRODUCTS </Link>
         {user && (
           <Link to='/carts'>
             <CartStatus />     
@@ -36,7 +36,7 @@ export default function Navbar() {
           
         {!window.localStorage.getItem('Login') && (
           <Link to ='/login'> 
-            login(axios) 
+            LOGIN
             </Link>
           )}
 
@@ -47,11 +47,11 @@ export default function Navbar() {
           }> logout </button>}
 
           {window.localStorage.getItem('Login') && (
-            <Link to = 'mypage'> mypage</Link>
+            <Link to = 'mypage'> MYPAGE</Link>
           )}
           
 
-        {<Link to='/signup'>Sign up ㅣ</Link>}  
+        {<Link to='/signup'>JOIN </Link>}  
 
         {user && <User user={user} />}
         {/* {!user && <Button text={'Login(axios)'} onClick={login} />} */}

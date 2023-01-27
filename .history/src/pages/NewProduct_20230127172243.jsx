@@ -43,21 +43,14 @@ export default function NewProduct() {
   const [selectedFile, setSelectedFile] = useState(null);
   const [showAlert, setShowAlert] = useState(false);
 
-
-
-const ACCESS_KEY = 'AKIAXARKUXBXVU2GBY5S';
-const SECRET_ACCESS_KEY = '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';
-const REGION = 'ap-northeast-2';
-const S3_BUCKET = 'mallimageupload';
-
 AWS.config.update({
-  accessKeyId: ACCESS_KEY,
-  secretAccessKey: SECRET_ACCESS_KEY
+  accessKeyId: process.env.ACCESS_KEY,
+  secretAccessKey: process.env.SECRET_ACCESS_KEY
 });
 
 const myBucket = new AWS.S3({
-  params: { Bucket: S3_BUCKET},
-  region: REGION,
+  params: { Bucket: process.env.S3_BUCKET},
+  region: process.env.REGION,
 });
 
 //파일선택시
@@ -77,7 +70,7 @@ const uploadFile = (file) => {
   const params = {
     ACL: 'public-read',
     Body: file,
-    Bucket: S3_BUCKET,
+    Bucket: process.env.S3_BUCKET,
     Key: "upload/" + file.name
   };
   
@@ -107,9 +100,9 @@ const uploadFile = (file) => {
         
          
             { showAlert?
-              alert(`업로드 진행률 : ${progress}%`)
-               :
-              alert(`파일을 선택해주세요.`)
+              <alert color="primary">업로드 진행률 : {progress}%</alert>
+              : 
+              <alert color="primary">파일을 선택해 주세요.</alert> 
             }
           
         

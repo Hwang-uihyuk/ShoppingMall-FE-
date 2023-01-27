@@ -45,10 +45,10 @@ export default function NewProduct() {
 
 
 
-const ACCESS_KEY = 'AKIAXARKUXBXVU2GBY5S';
-const SECRET_ACCESS_KEY = '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';
-const REGION = 'ap-northeast-2';
-const S3_BUCKET = 'mallimageupload';
+const ACCESS_KEY = AKIAXARKUXBXVU2GBY5S
+const SECRET_ACCESS_KEY = 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
+const REGION = ap-northeast-2
+const S3_BUCKET = mallimageupload
 
 AWS.config.update({
   accessKeyId: ACCESS_KEY,

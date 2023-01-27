@@ -2,10 +2,9 @@ import React, { useState } from 'react';
 import { addNewProduct } from '../api/firebase';
 import { uploadImage } from '../api/uploader';
 import Button from '../components/ui/Button';
-//aws
-import AWS from 'aws-sdk';
 
-
+import  {useRef, useState} from 'react';
+import S3 from 'react-aws-s3';
 
 export default function NewProduct() {
   const [product, setProduct] = useState({});
@@ -38,91 +37,67 @@ export default function NewProduct() {
       .finally(() => setIsUploading(false));
   };
 
-  //aws
-  const [progress , setProgress] = useState(0);
-  const [selectedFile, setSelectedFile] = useState(null);
-  const [showAlert, setShowAlert] = useState(false);
 
 
 
-const ACCESS_KEY = 'AKIAXARKUXBXVU2GBY5S';
-const SECRET_ACCESS_KEY = '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';
-const REGION = 'ap-northeast-2';
-const S3_BUCKET = 'mallimageupload';
-
-AWS.config.update({
-  accessKeyId: ACCESS_KEY,
-  secretAccessKey: SECRET_ACCESS_KEY
-});
-
-const myBucket = new AWS.S3({
-  params: { Bucket: S3_BUCKET},
-  region: REGION,
-});
-
-//파일선택시
-const handleFileInput = (e) => {
-  const file = e.target.files[0];
-  const fileExt = file.name.split('.').pop();
-  if(file.type !== 'image/jpeg' || fileExt !=='jpg'){
-    alert('jpg 파일만 Upload 가능합니다.');
-    return;
-  }
-  setProgress(0);
-  setSelectedFile(e.target.files[0]);
-}
-
-//
-const uploadFile = (file) => {
-  const params = {
-    ACL: 'public-read',
-    Body: file,
-    Bucket: S3_BUCKET,
-    Key: "upload/" + file.name
-  };
+  //aws !!!!!!!!1
+  window.Buffer = window.Buffer || require("buffer").Buffer;
+  const [array, setArray] = useState([]);
   
-  myBucket.putObject(params)
-    .on('httpUploadProgress', (evt) => {
-      setProgress(Math.round((evt.loaded / evt.total) * 100))
-      setShowAlert(true);
-      setTimeout(() => {
-        setShowAlert(false);
-        setSelectedFile(null);
-      }, 3000)
-    })
-    .send((err) => {
-      if (err) console.log(err)
-    })
-}
+   //file upload to storage & show preview
+      const [selectedFile, setSelectedFile] = useState(item.img_url[0]);
+  
+      const config = {
+          bucketName:process.env.REACT_APP_BUCKET_NAME,
+          region:process.env.REACT_APP_REGION,
+          accessKeyId:process.env.REACT_APP_ACCESS,
+          secretAccessKey:process.env.REACT_APP_SECRET,
+      }
+  
+      const arr = [];
+      const handleFileInput = (e) => {
+          if (e.target.files.length > 0) {
+              setSelectedFile(e.target.files);
+              
+              const length = e.target.files.length;
+              console.log(length)
+  
+              for(let i=0; i<length; i++) {
+                  const ReactS3Client = new S3(config);
+                  // the name of the file uploaded is used to upload it to S3
+                  ReactS3Client
+                  .uploadFile(e.target.files[i], e.target.files[i].name)
+                  .then((data) => {
+                      console.log(data.location);
+                      
+                      arr.push(data.location);
+                      console.log(arr);
+                      setFile(arr[0]);
+                      setArray([...arr]);
+                      
+                      setDisplay(false);
+                  })
+                  .catch(err => console.error(err))
+              }
+          }
+          
+      }
 
 
 
   return (
-    <section className='w-full text-center'>
-     {/* aws */}
-     <div className="App">
-      <div className="App-header"> 
-      </div>
-      <div className="App-body">
-        
-         
-            { showAlert?
-              alert(`업로드 진행률 : ${progress}%`)
-               :
-              alert(`파일을 선택해주세요.`)
-            }
-          
-        
-        
-          
-            <input color="primary" type="file" onChange={handleFileInput}/>
-            {selectedFile?(
-              <button color="primary" onClick={() => uploadFile(selectedFile)}> Upload to S3</button>
-            ) : null }
-           
-      </div>
-    </div>
+    
 
+    
+    <section className='w-full text-center'>
+      {/* aws */}
+      <input className='file' type="file" multiple ref={inputFile} 
+                onChange={(e)=>{
+                  handleFileInput(e)
+                  }}/>
+                  
+      <div className='btn lg-btn' onClick={() => newpost()}>Post!</div>  
+      {/* aws */}
       {/* cloudiary */}
       <h2 className='text-2xl font-bold my-4'>새로운 제품 등록</h2>
       {success && <p className='my-2'>✅ {success}</p>}

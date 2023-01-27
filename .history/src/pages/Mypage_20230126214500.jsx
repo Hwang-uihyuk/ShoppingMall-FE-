@@ -387,7 +387,7 @@ console.log(pwchange)
             </div>
             {/* 상품 등록 폼 */}
             <div> 
-                <Link to ="/products/new">상품등록 </Link>
+                <Link to ="/product/new">상품등록 </Link>
             </div>
             
     </div>

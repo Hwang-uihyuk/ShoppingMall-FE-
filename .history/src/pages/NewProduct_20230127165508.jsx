@@ -4,8 +4,7 @@ import { uploadImage } from '../api/uploader';
 import Button from '../components/ui/Button';
 //aws
 import AWS from 'aws-sdk';
-
-
+import { Row, Col, Input, Alert } from 'reactstrap';
 
 export default function NewProduct() {
   const [product, setProduct] = useState({});
@@ -43,21 +42,14 @@ export default function NewProduct() {
   const [selectedFile, setSelectedFile] = useState(null);
   const [showAlert, setShowAlert] = useState(false);
 
-
-
-const ACCESS_KEY = 'AKIAXARKUXBXVU2GBY5S';
-const SECRET_ACCESS_KEY = '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';
-const REGION = 'ap-northeast-2';
-const S3_BUCKET = 'mallimageupload';
-
 AWS.config.update({
-  accessKeyId: ACCESS_KEY,
-  secretAccessKey: SECRET_ACCESS_KEY
+  accessKeyId: process.env.ACCESS_KEY,
+  secretAccessKey: process.env.SECRET_ACCESS_KEY
 });
 
 const myBucket = new AWS.S3({
-  params: { Bucket: S3_BUCKET},
-  region: REGION,
+  params: { Bucket: process.env.S3_BUCKET},
+  region: process.env.REGION,
 });
 
 //파일선택시
@@ -77,7 +69,7 @@ const uploadFile = (file) => {
   const params = {
     ACL: 'public-read',
     Body: file,
-    Bucket: S3_BUCKET,
+    Bucket: process.env.S3_BUCKET,
     Key: "upload/" + file.name
   };
   
@@ -101,28 +93,31 @@ const uploadFile = (file) => {
     <section className='w-full text-center'>
      {/* aws */}
      <div className="App">
-      <div className="App-header"> 
+      <div className="App-header">
+        <Row>
+          <Col><h1>File Upload</h1></Col>
+        </Row>
       </div>
       <div className="App-body">
-        
-         
+        <Row>
+          <Col>
             { showAlert?
-              alert(`업로드 진행률 : ${progress}%`)
-               :
-              alert(`파일을 선택해주세요.`)
+              <Alert color="primary">업로드 진행률 : {progress}%</Alert>
+              : 
+              <Alert color="primary">파일을 선택해 주세요.</Alert> 
             }
-          
-        
-        
-          
-            <input color="primary" type="file" onChange={handleFileInput}/>
+          </Col>
+        </Row>
+        <Row>
+          <Col>
+            <Input color="primary" type="file" onChange={handleFileInput}/>
             {selectedFile?(
               <button color="primary" onClick={() => uploadFile(selectedFile)}> Upload to S3</button>
             ) : null }
-           
+          </Col>
+        </Row>
       </div>
     </div>
-
       {/* cloudiary */}
       <h2 className='text-2xl font-bold my-4'>새로운 제품 등록</h2>
       {success && <p className='my-2'>✅ {success}</p>}

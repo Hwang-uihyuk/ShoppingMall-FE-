@@ -2,10 +2,6 @@ import React, { useState } from 'react';
 import { addNewProduct } from '../api/firebase';
 import { uploadImage } from '../api/uploader';
 import Button from '../components/ui/Button';
-//aws
-import AWS from 'aws-sdk';
-
-
 
 export default function NewProduct() {
   const [product, setProduct] = useState({});
@@ -38,91 +34,13 @@ export default function NewProduct() {
       .finally(() => setIsUploading(false));
   };
 
-  //aws
-  const [progress , setProgress] = useState(0);
-  const [selectedFile, setSelectedFile] = useState(null);
-  const [showAlert, setShowAlert] = useState(false);
-
-
-
-const ACCESS_KEY = 'AKIAXARKUXBXVU2GBY5S';
-const SECRET_ACCESS_KEY = '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';
-const REGION = 'ap-northeast-2';
-const S3_BUCKET = 'mallimageupload';
-
-AWS.config.update({
-  accessKeyId: ACCESS_KEY,
-  secretAccessKey: SECRET_ACCESS_KEY
-});
-
-const myBucket = new AWS.S3({
-  params: { Bucket: S3_BUCKET},
-  region: REGION,
-});
-
-//파일선택시
-const handleFileInput = (e) => {
-  const file = e.target.files[0];
-  const fileExt = file.name.split('.').pop();
-  if(file.type !== 'image/jpeg' || fileExt !=='jpg'){
-    alert('jpg 파일만 Upload 가능합니다.');
-    return;
-  }
-  setProgress(0);
-  setSelectedFile(e.target.files[0]);
-}
-
-//
-const uploadFile = (file) => {
-  const params = {
-    ACL: 'public-read',
-    Body: file,
-    Bucket: S3_BUCKET,
-    Key: "upload/" + file.name
-  };
-  
-  myBucket.putObject(params)
-    .on('httpUploadProgress', (evt) => {
-      setProgress(Math.round((evt.loaded / evt.total) * 100))
-      setShowAlert(true);
-      setTimeout(() => {
-        setShowAlert(false);
-        setSelectedFile(null);
-      }, 3000)
-    })
-    .send((err) => {
-      if (err) console.log(err)
-    })
-}
-
-
-
   return (
+    
+//파일올리기 
+//https://codegear.tistory.com/7
+// https://aldrn29.tistory.com/20
     <section className='w-full text-center'>
-     {/* aws */}
-     <div className="App">
-      <div className="App-header"> 
-      </div>
-      <div className="App-body">
-        
-         
-            { showAlert?
-              alert(`업로드 진행률 : ${progress}%`)
-               :
-              alert(`파일을 선택해주세요.`)
-            }
-          
-        
-        
-          
-            <input color="primary" type="file" onChange={handleFileInput}/>
-            {selectedFile?(
-              <button color="primary" onClick={() => uploadFile(selectedFile)}> Upload to S3</button>
-            ) : null }
-           
-      </div>
-    </div>
-
+     
       {/* cloudiary */}
       <h2 className='text-2xl font-bold my-4'>새로운 제품 등록</h2>
       {success && <p className='my-2'>✅ {success}</p>}

@@ -1,6 +1,5 @@
 import React, {useEffect,useState} from 'react'
 import axios from 'axios'
-import { Link } from 'react-router-dom';
 
 //이 링크로 들어오자마자 
 //get으로 이 사용자의 정보를 가져온다.
@@ -384,10 +383,6 @@ console.log(pwchange)
                 }}>
                     회원 탈퇴
                 </button>
-            </div>
-            {/* 상품 등록 폼 */}
-            <div> 
-                <Link to ="/products/new">상품등록 </Link>
             </div>
             
     </div>

@@ -88,7 +88,6 @@ const uploadFile = (file) => {
         setShowAlert(false);
         setSelectedFile(null);
       }, 3000)
-     alert("success") 
     })
     .send((err) => {
       if (err) console.log(err)

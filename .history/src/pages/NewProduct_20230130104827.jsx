@@ -88,7 +88,6 @@ const uploadFile = (file) => {
         setShowAlert(false);
         setSelectedFile(null);
       }, 3000)
-     alert("success") 
     })
     .send((err) => {
       if (err) console.log(err)
@@ -101,20 +100,22 @@ const uploadFile = (file) => {
     <section className='w-full text-center'>
      {/* aws */}
      
-      {/* <div className="App-header">  */}
+      <div className="App-header"> 
       
       <div className="App-body">
-            {/* { showAlert?
+            { showAlert?
               alert(`업로드 진행률 : ${progress}%`)
                :
               alert(`파일을 선택해주세요.`)
-            } */}
-      <input color="primary" type="file" onChange={handleFileInput}/>
-      {selectedFile?(
-      <button color="primary" onClick={() => uploadFile(selectedFile)}> Upload to S3</button>
-            ) : null }     
+            }
+          
+            <input color="primary" type="file" onChange={handleFileInput}/>
+            {selectedFile?(
+              <button color="primary" onClick={() => uploadFile(selectedFile)}> Upload to S3</button>
+            ) : null }
+           
       </div>
- 
+    </div>
 
       {/* cloudiary */}
       <h2 className='text-2xl font-bold my-4'>새로운 제품 등록</h2>

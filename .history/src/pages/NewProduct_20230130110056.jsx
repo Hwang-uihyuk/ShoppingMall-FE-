@@ -50,13 +50,13 @@ const S3_BUCKET = 'mallimageupload';
 
 
 AWS.config.update({
-  accessKeyId: ACCESS_KEY,
-  secretAccessKey: SECRET_ACCESS_KEY
+  accessKeyId: process.env.REACT_APP_ACCESS_KEY,
+  secretAccessKey: process.env.REACT_APP_SECRET_ACCESS_KEY
 });
 
 const myBucket = new AWS.S3({
-  params: { Bucket: S3_BUCKET},
-  region: REGION,
+  params: { Bucket: process.env.REACT_APP_S3_BUCKET},
+  region: process.env.REACT_APP_REGION,
 });
 
 //파일선택시
@@ -76,7 +76,7 @@ const uploadFile = (file) => {
   const params = {
     ACL: 'public-read',
     Body: file,
-    Bucket: S3_BUCKET,
+    Bucket: process.env.REACT_APP_S3_BUCKET,
     Key: "upload/" + file.name
   };
   
@@ -88,7 +88,6 @@ const uploadFile = (file) => {
         setShowAlert(false);
         setSelectedFile(null);
       }, 3000)
-     alert("success") 
     })
     .send((err) => {
       if (err) console.log(err)

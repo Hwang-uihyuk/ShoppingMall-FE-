@@ -50,13 +50,13 @@ const S3_BUCKET = 'mallimageupload';
 
 
 AWS.config.update({
-  accessKeyId: ACCESS_KEY,
-  secretAccessKey: SECRET_ACCESS_KEY
+  accessKeyId: process.env.ACCESS_KEY,
+  secretAccessKey: process.env.SECRET_ACCESS_KEY
 });
 
 const myBucket = new AWS.S3({
-  params: { Bucket: S3_BUCKET},
-  region: REGION,
+  params: { Bucket: process.env.S3_BUCKET},
+  region: process.env.REGION,
 });
 
 //파일선택시
@@ -88,7 +88,6 @@ const uploadFile = (file) => {
         setShowAlert(false);
         setSelectedFile(null);
       }, 3000)
-     alert("success") 
     })
     .send((err) => {
       if (err) console.log(err)

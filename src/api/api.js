@@ -63,3 +63,14 @@ export function LogOut(){
     // localStorage에서 token, username 삭제
     // user => false
 }
+export function LoadProductsAll(){
+    axios
+        .get(baseURL + "/shop")
+        .then((response) => {
+            console.log(response.data);
+            return response.data;
+        })
+        .catch((error) => {
+            console.log("error!")
+        });
+}

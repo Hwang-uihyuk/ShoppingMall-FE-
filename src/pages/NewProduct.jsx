@@ -5,7 +5,7 @@ import Button from '../components/ui/Button';
 //aws
 import AWS from 'aws-sdk';
 import axios from 'axios';
-import { v1,v3,v4,v5} from 'uuid'
+import { v1, v3, v4, v5 } from 'uuid'
 import { mockComponent } from 'react-dom/test-utils';
 import moment from 'moment';
 
@@ -41,7 +41,7 @@ export default function NewProduct() {
   // };
 
   //aws
-  const [progress , setProgress] = useState(0);
+  const [progress, setProgress] = useState(0);
   const [selectedFile, setSelectedFile] = useState(null);
   const [showAlert, setShowAlert] = useState(false);
   const [key, setKey] = useState("")
@@ -49,146 +49,143 @@ export default function NewProduct() {
 
 
 
-const ACCESS_KEY = 'AKIAXARKUXBXVU2GBY5S';
-const SECRET_ACCESS_KEY = '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';
-const REGION = 'ap-northeast-2';
-const S3_BUCKET = 'mallimageupload';
+  const ACCESS_KEY = 'AKIAXARKUXBXVU2GBY5S';
+  const SECRET_ACCESS_KEY = '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';
+  const REGION = 'ap-northeast-2';
+  const S3_BUCKET = 'mallimageupload';
 
 
-AWS.config.update({
-  accessKeyId: ACCESS_KEY,
-  secretAccessKey: SECRET_ACCESS_KEY
-});
+  AWS.config.update({
+    accessKeyId: ACCESS_KEY,
+    secretAccessKey: SECRET_ACCESS_KEY
+  });
 
-const myBucket = new AWS.S3({
-  params: { Bucket: S3_BUCKET},
-  region: REGION,
-});
+  const myBucket = new AWS.S3({
+    params: { Bucket: S3_BUCKET },
+    region: REGION,
+  });
 
-//파일선택시
-const handleFileInput = (e) => {
-  const file = e.target.files[0];
-  const fileExt = file.name.split('.').pop();
-  if(file.type !== 'image/jpeg' || fileExt !=='jpg'){
-    alert('jpg 파일만 Upload 가능합니다.');
-    return;
-  }
-  setProgress(0);
-  setSelectedFile(e.target.files[0]);
-}
-
-//
-
-const uploadFile = (file) => {
-  var params = {
-    ACL: 'public-read',
-    Body: file,
-    Bucket: S3_BUCKET,
-    Key: `image/${v1().toString().replace("-","")}.${file.type.split("/")[1]}`,
-    ContentType : file.type,
-  };
-  myBucket.putObject(params)
-    .on('httpUploadProgress', (evt) => {
-      setProgress(Math.round((evt.loaded / evt.total) * 100))
-      setShowAlert(true);
-      setTimeout(() => {
-        setShowAlert(false);
-        setSelectedFile(null);
-      }, 3000)
-      setKey(params.Key) 
-      
-     alert("success") 
-     
-    })
-    .send((err) => {
-      if (err) console.log(err)
-    })
-}
-console.log(key)
-const [productname, setProductName] = useState('')
-const [price,setPrice] = useState('')
-const [category,setCategory] = useState('')
-const [description,setDescription] = useState('')
-const [size,setSize] = useState('')
-
-const handleChangeProductName = (e) => {
-  setProductName(e.currentTarget.value)
-}
-const handleChangePrice = (e) => {
-  setPrice(e.currentTarget.value)
-}
-const handleChangeCategory = (e) => {
-  setCategory(e.currentTarget.value)
-}
-const handleChangeDescription = (e) => {
-  setDescription(e.currentTarget.value)
-}
-const handleChangeSize = (e) => {
-  setSize(e.currentTarget.value)
-}
-
-let today = new Date();
-let year = today.getFullYear();
-let month = ('0' + (today.getMonth() + 1)).slice(-2);
-
-let date = ('0' + (today.getDate())).slice(-2);
-let hours = ('0' + (today.getHours() )).slice(-2);
-let minutes = ('0' + (today.getMinutes() )).slice(-2);
-let seconds = ('0' + (today.getSeconds() )).slice(-2);
-
-// let month = (today.getMonth()+1)<10? '0':'' + today.getMonth()+ 1;
-
-
-let time = ""
-time = year + "-" + month + "-" + date + "T" +hours + ":" + minutes + ":" + seconds
-console.log(time)
-
-// const test = new moment('2020-01-01 00:00:00').format('LLL');
-// console.log('sdf',typeof(test))
-
-
-const handleSubmit = (e) => {
-  e.preventDefault();
-  
-  const data = JSON.stringify({
-    "name" : productname,
-    "price" : price,
-    "category" : category,
-    "description" : description,
-    "size" : size,
-    "imgKey" : `https://mallimageupload.s3.ap-northeast-2.amazonaws.com/`+key,
-    "date" : time
-  })
-  
-
-
-  axios.post(`http://3.38.35.43:8080/register/product`,data,{
-    headers: {
-      "Content-Type": "application/json",
-      "Authorization" : window.localStorage.getItem('Login')
+  //파일선택시
+  const handleFileInput = (e) => {
+    const file = e.target.files[0];
+    const fileExt = file.name.split('.').pop();
+    if (file.type !== 'image/jpeg' || fileExt !== 'jpg') {
+      alert('jpg 파일만 Upload 가능합니다.');
+      return;
     }
-  }).then((response) => {
-    console.log("sucees")
-    console.log(response)
-  })
-  .catch((error) => console.log(error))
-}
+    setProgress(0);
+    setSelectedFile(e.target.files[0]);
+  }
+
+  //
+
+  const uploadFile = (file) => {
+    var params = {
+      ACL: 'public-read',
+      Body: file,
+      Bucket: S3_BUCKET,
+      Key: `image/${v1().toString().replace("-", "")}.${file.type.split("/")[1]}`,
+      ContentType: file.type,
+    };
+    myBucket.putObject(params)
+      .on('httpUploadProgress', (evt) => {
+        setProgress(Math.round((evt.loaded / evt.total) * 100))
+        setShowAlert(true);
+        setTimeout(() => {
+          setShowAlert(false);
+          setSelectedFile(null);
+        }, 3000)
+        setKey(params.Key)
+        alert("success")
+
+      })
+      .send((err) => {
+        if (err) console.log(err)
+      })
+  }
+  const [productname, setProductName] = useState('')
+  const [price, setPrice] = useState('')
+  const [category, setCategory] = useState('')
+  const [description, setDescription] = useState('')
+  const [size, setSize] = useState('')
+
+  const handleChangeProductName = (e) => {
+    setProductName(e.currentTarget.value)
+  }
+  const handleChangePrice = (e) => {
+    setPrice(e.currentTarget.value)
+  }
+  const handleChangeCategory = (e) => {
+    setCategory(e.currentTarget.value)
+  }
+  const handleChangeDescription = (e) => {
+    setDescription(e.currentTarget.value)
+  }
+  const handleChangeSize = (e) => {
+    setSize(e.currentTarget.value)
+  }
+
+
+  // let month = (today.getMonth()+1)<10? '0':'' + today.getMonth()+ 1;
+
+
+  // const test = new moment('2020-01-01 00:00:00').format('LLL');
+  // console.log('sdf',typeof(test))
+
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    let time = ""
+    
+    let today = new Date();
+    let year = today.getFullYear();
+    let month = ('0' + (today.getMonth() + 1)).slice(-2);
+
+    let date = ('0' + (today.getDate())).slice(-2);
+    let hours = ('0' + (today.getHours())).slice(-2);
+    let minutes = ('0' + (today.getMinutes())).slice(-2);
+    let seconds = ('0' + (today.getSeconds())).slice(-2);
+
+    time = year + "-" + month + "-" + date + "T" + hours + ":" + minutes + ":" + seconds
+
+    const data = JSON.stringify({
+      "name": productname,
+      "price": price,
+      "category": category,
+      "description": description,
+      "size": size,
+      "imgKey": `https://mallimageupload.s3.ap-northeast-2.amazonaws.com/` + key,
+      "date": time
+    })
+
+    axios.post(`http://3.38.35.43:8080/register/product`, data, {
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": window.localStorage.getItem('Login')
+      }
+    }).then((response) => {
+      console.log("sucees")
+      console.log(response)
+    })
+      .catch((error) => console.log(error))
+  }
   return (
     <section className='w-full text-center'>
-     {/* aws */}
-     
+      {/* aws */}
+
       {/* <div className="App-header">  */}
-      
+
       <div className="App-body">
-            {/* { showAlert?
+        {/* { showAlert?
               alert(`업로드 진행률 : ${progress}%`)
                :
               alert(`파일을 선택해주세요.`)
             } */}
-      <input color="primary" type="file" onChange={handleFileInput}/>
-      {selectedFile?(
-      <button color="primary" onClick={() => uploadFile(selectedFile)}> Upload to S3</button>
-            ) : null }     
+        <input color="primary" type="file" onChange={handleFileInput} />
+        {selectedFile ? (
+          <button color="primary" onClick={() => uploadFile(selectedFile)}> Upload to S3</button>
+        ) : null}
       </div>
       <form className='flex flex-col px-12' onSubmit={handleSubmit}>
         <input
@@ -294,6 +291,6 @@ const handleSubmit = (e) => {
     </section>
 
 
-        
+
   );
 }

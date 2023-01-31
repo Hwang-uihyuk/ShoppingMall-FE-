@@ -21,7 +21,7 @@ export default function MyPage() {
     
 
 //처음 사용자 정보 가져오기
-   useEffect(() => {
+useEffect(() => {
     axios({
     method: "get",
     url : "http://3.38.35.43:8080/user",

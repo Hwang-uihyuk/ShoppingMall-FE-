@@ -24,7 +24,7 @@ export default function MyPage() {
    useEffect(() => {
     axios({
     method: "get",
-    url : "http://3.38.35.43:8080/user",
+    url : "http://3.38.35.43:8080/user/mypage",
     headers: {  
      "Content-Type": "application/json",
       "Authorization" : window.localStorage.getItem('Login')
@@ -59,7 +59,7 @@ const onNickNameChangeHandler = (e) =>{
     })
 
     e.preventDefault();
-    axios.put("http://3.38.35.43:8080/user",data,{
+    axios.put("http://3.38.35.43:8080/user/update",data,{
         headers: {  
             "Content-Type": "application/json",
             "Authorization" : window.localStorage.getItem('Login')
@@ -89,7 +89,7 @@ const onTelePhoneChangeHandler = (e) =>{
     })
 
     e.preventDefault();
-    axios.put("http://3.38.35.43:8080/user",data,{
+    axios.put("http://3.38.35.43:8080/user/update",data,{
         headers: {  
             "Content-Type": "application/json",
             "Authorization" : window.localStorage.getItem('Login')
@@ -119,7 +119,7 @@ const onEmailChangeHandler = (e) =>{
     })
 
     e.preventDefault();
-    axios.put("http://3.38.35.43:8080/user",data,{
+    axios.put("http://3.38.35.43:8080/user/update",data,{
         headers: {  
             "Content-Type": "application/json",
             "Authorization" : window.localStorage.getItem('Login')
@@ -150,7 +150,7 @@ const onAddressChangeHandler = (e) =>{
     })
 
     e.preventDefault();
-    axios.put("http://3.38.35.43:8080/user",data,{
+    axios.put("http://3.38.35.43:8080/user/update",data,{
         headers: {  
             "Content-Type": "application/json",
             "Authorization" : window.localStorage.getItem('Login')
@@ -372,7 +372,7 @@ console.log(pwchange)
                     const quickmessage = window.confirm('진짜로 탈퇴하시겠습니가?')
                     
                     if(quickmessage === true){
-                        axios.delete(`http://3.38.35.43:8080/user`,{
+                        axios.delete(`http://3.38.35.43:8080/user/delete/${userstate.username}`,{
                             headers :{
                                 'Content-Type' : 'ap[lication/json',
                                 'Authorization' : window.localStorage.getItem('Login')
@@ -387,7 +387,7 @@ console.log(pwchange)
             </div>
             {/* 상품 등록 폼 */}
             <div> 
-                <Link to ="/products/new">상품등록</Link>
+                <Link to ="/products">상품등록</Link>
             </div>
             
     </div>

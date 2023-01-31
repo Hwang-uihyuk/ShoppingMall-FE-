@@ -190,46 +190,44 @@ const handleSubmit = (e) => {
       <button color="primary" onClick={() => uploadFile(selectedFile)}> Upload to S3</button>
             ) : null }     
       </div>
-
       <form className='flex flex-col px-12' onSubmit={handleSubmit}>
-      <input 
-      type="text"
-      name="name"
-      placeholder='상품명'
-      required
-      onChange={handleChangeProductName}
-      />
-<input 
-      type="text"
-      name="price"
-      placeholder='가격'
-      required
-      onChange={handleChangePrice}
-      />
-<input 
-      type="text"
-      name="category"
-      placeholder='카테고리'
-      required
-      onChange={handleChangeCategory}
-      />
-<input 
-      type="text"
-      name="description"
-      placeholder='설명'
-      required
-      onChange={handleChangeDescription}
-      />
-<input
-      type='text'
+        <input
+          type="text"
+          name="name"
+          placeholder='상품명'
+          required
+          onChange={handleChangeProductName}
+        />
+        <input
+          type="text"
+          name="price"
+          placeholder='가격'
+          required
+          onChange={handleChangePrice}
+        />
+        <input
+          type="text"
+          name="category"
+          placeholder='카테고리'
+          required
+          onChange={handleChangeCategory}
+        />
+        <input
+          type="text"
+          name="description"
+          placeholder='설명'
+          required
+          onChange={handleChangeDescription}
+        />
+        <input
+          type='text'
           name='size'
           placeholder='옵션들(콤마(,)로 구분)'
           required
           onChange={handleChangeSize}
         />
-      <button onClick={handleSubmit}>등록하기</button>
-</form>
-
+        <button onClick={handleSubmit}>등록하기</button>
+      </form>
       {/* cloudiary */}
       {/* <h2 className='text-2xl font-bold my-4'>새로운 제품 등록</h2>
       {success && <p className='my-2'>✅ {success}</p>}
@@ -293,7 +291,7 @@ const handleSubmit = (e) => {
           disabled={isUploading}
         />
       </form> */}
-    </section> 
+    </section>
 
 
         

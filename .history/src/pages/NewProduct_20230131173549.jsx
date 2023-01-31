@@ -6,8 +6,6 @@ import Button from '../components/ui/Button';
 import AWS from 'aws-sdk';
 import axios from 'axios';
 import { v1,v3,v4,v5} from 'uuid'
-import { mockComponent } from 'react-dom/test-utils';
-import moment from 'moment';
 
 export default function NewProduct() {
   // const [product, setProduct] = useState({});
@@ -44,10 +42,6 @@ export default function NewProduct() {
   const [progress , setProgress] = useState(0);
   const [selectedFile, setSelectedFile] = useState(null);
   const [showAlert, setShowAlert] = useState(false);
-  const [key, setKey] = useState("")
-
-
-
 
 const ACCESS_KEY = 'AKIAXARKUXBXVU2GBY5S';
 const SECRET_ACCESS_KEY = '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';
@@ -78,15 +72,15 @@ const handleFileInput = (e) => {
 }
 
 //
-
 const uploadFile = (file) => {
   var params = {
     ACL: 'public-read',
     Body: file,
     Bucket: S3_BUCKET,
     Key: `image/${v1().toString().replace("-","")}.${file.type.split("/")[1]}`,
-    ContentType : file.type,
+    ContentType : file.type
   };
+  console.log(Key)
   myBucket.putObject(params)
     .on('httpUploadProgress', (evt) => {
       setProgress(Math.round((evt.loaded / evt.total) * 100))
@@ -95,16 +89,13 @@ const uploadFile = (file) => {
         setShowAlert(false);
         setSelectedFile(null);
       }, 3000)
-      setKey(params.Key) 
-      
      alert("success") 
-     
     })
     .send((err) => {
       if (err) console.log(err)
     })
 }
-console.log(key)
+
 const [productname, setProductName] = useState('')
 const [price,setPrice] = useState('')
 const [category,setCategory] = useState('')
@@ -129,40 +120,32 @@ const handleChangeSize = (e) => {
 
 let today = new Date();
 let year = today.getFullYear();
-let month = ('0' + (today.getMonth() + 1)).slice(-2);
-
-let date = ('0' + (today.getDate())).slice(-2);
-let hours = ('0' + (today.getHours() )).slice(-2);
-let minutes = ('0' + (today.getMinutes() )).slice(-2);
-let seconds = ('0' + (today.getSeconds() )).slice(-2);
-
-// let month = (today.getMonth()+1)<10? '0':'' + today.getMonth()+ 1;
-
+let month = today.getMonth() + 1;
+let date = today.getDate();
+let hours = today.getHours();
+let minutes = today.getMinutes();
+let seconds = today.getSeconds();
+let millseconds = today.getMilliseconds();
 
 let time = ""
-time = year + "-" + month + "-" + date + "T" +hours + ":" + minutes + ":" + seconds
+time = year + "-" + month + "-" + date + " " +hours + ":" + minutes + ":" + seconds + "." + millseconds
 console.log(time)
-
-// const test = new moment('2020-01-01 00:00:00').format('LLL');
-// console.log('sdf',typeof(test))
-
+var now = today.toLocaleTimeString();
+console.log(now)
 
 const handleSubmit = (e) => {
   e.preventDefault();
-  
+  console.log("button을 눌러도 submit됨")
   const data = JSON.stringify({
     "name" : productname,
     "price" : price,
     "category" : category,
     "description" : description,
     "size" : size,
-    "imgKey" : `https://mallimageupload.s3.ap-northeast-2.amazonaws.com/`+key,
-    "date" : time
+    "imgKey" : ,
+    "data" : time
   })
-  
-
-
-  axios.post(`http://3.38.35.43:8080/register/product`,data,{
+  axios.put(`http://3.38.35.43:8080/register/product/${window.localStorage.getItem('ID')}`,data,{
     headers: {
       "Content-Type": "application/json",
       "Authorization" : window.localStorage.getItem('Login')

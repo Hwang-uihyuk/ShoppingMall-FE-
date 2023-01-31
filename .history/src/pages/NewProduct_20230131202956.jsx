@@ -96,7 +96,7 @@ const uploadFile = (file) => {
         setSelectedFile(null);
       }, 3000)
       setKey(params.Key) 
-      
+      console.log(key)
      alert("success") 
      
     })
@@ -104,7 +104,7 @@ const uploadFile = (file) => {
       if (err) console.log(err)
     })
 }
-console.log(key)
+
 const [productname, setProductName] = useState('')
 const [price,setPrice] = useState('')
 const [category,setCategory] = useState('')

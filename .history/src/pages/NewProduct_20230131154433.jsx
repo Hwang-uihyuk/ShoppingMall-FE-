@@ -4,10 +4,8 @@ import { uploadImage } from '../api/uploader';
 import Button from '../components/ui/Button';
 //aws
 import AWS from 'aws-sdk';
-import axios from 'axios';
-import { v1,v3,v4,v5} from 'uuid'
-import { mockComponent } from 'react-dom/test-utils';
-import moment from 'moment';
+
+
 
 export default function NewProduct() {
   // const [product, setProduct] = useState({});
@@ -44,10 +42,6 @@ export default function NewProduct() {
   const [progress , setProgress] = useState(0);
   const [selectedFile, setSelectedFile] = useState(null);
   const [showAlert, setShowAlert] = useState(false);
-  const [key, setKey] = useState("")
-
-
-
 
 const ACCESS_KEY = 'AKIAXARKUXBXVU2GBY5S';
 const SECRET_ACCESS_KEY = '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';
@@ -78,15 +72,14 @@ const handleFileInput = (e) => {
 }
 
 //
-
 const uploadFile = (file) => {
-  var params = {
+  const params = {
     ACL: 'public-read',
     Body: file,
     Bucket: S3_BUCKET,
-    Key: `image/${v1().toString().replace("-","")}.${file.type.split("/")[1]}`,
-    ContentType : file.type,
+    Key: "upload/" + file.name
   };
+  
   myBucket.putObject(params)
     .on('httpUploadProgress', (evt) => {
       setProgress(Math.round((evt.loaded / evt.total) * 100))
@@ -95,84 +88,19 @@ const uploadFile = (file) => {
         setShowAlert(false);
         setSelectedFile(null);
       }, 3000)
-      setKey(params.Key) 
-      
      alert("success") 
-     
     })
     .send((err) => {
       if (err) console.log(err)
     })
 }
-console.log(key)
-const [productname, setProductName] = useState('')
-const [price,setPrice] = useState('')
-const [category,setCategory] = useState('')
-const [description,setDescription] = useState('')
-const [size,setSize] = useState('')
 
-const handleChangeProductName = (e) => {
-  setProductName(e.currentTarget.value)
-}
-const handleChangePrice = (e) => {
-  setPrice(e.currentTarget.value)
-}
-const handleChangeCategory = (e) => {
-  setCategory(e.currentTarget.value)
-}
-const handleChangeDescription = (e) => {
-  setDescription(e.currentTarget.value)
-}
-const handleChangeSize = (e) => {
-  setSize(e.currentTarget.value)
+const [product, setProduct] = useState('')
+
+const handleChange = (e) => {
+  setProduct(e.currentTarget.value)
 }
 
-let today = new Date();
-let year = today.getFullYear();
-let month = ('0' + (today.getMonth() + 1)).slice(-2);
-
-let date = ('0' + (today.getDate())).slice(-2);
-let hours = ('0' + (today.getHours() )).slice(-2);
-let minutes = ('0' + (today.getMinutes() )).slice(-2);
-let seconds = ('0' + (today.getSeconds() )).slice(-2);
-
-// let month = (today.getMonth()+1)<10? '0':'' + today.getMonth()+ 1;
-
-
-let time = ""
-time = year + "-" + month + "-" + date + "T" +hours + ":" + minutes + ":" + seconds
-console.log(time)
-
-// const test = new moment('2020-01-01 00:00:00').format('LLL');
-// console.log('sdf',typeof(test))
-
-
-const handleSubmit = (e) => {
-  e.preventDefault();
-  
-  const data = JSON.stringify({
-    "name" : productname,
-    "price" : price,
-    "category" : category,
-    "description" : description,
-    "size" : size,
-    "imgKey" : `https://mallimageupload.s3.ap-northeast-2.amazonaws.com/`+key,
-    "date" : time
-  })
-  
-
-
-  axios.post(`http://3.38.35.43:8080/register/product`,data,{
-    headers: {
-      "Content-Type": "application/json",
-      "Authorization" : window.localStorage.getItem('Login')
-    }
-  }).then((response) => {
-    console.log("sucees")
-    console.log(response)
-  })
-  .catch((error) => console.log(error))
-}
   return (
     <section className='w-full text-center'>
      {/* aws */}
@@ -190,45 +118,39 @@ const handleSubmit = (e) => {
       <button color="primary" onClick={() => uploadFile(selectedFile)}> Upload to S3</button>
             ) : null }     
       </div>
-
-      <form className='flex flex-col px-12' onSubmit={handleSubmit}>
       <input 
       type="text"
       name="name"
-      placeholder='상품명'
       required
-      onChange={handleChangeProductName}
+      onChange={handleChange}
       />
 <input 
       type="text"
       name="price"
-      placeholder='가격'
       required
-      onChange={handleChangePrice}
+      onChange={handleChange}
       />
 <input 
       type="text"
       name="category"
-      placeholder='카테고리'
       required
-      onChange={handleChangeCategory}
+      onChange={handleChange}
       />
 <input 
       type="text"
       name="description"
-      placeholder='설명'
       required
-      onChange={handleChangeDescription}
+      onChange={handleChange}
       />
 <input
       type='text'
           name='size'
           placeholder='옵션들(콤마(,)로 구분)'
           required
-          onChange={handleChangeSize}
+          onChange={handleChange}
         />
-      <button onClick={handleSubmit}>등록하기</button>
-</form>
+
+ 
 
       {/* cloudiary */}
       {/* <h2 className='text-2xl font-bold my-4'>새로운 제품 등록</h2>

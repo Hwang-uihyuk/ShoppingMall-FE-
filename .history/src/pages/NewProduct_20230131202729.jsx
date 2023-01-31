@@ -96,7 +96,6 @@ const uploadFile = (file) => {
         setSelectedFile(null);
       }, 3000)
       setKey(params.Key) 
-      
      alert("success") 
      
     })
@@ -104,7 +103,7 @@ const uploadFile = (file) => {
       if (err) console.log(err)
     })
 }
-console.log(key)
+
 const [productname, setProductName] = useState('')
 const [price,setPrice] = useState('')
 const [category,setCategory] = useState('')
@@ -146,7 +145,7 @@ console.log(time)
 // const test = new moment('2020-01-01 00:00:00').format('LLL');
 // console.log('sdf',typeof(test))
 
-
+console.log(key)
 const handleSubmit = (e) => {
   e.preventDefault();
   

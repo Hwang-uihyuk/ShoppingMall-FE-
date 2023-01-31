@@ -96,7 +96,6 @@ const uploadFile = (file) => {
         setSelectedFile(null);
       }, 3000)
       setKey(params.Key) 
-      
      alert("success") 
      
     })
@@ -104,7 +103,7 @@ const uploadFile = (file) => {
       if (err) console.log(err)
     })
 }
-console.log(key)
+
 const [productname, setProductName] = useState('')
 const [price,setPrice] = useState('')
 const [category,setCategory] = useState('')
@@ -149,7 +148,7 @@ console.log(time)
 
 const handleSubmit = (e) => {
   e.preventDefault();
-  
+  console.log(key)
   const data = JSON.stringify({
     "name" : productname,
     "price" : price,

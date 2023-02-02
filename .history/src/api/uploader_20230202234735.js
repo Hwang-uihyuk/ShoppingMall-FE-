@@ -1,3 +1,5 @@
+import React, {useRef, useState} from 'react';
+import S3 from 'react-aws-s3';
 
 //cloudinary 이미지 업로드
 export async function uploadImage(file) {

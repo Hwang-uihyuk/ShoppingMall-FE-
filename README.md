@@ -1,4 +1,4 @@
-#### firebase set up
+#### ~~firebase set up~~
 
     1. Go to Console
     2. Create a Project

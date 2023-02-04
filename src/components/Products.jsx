@@ -12,7 +12,7 @@ const baseURL = "http://3.38.35.43:8080"
 const CategoriesContainer = styled.div`
     height : 80px;
     width : 100%;
-    padding : 20px 20px 10px 10px;
+    padding : 15px 20px 10px 30px;
     position : relative;
     top : 30px;
 `
@@ -50,7 +50,6 @@ export default function Products() {
           "Content-Type": "application/json",
         }
       }).then((response) => {
-        console.log(response.data)
         setProducts(response.data)
       })
         .catch((error) => console.log(error))
@@ -67,21 +66,24 @@ export default function Products() {
         </CategoriesContainer>
         {/* {isLoading && <p>Loading...</p>}
         {error && <p>{error}</p>} */}
-
-        <ul className='grid grid-cols-1 md:grid-cols-3 lg-grid-cols-4 gap-4 p-4'>
-          {products &&
-            products.filter((product)=>{
-              if(category === "all"){
-                return product
-              }
-              else if(product.category.toLowerCase()===category){
-                return product
-              }
-            }).map((product)=>(
-              <ProductCard key={product.id} product={product} />
-            ))
-          }
-        </ul>
+        <div className='p-10 pt-4'>
+          <ul className='grid grid-cols-1 md:grid-cols-4 lg-grid-cols-4 gap-10'>
+            {products &&
+              products.filter((product)=>{
+                console.log(product.category)
+                if(category === "all"){
+                  console.log(product)
+                  return product
+                }
+                else if(product.category===category){
+                  return product
+                }
+              }).map((product)=>(
+                <ProductCard key={product.id} product={product} />
+              ))
+            }
+          </ul>
+        </div>
       </>
     );
   }

@@ -11,13 +11,13 @@ import CartStatus from './CartStatus';
 export default function Navbar() {
   const { user, logout } = useAxiosAuthContext();
   return (
-    <header className='flex justify-between border-b border-gray-300 p-2 sticky top-0 bg-white z-10'>
-      <Link to='/' className='flex items-center text-4xl text-brand'>
+    <header className='flex justify-between border-b border-none p-2 pt-3 sticky top-0 bg-white z-10 shadow-none'>
+      <Link to='/' className='flex items-center text-4xl pl-10'>
         {/* <AiFillShop /> */}
         <h1>SHOPPY</h1>
       </Link>
 
-      <nav className='flex items-center gap-4 font-semibold'>
+      <nav className='flex items-center gap-4 font-semibold pr-6'>
         <Link to='/products'>PRODUCTS </Link>
         {user && (
           <Link to='/carts'>

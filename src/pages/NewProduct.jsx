@@ -97,7 +97,7 @@ export default function NewProduct() {
         }, 3000)
         setKey(params.Key)
         alert("success")
-
+        console.log(`https://mallimageupload.s3.ap-northeast-2.amazonaws.com/`+params.Key)
       })
       .send((err) => {
         if (err) console.log(err)
@@ -165,8 +165,7 @@ export default function NewProduct() {
         "Authorization": window.localStorage.getItem('Login')
       }
     }).then((response) => {
-      console.log("sucees")
-      console.log(response)
+      console.log("suceess")
     })
       .catch((error) => console.log(error))
   }

@@ -18,7 +18,6 @@ import SignUp from './pages/SignUp';
 import EditUser from './pages/EditUser';
 import Mypage from './pages/Mypage';
 import EditProduct from './pages/EditProduct';
-import EditProductDetail from './pages/EditProductDetail';
 
 const router = createBrowserRouter([
   {
@@ -52,8 +51,8 @@ const router = createBrowserRouter([
        element: <ProductDetail/>
     },
     {
-      path:'/products/edit/products/edit/products/products/edit/products/:id',
-       element: <EditProductDetail/>
+      path:'/products/products/edit/products/edit/products/products/edit/products/:id',
+       element: <ProductDetail/>
     },
 
     {

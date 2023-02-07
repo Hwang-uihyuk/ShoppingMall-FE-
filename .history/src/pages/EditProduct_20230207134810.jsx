@@ -1,7 +1,6 @@
 import axios from 'axios';
 import React from 'react'
 import { useEffect,useState } from 'react';
-import EditProductCard from '../components/EditProductCard';
 
 export default function EditProduct() {
     //처음 상품의 정보 가져오기    
@@ -25,10 +24,10 @@ export default function EditProduct() {
     }, [])
   return (
     <div>
-      <ul className='grid grid-cols-1 md:grid-cols-3 lg-grid-cols-4 gap-4 p-4'>
+      <ul className='grid grid-cols-1 md:grid'>
         {sellrig &&
           sellrig.map((product) =>(
-            <EditProductCard key={sellrig.id} product={product}/>
+            product.id
 
           ))}
       </ul>

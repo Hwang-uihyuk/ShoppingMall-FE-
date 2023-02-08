@@ -32,7 +32,7 @@ const navigate = useNavigate();
   return (
     <li
         onClick={() => {
-            console.log(id)
+          console.log(id)
             navigate(`products/edit/products/products/edit/products/${name}` , {state : { product }});
         }}
         className='w-70 rounded-lg shadow-md overflow-hidden cursor-pointer transition-all'

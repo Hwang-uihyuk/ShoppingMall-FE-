@@ -8,7 +8,7 @@ export default function EditProductDetail() {
     const location = useLocation();
 
 
-    const [editform, setEditForm] = useState({})
+    const [editform, setEditForm] = useState("")
 
 
     const id = location.state.product.id;
@@ -35,12 +35,15 @@ export default function EditProductDetail() {
 
   return (
     <div>
-        <li>상품 아이디는 : "{editform.id}"</li>
-        <li>상품 이름은 : "{editform.name}"</li>
-        <li>상품 가격은 : "{editform.price}"</li>
-        <li>상품 카테고리 : "{editform.category}"</li>
-        <li>상품 설명 : " {editform.description}"</li>
-        
+        <div>
+            <ul>
+            {
+               editform.map((v) => 
+               <li>{v}</li>)
+            }
+            
+            </ul>
+        </div>
 
     </div>
   )

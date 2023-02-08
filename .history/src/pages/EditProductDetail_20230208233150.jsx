@@ -36,25 +36,6 @@ export default function EditProductDetail() {
     //상품 재고 갯수 변경하기
     const ChangeStock = () =>{
 
-        const stock = prompt("재고 현황을 변경하시겠습니까?")
-        setEditForm((prevState)=>{
-            return { ...prevState, stock : stock}
-
-        })
-
-
-        axios.put(`http://3.38.35.43:8080/register/product/add_stock`,{
-            "product_id":editform.id   ,
-            "stock" :stock
-
-
-            
-        },{
-            headers: {
-                'Content-Type' : 'application/json',
-                "Authorization" : window.localStorage.getItem('Login')
-            }
-        })
     }
     
 
@@ -65,8 +46,7 @@ export default function EditProductDetail() {
         <li>상품 가격은 : "{editform.price}"</li>
         <li>상품 카테고리 : "{editform.category}"</li>
         <li>상품 설명 : " {editform.description}"</li>
-        <li>제고 현황 : {editform.stock}</li>
-        <button className ="border"onClick={ChangeStock}> 상품 재고 변경하기</button>
+        <button className ="text-bold"onClick={ChangeStock}> 상품 재고 변경하기</button>
 
     </div>
   )

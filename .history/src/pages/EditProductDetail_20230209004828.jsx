@@ -36,19 +36,13 @@ export default function EditProductDetail() {
     //상품 재고 갯수 변경하기
     const ChangeStock = () =>{
 
-        const stock = prompt("재고 현황을 변경하시겠습니까?")
-        setEditForm((prevState)=>{
-            return { ...prevState, stock : stock}
-
-        })
-
-
+        const stock = confirm("재고 현황을 변경하시겠습니까?")
         axios.put(`http://3.38.35.43:8080/register/product/add_stock`,{
-            "product_id":editform.id   ,
-            "stock" :stock
+            "product_id":   ,
+            "stock"
 
 
-            
+            ]
         },{
             headers: {
                 'Content-Type' : 'application/json',

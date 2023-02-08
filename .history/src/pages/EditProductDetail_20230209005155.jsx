@@ -37,12 +37,7 @@ export default function EditProductDetail() {
     const ChangeStock = () =>{
 
         const stock = prompt("재고 현황을 변경하시겠습니까?")
-        setEditForm((prevState)=>{
-            return { ...prevState, stock : stock}
-
-        })
-
-
+        setEditForm([...editform, editform.stock = stock])
         axios.put(`http://3.38.35.43:8080/register/product/add_stock`,{
             "product_id":editform.id   ,
             "stock" :stock

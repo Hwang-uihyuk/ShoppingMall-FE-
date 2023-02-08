@@ -22,7 +22,7 @@ const navigate = useNavigate();
       }
       }).then(response => {
         console.log('성공')
-         navigate(`/products/edit`)}
+         navigate(`/`)}
       ).catch('에러입니다.')
     }
   }

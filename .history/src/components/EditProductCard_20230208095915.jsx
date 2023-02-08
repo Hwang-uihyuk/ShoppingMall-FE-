@@ -15,14 +15,14 @@ const navigate = useNavigate();
     console.log(product.id)
     const message = window.confirm('정말로 상품을 삭제하시겠습니까?')
     if(message === true){
-      axios.delete(`http://3.38.35.43:8080/register/product/${product.id}`,{
+      axios.delete(`http://3.38.35.43:8080/register/product${product.id}`,{
         headers :{
           'Content-Type' : 'ap[lication/json',
           'Authorization' : window.localStorage.getItem('Login')
       }
       }).then(response => {
         console.log('성공')
-         navigate(`/products/edit`)}
+         navigate(`/`)}
       ).catch('에러입니다.')
     }
   }

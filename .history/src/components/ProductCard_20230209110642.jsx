@@ -26,7 +26,7 @@ export default function ProductCard({
 
   const LikeButton = (e) => {
     console.log(product.id)
-    
+    like &&
       axios.post(`http://3.38.35.43:8080/user/favorite/${product.id}`,{},{
       headers :{
         "Content-Type" : "application/json",
@@ -35,12 +35,13 @@ export default function ProductCard({
     }).then(response => {
       console.log(response)
       console.log('좋아요 등록 success')
-      setLike(!like)
+      e.preventDefault();
       })
-  }
+      // setLike(!like)
+    
 
-  const deleteLikeButton = (e) =>{
-    !like && 
+    
+      !like && 
       axios.delete(`http://3.38.35.43:8080/user/favorite/${product.id}`,{},{
         headers :{
           "Content-Type" : "application/json",
@@ -50,7 +51,8 @@ export default function ProductCard({
         console.log('좋아요 해제')
         
       })
-      setLike(!like)
+      // setLike(!like)
+    
   }
 
 
@@ -79,9 +81,7 @@ export default function ProductCard({
       </div>
       
     </li>
-    {like && <span onClick={LikeButton}>좋아요</span>}
-
-
+    <button onClick={LikeButton}>좋아요</button>
     </form>
   );
 }

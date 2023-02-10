@@ -12,9 +12,9 @@ function App() {
     <AuthContextProvier>
     <QueryClientProvider client={queryClient}>
         <Navbar />
-        
-        <Outlet />
         <Footer/>
+        <Outlet />
+        
     </QueryClientProvider>
     </AuthContextProvier>
   );

@@ -26,7 +26,7 @@ export default function ProductCard({
 
   const LikeButton = (e) => {
     console.log(product.id)
-    
+    if(like &&
       axios.post(`http://3.38.35.43:8080/user/favorite/${product.id}`,{},{
       headers :{
         "Content-Type" : "application/json",
@@ -37,6 +37,12 @@ export default function ProductCard({
       console.log('좋아요 등록 success')
       setLike(!like)
       })
+      
+    
+
+    
+      
+    
   }
 
   const deleteLikeButton = (e) =>{

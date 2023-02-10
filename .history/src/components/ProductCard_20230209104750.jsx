@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import AWS from "aws-sdk";
 import axios from 'axios';
@@ -13,44 +13,27 @@ export default function ProductCard({
   //좋아요 버튼 
   const [like,setLike] = useState(false)
 
-
-  // useEffect(()=>{axios.post(`http://3.38.35.43:8080/user/favorite/${product.id}`,{},{
-  //     headers :{
-  //       "Content-Type" : "application/json",
-	// 			"Authorization" : window.localStorage.getItem('Login')
-  //     }
-  //   }).then(response => {
-  //     console.log('좋아요 등록 success')
-  //     })
-  //   },[])
-
-  const LikeButton = (e) => {
-    console.log(product.id)
-    
-      axios.post(`http://3.38.35.43:8080/user/favorite/${product.id}`,{},{
+  const LikeButton = async(e) => {
+    like &&
+     await axios.post(`http://3.38.35.43:8080/user/favorite/${product.id}`,{},{
       headers :{
         "Content-Type" : "application/json",
 				"Authorization" : window.localStorage.getItem('Login')
       }
     }).then(response => {
-      console.log(response)
       console.log('좋아요 등록 success')
-      setLike(!like)
-      })
-  }
+      setLike(!like)})
 
-  const deleteLikeButton = (e) =>{
-    !like && 
-      axios.delete(`http://3.38.35.43:8080/user/favorite/${product.id}`,{},{
+      !like && axios.delete(`http://3.38.35.43:8080/user/favorite/${product.id}`,{},{
         headers :{
           "Content-Type" : "application/json",
           "Authorization" : window.localStorage.getItem('Login')
         }
       }).then(response => {
         console.log('좋아요 해제')
-        
+        setLike(!like)
       })
-      setLike(!like)
+
   }
 
 
@@ -77,11 +60,8 @@ export default function ProductCard({
       {/* 좋아요 버튼 */}
       
       </div>
-      
     </li>
-    {like && <span onClick={LikeButton}>좋아요</span>}
-
-
+    <button onClick={LikeButton}>좋아요</button>
     </form>
   );
 }

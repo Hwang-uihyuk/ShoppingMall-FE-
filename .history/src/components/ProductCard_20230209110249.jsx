@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import AWS from "aws-sdk";
 import axios from 'axios';
@@ -14,34 +14,32 @@ export default function ProductCard({
   const [like,setLike] = useState(false)
 
 
-  // useEffect(()=>{axios.post(`http://3.38.35.43:8080/user/favorite/${product.id}`,{},{
-  //     headers :{
-  //       "Content-Type" : "application/json",
-	// 			"Authorization" : window.localStorage.getItem('Login')
-  //     }
-  //   }).then(response => {
-  //     console.log('좋아요 등록 success')
-  //     })
-  //   },[])
+  useEffect(()=>{axios.post(`http://3.38.35.43:8080/user/favorite/${product.id}`,{},{
+      headers :{
+        "Content-Type" : "application/json",
+				"Authorization" : window.localStorage.getItem('Login')
+      }
+    }).then(response => {
+      console.log('좋아요 등록 success')
+      })
+    },[])
 
   const LikeButton = (e) => {
     console.log(product.id)
-    
+    if(like === false){
       axios.post(`http://3.38.35.43:8080/user/favorite/${product.id}`,{},{
       headers :{
         "Content-Type" : "application/json",
 				"Authorization" : window.localStorage.getItem('Login')
       }
     }).then(response => {
-      console.log(response)
       console.log('좋아요 등록 success')
-      setLike(!like)
       })
-  }
+      setLike(!like)
+    }
 
-  const deleteLikeButton = (e) =>{
-    !like && 
-      axios.delete(`http://3.38.35.43:8080/user/favorite/${product.id}`,{},{
+    else if(like === true){
+       axios.delete(`http://3.38.35.43:8080/user/favorite/${product.id}`,{},{
         headers :{
           "Content-Type" : "application/json",
           "Authorization" : window.localStorage.getItem('Login')
@@ -51,6 +49,7 @@ export default function ProductCard({
         
       })
       setLike(!like)
+    }
   }
 
 
@@ -79,9 +78,7 @@ export default function ProductCard({
       </div>
       
     </li>
-    {like && <span onClick={LikeButton}>좋아요</span>}
-
-
+    <button onClick={LikeButton}>좋아요</button>
     </form>
   );
 }

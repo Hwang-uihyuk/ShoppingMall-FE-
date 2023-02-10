@@ -12,7 +12,6 @@ function App() {
     <AuthContextProvier>
     <QueryClientProvider client={queryClient}>
         <Navbar />
-        
         <Outlet />
         <Footer/>
     </QueryClientProvider>

@@ -56,23 +56,22 @@ export default function ProductDetail() {
   const optiondata = String(detaildata.size).split('').filter(v => v!==',')
 
 
-console.log(detaildata.id)
+
 console.log(selected)
   //장바구니 추가 
   const handleAddCart = () => {
-    const data = JSON.stringify({
-      "size" : selected
-    })
-    axios.post(`http://3.38.35.43:8080/user/cart/${detaildata.id}`,data, {
+    // const data = JSON.stringify({
+    //   "size" : 
+    // })
+    axios.post('http://3.38.35.43:8080/user/pwd_change', {
       headers : {
           'Content-Type' : 'application/json',
           'Authorization' : window.localStorage.getItem('Login')
       }
   })
   .then(response => {
-      console.log("장바구니 상품 추가 완료")
       console.log(response.data)
-      alert("상품이 장바구니에 추가되었습니다.")
+      document.location.href = '/mypage'
 
   })
   .catch(error => console.log(error))  }
@@ -100,7 +99,6 @@ console.log(selected)
               onChange={handleSelect}
               value={selected}
             >
-              
               {optiondata &&
                 optiondata.map((option, index) => (
                   <option key={index}>{option}</option>

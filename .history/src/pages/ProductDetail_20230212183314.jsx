@@ -63,7 +63,7 @@ console.log(selected)
     const data = JSON.stringify({
       "size" : selected
     })
-    axios.post(`http://3.38.35.43:8080/user/cart/${detaildata.id}`,data, {
+    axios.post(`http://3.38.35.43:8080/user/cart/${}`,data, {
       headers : {
           'Content-Type' : 'application/json',
           'Authorization' : window.localStorage.getItem('Login')
@@ -72,7 +72,7 @@ console.log(selected)
   .then(response => {
       console.log("장바구니 상품 추가 완료")
       console.log(response.data)
-      alert("상품이 장바구니에 추가되었습니다.")
+      document.location.href = '/mypage'
 
   })
   .catch(error => console.log(error))  }

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { getCart } from '../api/firebase';
 import { useQuery } from '@tanstack/react-query';
 import { useAuthContext } from '../components/context/AuthContext';
@@ -15,22 +15,16 @@ export default function MyCart() {
   const [cartproduct, setCartProduct] = useState('')
   const { uid } = useAuthContext();
   const { isLoading, data: products } = useQuery(['carts'], () => getCart(uid));
-  useEffect(()=>{
-    console.log(cartproduct)},[])
-
-
-
 
   if (isLoading) return <p>Loading...</p>;
 
-  const hasProducts = cartproduct.length > 0;
-  
-  
+  const hasProducts = cartproduct && cartproduct.length > 0;
+  console.log(cartproduct.id)
 
   //총금액
   const totalPrice =
-    cartproduct.price &&
-    cartproduct.price.reduce(
+    products &&
+    products.reduce(
       (prev, current) => prev + parseInt(current.price) * current.quantity,
       0
     );
@@ -42,8 +36,7 @@ export default function MyCart() {
         "Content-Type": "application/json",
         "Authorization": window.localStorage.getItem('Login')
       }
-    }).then((response) => 
-    setCartProduct(response.data))
+    }).then((response) => setCartProduct(cartproduct))
 
 
   return (
@@ -55,9 +48,9 @@ export default function MyCart() {
       {hasProducts && (
         <>
           <ul className='border-b border-gray-300 mb-8 p-4 px-8'>
-            {cartproduct &&
-              cartproduct.map((product) => (
-                <CartItem key={cartproduct.id} product={cartproduct} uid={uid} />
+            {products &&
+              products.map((product) => (
+                <CartItem key={product.id} product={product} uid={uid} />
               ))}
           </ul>
           <div className='flex justify-between items-center mb-6 px-2 md:px-8 lg:px-16'>

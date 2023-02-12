@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { RiDeleteBin5Fill } from 'react-icons/ri';
 import { AiOutlinePlusSquare, AiOutlineMinusSquare } from 'react-icons/ai';
 import { addOrUpdateToCart, removeFromCart } from '../api/firebase';
@@ -29,19 +29,18 @@ axios.get("http://3.38.35.43:8080/user/cart",{
     "Content-Type": "application/json",
     "Authorization": window.localStorage.getItem('Login')
   }
-
-}).then((response) => {
-setCartProduct(response.data)})
+}).then((response) => 
+setCartProduct(response.data))
 
 
   return (
     <li className='flex justify-between my-2 items-center'>
-      <img className='w-24 md:w-48 rounded-lg' src={cartproduct.imgKey}  />
+      <img className='w-24 md:w-48 rounded-lg' src={image} alt={title} />
       <div className='flex-1 flex justify-between ml-4'>
         <div className='basis-3/5'>
           <p className='text-lg'>{title}</p>
-          <p className='text-xl font-bold text-brand'>{cartproduct.size}</p>
-          <p>₩{cartproduct.price}</p>
+          <p className='text-xl font-bold text-brand'>{option}</p>
+          <p>₩{price}</p>
         </div>
         <div className='text-2xl flex items-center'>
           <AiOutlineMinusSquare className={ICON_CLASS} onClick={handleMinus} />

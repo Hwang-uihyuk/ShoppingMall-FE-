@@ -31,6 +31,7 @@ axios.get("http://3.38.35.43:8080/user/cart",{
   }
 
 }).then((response) => {
+  console.log(response.data)
 setCartProduct(response.data)})
 
 

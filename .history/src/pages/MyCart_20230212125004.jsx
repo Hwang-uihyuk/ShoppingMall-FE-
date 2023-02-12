@@ -23,14 +23,14 @@ export default function MyCart() {
 
   if (isLoading) return <p>Loading...</p>;
 
-  const hasProducts = cartproduct.length > 0;
+  const hasProducts = cartproduct && cartproduct.length > 0;
   
   
 
   //총금액
   const totalPrice =
-    cartproduct.price &&
-    cartproduct.price.reduce(
+    products &&
+    products.reduce(
       (prev, current) => prev + parseInt(current.price) * current.quantity,
       0
     );
@@ -55,9 +55,9 @@ export default function MyCart() {
       {hasProducts && (
         <>
           <ul className='border-b border-gray-300 mb-8 p-4 px-8'>
-            {cartproduct &&
-              cartproduct.map((product) => (
-                <CartItem key={cartproduct.id} product={cartproduct} uid={uid} />
+            {products &&
+              products.map((product) => (
+                <CartItem key={product.id} product={product} uid={uid} />
               ))}
           </ul>
           <div className='flex justify-between items-center mb-6 px-2 md:px-8 lg:px-16'>

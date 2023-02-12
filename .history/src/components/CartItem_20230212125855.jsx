@@ -29,9 +29,8 @@ axios.get("http://3.38.35.43:8080/user/cart",{
     "Content-Type": "application/json",
     "Authorization": window.localStorage.getItem('Login')
   }
-
-}).then((response) => {
-setCartProduct(response.data)})
+}).then((response) => 
+setCartProduct(response.data))
 
 
   return (
@@ -40,8 +39,8 @@ setCartProduct(response.data)})
       <div className='flex-1 flex justify-between ml-4'>
         <div className='basis-3/5'>
           <p className='text-lg'>{title}</p>
-          <p className='text-xl font-bold text-brand'>{cartproduct.size}</p>
-          <p>₩{cartproduct.price}</p>
+          <p className='text-xl font-bold text-brand'>{option}</p>
+          <p>₩{price}</p>
         </div>
         <div className='text-2xl flex items-center'>
           <AiOutlineMinusSquare className={ICON_CLASS} onClick={handleMinus} />

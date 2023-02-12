@@ -29,9 +29,8 @@ axios.get("http://3.38.35.43:8080/user/cart",{
     "Content-Type": "application/json",
     "Authorization": window.localStorage.getItem('Login')
   }
-
-}).then((response) => {
-setCartProduct(response.data)})
+}).then((response) => 
+setCartProduct(response.data))
 
 
   return (

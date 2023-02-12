@@ -72,7 +72,7 @@ console.log(selected)
   .then(response => {
       console.log("장바구니 상품 추가 완료")
       console.log(response.data)
-      alert("상품이 장바구니에 추가되었습니다.")
+      document.location.href = '/mypage'
 
   })
   .catch(error => console.log(error))  }

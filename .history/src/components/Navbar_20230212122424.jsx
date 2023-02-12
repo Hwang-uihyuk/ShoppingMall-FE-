@@ -21,7 +21,7 @@ export default function Navbar() {
         <Link to='/products'>PRODUCTS </Link>
         {window.localStorage.getItem('Login') && (
           <Link to='/carts'>
-            CART     
+            <CartStatus />     
           </Link>
         )}
         

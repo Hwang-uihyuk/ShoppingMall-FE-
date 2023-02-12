@@ -20,8 +20,8 @@ export default function CartItem(
 
 
 {
-  // const value = useContext(ContextCartProduct);
-  // console.log(value)
+  const value = useContext(ContextCartProduct);
+
 
 
   const handleMinus = () => {

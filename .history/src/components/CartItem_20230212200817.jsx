@@ -5,7 +5,6 @@ import { addOrUpdateToCart, removeFromCart } from '../api/firebase';
 import axios from 'axios';
 
 import { useContext } from 'react';
-import { ContextCartProduct } from '../pages/MyCart';
 
 const ICON_CLASS =
   'transition-all cursor-pointer hover:text-brand hover:scale-105 mx-1';
@@ -20,8 +19,8 @@ export default function CartItem(
 
 
 {
-  // const value = useContext(ContextCartProduct);
-  // console.log(value)
+  const value = useContext(ContextCartProduct);
+
 
 
   const handleMinus = () => {

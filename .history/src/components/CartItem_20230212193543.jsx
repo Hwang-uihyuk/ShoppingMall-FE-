@@ -4,45 +4,40 @@ import { AiOutlinePlusSquare, AiOutlineMinusSquare } from 'react-icons/ai';
 import { addOrUpdateToCart, removeFromCart } from '../api/firebase';
 import axios from 'axios';
 
-import { useContext } from 'react';
-import { ContextCartProduct } from '../pages/MyCart';
-
 const ICON_CLASS =
   'transition-all cursor-pointer hover:text-brand hover:scale-105 mx-1';
 
 export default function CartItem(
-  {
-  product,
-  product: { id, image, title, option, quantity, price },
-  uid,
-}
-)
-
-
+//   {
+//   product,
+//   product: { id, image, title, option, quantity, price },
+//   uid,
+// }
 {
-  // const value = useContext(ContextCartProduct);
-  // console.log(value)
+  cartproduct,
+  cartproduct: {id, imgKey, size}
+}
+
+) {
+  // const handleMinus = () => {
+  //   if (quantity < 2) return;
+  //   addOrUpdateToCart(uid, { ...product, quantity: quantity - 1 });
+  // };
+  // const handlePlus = () =>
+  //   addOrUpdateToCart(uid, { ...product, quantity: quantity + 1 });
 
 
-  const handleMinus = () => {
-    if (quantity < 2) return;
-    addOrUpdateToCart(uid, { ...product, quantity: quantity - 1 });
-  };
-  const handlePlus = () =>
-    addOrUpdateToCart(uid, { ...product, quantity: quantity + 1 });
 
+    // // 장바구니 상품 가져오기 
+    // const [cartproduct, setCartProduct] = useState('')
+    // axios.get("http://3.38.35.43:8080/user/cart",{
+    //   headers:{
+    //     "Content-Type": "application/json",
+    //     "Authorization": window.localStorage.getItem('Login')
+    //   }
 
-
-    // 장바구니 상품 가져오기 
-    const [cartproduct, setCartProduct] = useState('')
-    axios.get("http://3.38.35.43:8080/user/cart",{
-      headers:{
-        "Content-Type": "application/json",
-        "Authorization": window.localStorage.getItem('Login')
-      }
-
-    }).then((response) => {
-    setCartProduct(response.data)})
+    // }).then((response) => {
+    // setCartProduct(response.data)})
 
   //cart
   //상품 삭제하기 
@@ -72,9 +67,9 @@ export default function CartItem(
           <p>₩{cartproduct.price}</p>
         </div>
         <div className='text-2xl flex items-center'>
-          <AiOutlineMinusSquare className={ICON_CLASS} onClick={handleMinus} />
-          <span>{quantity}</span>
-          <AiOutlinePlusSquare className={ICON_CLASS} onClick={handlePlus} />
+          <AiOutlineMinusSquare className={ICON_CLASS} onClick={''} />
+          <span>{''}</span>
+          <AiOutlinePlusSquare className={ICON_CLASS} onClick={'handlePlus'} />
           <RiDeleteBin5Fill className={ICON_CLASS} onClick={handleDelete} />
         </div>
       </div>

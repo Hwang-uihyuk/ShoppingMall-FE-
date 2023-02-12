@@ -77,9 +77,9 @@ export default function MyCart() {
           <Button text='주문하기' />
         </>
       )}
-      {/* <ContextCartProduct.Provider value={cartproduct}>
+      <ContextCartProduct.Provider value={cartproduct}>
     <CartItem/>
-  </ContextCartProduct.Provider>  */}
+  </ContextCartProduct.Provider> 
     </section>
     
   );

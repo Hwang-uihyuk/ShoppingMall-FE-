@@ -8,18 +8,11 @@ import { FaEquals } from 'react-icons/fa';
 import PriceCard from '../components/PriceCard';
 import Button from '../components/ui/Button';
 import axios from 'axios';
-import { createContext } from 'react';
 
 const SHIPPING = 3000;
 
-
-export const ContextCartProduct = createContext();
 export default function MyCart() {
   const [cartproduct, setCartProduct] = useState('')
-    
-  
-
-
   const { uid } = useAuthContext();
   const { isLoading, data: products } = useQuery(['carts'], () => getCart(uid));
   useEffect(()=>{
@@ -51,9 +44,7 @@ export default function MyCart() {
 
 
   return (
-       
     <section className='p-8 flex flex-col'>
-    
       <p className='text-2xl text-center font-bold pb-4 border-b border-gray-300'>
         내 장바구니
       </p>
@@ -77,11 +68,6 @@ export default function MyCart() {
           <Button text='주문하기' />
         </>
       )}
-      {/* <ContextCartProduct.Provider value={cartproduct}>
-    <CartItem/>
-  </ContextCartProduct.Provider>  */}
     </section>
-    
   );
-  
 }

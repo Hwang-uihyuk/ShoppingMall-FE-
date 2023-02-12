@@ -72,7 +72,7 @@ export default function Products() {
               products.filter((product)=>{
                 
                 if(category === "all"){
-                
+                  console.log(product)
                   return product
                 }
                 else if(product.category===category){

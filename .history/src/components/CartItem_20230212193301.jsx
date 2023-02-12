@@ -4,26 +4,20 @@ import { AiOutlinePlusSquare, AiOutlineMinusSquare } from 'react-icons/ai';
 import { addOrUpdateToCart, removeFromCart } from '../api/firebase';
 import axios from 'axios';
 
-import { useContext } from 'react';
-import { ContextCartProduct } from '../pages/MyCart';
-
 const ICON_CLASS =
   'transition-all cursor-pointer hover:text-brand hover:scale-105 mx-1';
 
 export default function CartItem(
-  {
-  product,
-  product: { id, image, title, option, quantity, price },
-  uid,
-}
-)
-
-
+//   {
+//   product,
+//   product: { id, image, title, option, quantity, price },
+//   uid,
+// }
 {
-  // const value = useContext(ContextCartProduct);
-  // console.log(value)
+  cartproduct
+}
 
-
+) {
   const handleMinus = () => {
     if (quantity < 2) return;
     addOrUpdateToCart(uid, { ...product, quantity: quantity - 1 });

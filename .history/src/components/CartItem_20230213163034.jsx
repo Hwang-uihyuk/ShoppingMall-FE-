@@ -54,16 +54,13 @@ console.log(typeof(product.size))
   
     
       axios.delete(`http://3.38.35.43:8080/user/cart/${product.id}`,
-      
-       
-      
-      
-      
       {
         params : {
-          size : product.size
-        },
-
+          "size" : String(product.size)
+        }
+      }
+      ,
+      {
         headers:{
           "Content-Type": "application/json",
           "Authorization": window.localStorage.getItem('Login')

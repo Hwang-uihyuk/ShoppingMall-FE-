@@ -25,19 +25,7 @@ export default function MyCart() {
   useEffect(()=>{
     console.log(cartproduct)},[])
 
-       
-    //장바구니 상품 가져오기 
-    
-    useEffect(()=> {axios.get("http://3.38.35.43:8080/user/cart",{
-      headers:{
-        "Content-Type": "application/json",
-        "Authorization": window.localStorage.getItem('Login')
-      }
-    }).then((response) => 
-    setCartProduct(response.data))},[])
-
-
-  // if (isLoading) return <p>Loading...</p>;
+  if (isLoading) return <p>Loading...</p>;
 
   const hasProducts = cartproduct.length > 0;
   
@@ -50,7 +38,16 @@ export default function MyCart() {
       (prev, current) => prev + parseInt(current.price) * current.quantity,
       0
     );
- 
+    
+    //장바구니 상품 가져오기 
+    
+    useEffect(()=> {axios.get("http://3.38.35.43:8080/user/cart",{
+      headers:{
+        "Content-Type": "application/json",
+        "Authorization": window.localStorage.getItem('Login')
+      }
+    }).then((response) => 
+    setCartProduct(response.data))},[])
     
     
   

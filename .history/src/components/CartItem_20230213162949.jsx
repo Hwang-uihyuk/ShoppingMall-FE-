@@ -51,19 +51,15 @@ console.log(typeof('M'))
 console.log(typeof(product.size))
   const handleDelete = () => {
     
-  
-    
-      axios.delete(`http://3.38.35.43:8080/user/cart/${product.id}`,
-      
-       
-      
-      
-      
+    // axios.delete(`http://3.38.35.43:8080/user/cart/${product.id}`
+    axios.delete(`http://3.38.35.43:8080/user/cart/30/size=L`,
       {
         params : {
-          size : product.size
-        },
-
+          "size" : String(product.size)
+        }
+      }
+      ,
+      {
         headers:{
           "Content-Type": "application/json",
           "Authorization": window.localStorage.getItem('Login')

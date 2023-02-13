@@ -34,57 +34,32 @@ export default function CartItem(
 
 
     // 장바구니 상품 가져오기 
-    // const [cartproduct, setCartProduct] = useState('')
-    // axios.get("http://3.38.35.43:8080/user/cart",{
-    //   headers:{
-    //     "Content-Type": "application/json",
-    //     "Authorization": window.localStorage.getItem('Login')
-    //   }
+    const [cartproduct, setCartProduct] = useState('')
+    axios.get("http://3.38.35.43:8080/user/cart",{
+      headers:{
+        "Content-Type": "application/json",
+        "Authorization": window.localStorage.getItem('Login')
+      }
 
-    // }).then((response) => {
-    // setCartProduct(response.data)})
+    }).then((response) => {
+    setCartProduct(response.data)})
 
   //cart
   //상품 삭제하기 
-  console.log(product.id)
-console.log(typeof('M'))
-console.log(typeof(product.size))
   const handleDelete = () => {
-    
-  
-    
-      axios.delete(`http://3.38.35.43:8080/user/cart/${product.id}`,
-      
-       
-      
-      
-      
-      {
-        params : {
-          size : product.size
-        },
-
+      const data = JSON.stringify({
+        "size" : product.size
+      })
+      axios.delete(`http://3.38.35.43:8080/user/cart/${product.id}`,data,{
         headers:{
           "Content-Type": "application/json",
           "Authorization": window.localStorage.getItem('Login')
         }
-      }
-      ).then((res) => console.log(res))
-      .catch((error) => console.log(error))
-
-      // axios({
-      //   method :'DELETE',
-      //   url :`http://3.38.35.43:8080/user/cart/${product.id}`,
-      //   body : JSON.stringify({ 'size' : product.size }),
-      //   headers : {
-      //     "Content-Type": "application/json",
-      //    "Authorization": window.localStorage.getItem('Login')
-      //   }
-      // })
+      }).response((res) => console.log(res))
   }
-//보냄
 
-//잠만 나갈게 ㄱㄷ //들림 ???????
+
+
 
 
   return (
@@ -97,9 +72,9 @@ console.log(typeof(product.size))
           <p>₩{product.price}</p>
         </div>
         <div className='text-2xl flex items-center'>
-          <AiOutlineMinusSquare className={ICON_CLASS}  />
+          <AiOutlineMinusSquare className={ICON_CLASS} onClick={handleMinus} />
           <span>{product.count}</span>
-          <AiOutlinePlusSquare className={ICON_CLASS} />
+          <AiOutlinePlusSquare className={ICON_CLASS} onClick={handlePlus} />
           <RiDeleteBin5Fill className={ICON_CLASS} onClick={handleDelete} />
         </div>
       </div>

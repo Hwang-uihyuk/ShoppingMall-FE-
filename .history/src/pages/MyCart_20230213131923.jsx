@@ -37,7 +37,7 @@ export default function MyCart() {
     setCartProduct(response.data))},[])
 
 
-  // if (isLoading) return <p>Loading...</p>;
+  if (isLoading) return <p>Loading...</p>;
 
   const hasProducts = cartproduct.length > 0;
   

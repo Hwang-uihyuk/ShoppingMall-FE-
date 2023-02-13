@@ -46,45 +46,23 @@ export default function CartItem(
 
   //cart
   //상품 삭제하기 
-  console.log(product.id)
-console.log(typeof('M'))
-console.log(typeof(product.size))
-  const handleDelete = () => {
-    
-  
-    
-      axios.delete(`http://3.38.35.43:8080/user/cart/${product.id}`,
-      
-       
-      
-      
-      
-      {
-        params : {
-          size : product.size
-        },
-
+  console.log(product.size)
+  const handleDelete = (e) => {
+    e.preventDefault();
+      const data = JSON.stringify({
+        "size" : product.size
+      })
+      axios.delete(`http://3.38.35.43:8080/user/cart/${product.id}`,data,{
         headers:{
           "Content-Type": "application/json",
           "Authorization": window.localStorage.getItem('Login')
         }
-      }
-      ).then((res) => console.log(res))
+      }).response((res) => console.log(res))
       .catch((error) => console.log(error))
-
-      // axios({
-      //   method :'DELETE',
-      //   url :`http://3.38.35.43:8080/user/cart/${product.id}`,
-      //   body : JSON.stringify({ 'size' : product.size }),
-      //   headers : {
-      //     "Content-Type": "application/json",
-      //    "Authorization": window.localStorage.getItem('Login')
-      //   }
-      // })
   }
-//보냄
 
-//잠만 나갈게 ㄱㄷ //들림 ???????
+
+
 
 
   return (
@@ -97,9 +75,9 @@ console.log(typeof(product.size))
           <p>₩{product.price}</p>
         </div>
         <div className='text-2xl flex items-center'>
-          <AiOutlineMinusSquare className={ICON_CLASS}  />
+          <AiOutlineMinusSquare className={ICON_CLASS} onClick={''} />
           <span>{product.count}</span>
-          <AiOutlinePlusSquare className={ICON_CLASS} />
+          <AiOutlinePlusSquare className={ICON_CLASS} onClick={''} />
           <RiDeleteBin5Fill className={ICON_CLASS} onClick={handleDelete} />
         </div>
       </div>

@@ -26,9 +26,7 @@ export default function ProductDetail() {
   useEffect(()=>{
     axios.get(`http://3.38.35.43:8080/shop/detail/${id}`,{
     "headers" : {
-      "Content-type" : "application/json",
-      'Authorization' : window.localStorage.getItem('Login')
-
+      "Content-type" : "application/json"
   }
   }).then( (response) => {
   setDetailData(response.data)
@@ -108,17 +106,15 @@ console.log(detaildata)
 
     alert('좋아요 등록됬습니다')})
 }
- console.log(detaildata.check_favorite)
+ console.log(detaildata.favorite)
 //좋아요 해제하기
-
-
-  const handleDeleteLike = () =>{
+  const handleDeleteLike = (e) =>{
     axios.delete(`http://3.38.35.43:8080/user/favorite/${detaildata.id}`,{
       headers : {
         'Content-Type' : 'application/json',
         'Authorization' : window.localStorage.getItem('Login')
       }
-    }).then((response) => console.log("delete success"))
+    }).then((response) => alert('좋아요 해제되었습니다.'))
   }
   return (
     <>

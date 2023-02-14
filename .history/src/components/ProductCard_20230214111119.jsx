@@ -23,9 +23,9 @@ export default function ProductCard({
   //     console.log('좋아요 등록 success')
   //     })
   //   },[])
-  
+
   const LikeButton = (e) => {
-    
+    console.log(product.id)
     
       axios.post(`http://3.38.35.43:8080/user/favorite/${product.id}`,{},{
       headers :{

@@ -108,11 +108,9 @@ console.log(detaildata)
 
     alert('좋아요 등록됬습니다')})
 }
- console.log(detaildata.check_favorite)
+ console.log(detaildata.favorite)
 //좋아요 해제하기
-
-
-  const handleDeleteLike = () =>{
+  const handleDeleteLike = (e) =>{
     axios.delete(`http://3.38.35.43:8080/user/favorite/${detaildata.id}`,{
       headers : {
         'Content-Type' : 'application/json',

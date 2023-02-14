@@ -23,7 +23,7 @@ export default function ProductCard({
   //     console.log('좋아요 등록 success')
   //     })
   //   },[])
-  
+  console.log(product.id)
   const LikeButton = (e) => {
     
     

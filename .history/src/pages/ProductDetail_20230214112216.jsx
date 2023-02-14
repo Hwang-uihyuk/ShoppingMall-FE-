@@ -3,7 +3,7 @@ import { useLocation } from 'react-router-dom';
 import Button from '../components/ui/Button';
 
 import useCart from '../components/hooks/useCart';
-import axios, { AxiosError } from 'axios';
+import axios from 'axios';
 import { useEffect } from 'react';
 
 
@@ -26,16 +26,13 @@ export default function ProductDetail() {
   useEffect(()=>{
     axios.get(`http://3.38.35.43:8080/shop/detail/${id}`,{
     "headers" : {
-      "Content-type" : "application/json",
-      'Authorization' : window.localStorage.getItem('Login')
-
+      "Content-type" : "application/json"
   }
-  }).then( (response) => {
+  }).then( (response) => 
   setDetailData(response.data)
-  // console.log(response.data)
-  }
-  )},[])
-console.log(detaildata)
+  
+  )},[detaildata])
+
 
   //황의혁 상세페이지 작성 
 
@@ -80,7 +77,7 @@ console.log(detaildata)
   .catch(error => console.log(error))  }
 
 
-  //좋아요 버튼클릭됬을때, 아닐때
+
 
   //좋아요등록하기
   const handleAddLike = (e) => { 
@@ -90,36 +87,11 @@ console.log(detaildata)
       'Content-Type' : 'application/json',
       'Authorization' : window.localStorage.getItem('Login')
   }
-  }).then((response) => {
-    console.log(detaildata.check_favorite)
-    
-    axios.get(`http://3.38.35.43:8080/shop/detail/${id}`,{
-    "headers" : {
-      "Content-type" : "application/json",
-      'Authorization' : window.localStorage.getItem('Login')
-
-  }
-  }).then( (response) => {
-  setDetailData(response.data)
-  console.log(detaildata.check_favorite)
-  // console.log(response.data)
-  }
-  )
-
-    alert('좋아요 등록됬습니다')})
+  }).then((response) => alert('좋아요 등록됬습니다'))
 }
- console.log(detaildata.check_favorite)
+ 
 //좋아요 해제하기
-
-
-  const handleDeleteLike = () =>{
-    axios.delete(`http://3.38.35.43:8080/user/favorite/${detaildata.id}`,{
-      headers : {
-        'Content-Type' : 'application/json',
-        'Authorization' : window.localStorage.getItem('Login')
-      }
-    }).then((response) => console.log("delete success"))
-  }
+  const handleDeleteLike = (e) =>{}
   return (
     <>
       <p className='mx-12 mt-4 text-gray-700'>{detaildata.category}</p>
@@ -161,8 +133,8 @@ console.log(detaildata)
           <span className='flex'>
           <Button text='장바구니에 추가' onClick={handleAddCart} />
           <Button text='상품구매하기'  />
-          {!detaildata.check_favorite && <button onClick={handleAddLike} className='bg-slate-100 border'> 좋아요{detaildata.favorite} </button>}
-          {detaildata.check_favorite && <button onCLick={handleDeleteLike} className='bg-slate-100 border'> 좋아요 해제{detaildata.favorite} </button>}
+          <button onClick={handleAddLike} className='bg-slate-100 border'> 좋아요{detaildata.favorite} </button>
+          <button onCLick={handleDeleteLike} className='bg-slate-100 border'>{detaildata.favortie}</button>
           </span>
         </div>
       </section>

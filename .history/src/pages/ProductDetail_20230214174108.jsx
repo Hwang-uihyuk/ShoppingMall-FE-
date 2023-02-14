@@ -108,7 +108,7 @@ console.log(detaildata)
 
     alert('좋아요 등록됬습니다')})
 }
- console.log(detaildata.check_favorite)
+ console.log(detaildata.favorite)
 //좋아요 해제하기
 
 

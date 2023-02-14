@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation,Link } from 'react-router-dom';
 import Button from '../components/ui/Button';
 
 import useCart from '../components/hooks/useCart';
@@ -160,7 +160,10 @@ console.log(detaildata)
           {success && <p className='my-2'>✅{success}</p>}
           <span className='flex'>
           <Button text='장바구니에 추가' onClick={handleAddCart} />
-          <Button text='상품구매하기'  />
+          <Link to ='/order' state = {{product : detaildata}}>
+            <Button text='상품구매하기'/>
+          </Link>
+
           {!detaildata.check_favorite && <button onClick={handleAddLike} className='bg-slate-100 border'> 좋아요{detaildata.favorite} </button>}
           {detaildata.check_favorite && <button onCLick={handleDeleteLike} className='bg-slate-100 border'> 좋아요 해제{detaildata.favorite} </button>}
           </span>

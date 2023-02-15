@@ -95,7 +95,6 @@ const ImageContainer = styled.div`
     align-items: center;
     justify-content: center;
 `
-
 const Image = styled.img`
     width : 40%;
     height : auto;

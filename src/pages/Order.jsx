@@ -67,22 +67,41 @@ const OrderTable = styled.table`
     border-collapse: collapse;
     width : 1000px;
 `
+
 const TD = styled.td`
-    width : flex;
+    width : 300px;
+    padding : 15px;
+    border : 1px solid #aaaaaadf;
+`
+const QuantityTD = styled.td`
+    width : 100px;
+    padding : 15px;
+    border : 1px solid #aaaaaadf;
+`
+const SizeTD = styled.td`
+    width : 70px;
+    padding : 15px;
+    border : 1px solid #aaaaaadf;
+`
+const PriceTD = styled.td`
+    width : 120px;
     padding : 15px;
     border : 1px solid #aaaaaadf;
 `
 const ImageContainer = styled.div`
-    width: 40%;
-    height : 40%;
+    width: 100%;
+    height : 100%;
     display : flex;
     align-items: center;
     justify-content: center;
 `
 
 const Image = styled.img`
-    width : 100%;
+    width : 40%;
     height : auto;
+`
+const SizedBox = styled.div`
+    width : 15px;
 `
 const AddressInfo = ({label,value,...rest})=>(
     <OrderWrapper>
@@ -96,21 +115,24 @@ const OrderInfo = ({label,imgKey,productname,price,count,size,...rest})=>(
         <OrderTable>
             <tbody>
                 <tr>
-                    <TD></TD>
+                    <TD>PRODUCT IMAGE</TD>
                     <TD>PRODUCT</TD>
-                    <TD>PRICE</TD>
-                    <TD>QUANTITY</TD>
-                    <TD>SIZE</TD>
+                    <PriceTD>PRICE</PriceTD>
+                    <QuantityTD>QUANTITY</QuantityTD>
+                    <SizeTD>SIZE</SizeTD>
                 </tr>
+                <br/>
                 <tr>
                     <TD>
                         <ImageContainer>
                             <Image src = {imgKey}/>
+                            <SizedBox/>
+                            <Image src={imgKey} />
                         </ImageContainer></TD>
                     <TD>{productname}</TD>
-                    <TD>{price}</TD>
-                    <TD>{count}</TD>
-                    <TD>{size}</TD>
+                    <PriceTD>{price}</PriceTD>
+                    <QuantityTD>{count}</QuantityTD>
+                    <SizeTD>{size}</SizeTD>
                 </tr>
             </tbody>
     </OrderTable>

@@ -18,8 +18,6 @@ export default function MyPage() {
     const [hide3, setHide3] = useState(false)
     const [hide4, setHide4] = useState(false)
     
-    
-
 //처음 사용자 정보 가져오기
 useEffect(() => {
     axios({
@@ -396,6 +394,10 @@ console.log(pwchange)
 
             <div>
                 <Link to ="/mypage/favorite">좋아요한상품</Link>
+            </div>
+
+            <div>
+                <Link to ="/mypage/orderlist">주문목력</Link>
             </div>
 
             

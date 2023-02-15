@@ -174,7 +174,7 @@ console.log(detaildata)
           {success && <p className='my-2'>✅{success}</p>}
           <span className='flex'>
           <Button text='장바구니에 추가' onClick={handleAddCart} />
-          <Link to ='/order' state = {{product : detaildata}}>
+          <Link to ='/order' state = {{product : detaildata, size :selected}}>
             <Button text='상품구매하기'/>
           </Link>
 

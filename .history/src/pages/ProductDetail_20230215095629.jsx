@@ -120,18 +120,18 @@ console.log(detaildata)
       }
     }).then((response) => {
 
-      axios.get(`http://3.38.35.43:8080/shop/detail/${id}`,{
-    "headers" : {
-      "Content-type" : "application/json",
-      'Authorization' : window.localStorage.getItem('Login')
+  //     axios.get(`http://3.38.35.43:8080/shop/detail/${id}`,{
+  //   "headers" : {
+  //     "Content-type" : "application/json",
+  //     'Authorization' : window.localStorage.getItem('Login')
 
-  }
-  }).then( (response) => {
-  setDetailData(response.data)
-  console.log(detaildata.check_favorite)
-  // console.log(response.data)
-  }
-  )
+  // }
+  // }).then( (response) => {
+  // setDetailData(response.data)
+  // console.log(detaildata.check_favorite)
+  // // console.log(response.data)
+  // }
+  // )
     })
   }
   return (

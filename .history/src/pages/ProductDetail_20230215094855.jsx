@@ -108,18 +108,17 @@ console.log(detaildata)
 
     alert('좋아요 등록됬습니다')})
 }
- 
+ console.log(detaildata.check_favorite)
 //좋아요 해제하기
 
 
-  const handleDeleteLike = () => {
+  const handleDeleteLike = () =>{
     axios.delete(`http://3.38.35.43:8080/user/favorite/${detaildata.id}`,{
       headers : {
         'Content-Type' : 'application/json',
         'Authorization' : window.localStorage.getItem('Login')
       }
     }).then((response) => {
-
       axios.get(`http://3.38.35.43:8080/shop/detail/${id}`,{
     "headers" : {
       "Content-type" : "application/json",
@@ -179,7 +178,7 @@ console.log(detaildata)
           </Link>
 
           {!detaildata.check_favorite && <button onClick={handleAddLike} className='bg-slate-100 border'> 좋아요{detaildata.favorite} </button>}
-          {detaildata.check_favorite && <button onClick={handleDeleteLike} className='bg-slate-100 border'> 좋아요 해제{detaildata.favorite} </button>}
+          {detaildata.check_favorite && <button onCLick={handleDeleteLike} className='bg-slate-100 border'> 좋아요 해제{detaildata.favorite} </button>}
           </span>
         </div>
       </section>

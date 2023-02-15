@@ -20,6 +20,7 @@ import Mypage from './pages/Mypage';
 import EditProduct from './pages/EditProduct';
 import EditProductDetail from './pages/EditProductDetail';
 import Order from './pages/Order';
+import Favoriteproducts from './pages/Favoriteproducts';
 const router = createBrowserRouter([
   {
     path:'/',
@@ -86,6 +87,10 @@ const router = createBrowserRouter([
     {
       path :'/order',
       element:<Order/>
+    },
+    {
+      path :'/mypage/favorite',
+      element:<Favoriteproducts/>
     }
 
     

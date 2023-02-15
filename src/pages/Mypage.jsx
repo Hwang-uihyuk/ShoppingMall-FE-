@@ -394,6 +394,9 @@ console.log(pwchange)
                 <Link to ="/products/edit">상품수정하기</Link>
             </div>
 
+            <div>
+                <Link to ="/mypage/favorite">좋아요한상품</Link>
+            </div>
 
             
     </div>

@@ -397,7 +397,7 @@ console.log(pwchange)
             </div>
 
             <div>
-                <Link to ="/mypage/orderlist">주문목력</Link>
+                <Link to ="/mypage/orderlist">주문목록</Link>
             </div>
 
             

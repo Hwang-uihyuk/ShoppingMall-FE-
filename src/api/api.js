@@ -1,5 +1,6 @@
 import axios from 'axios'
 // import { useAxiosAuthContext } from '../components/context/UserStateContext';
+
 const baseURL = "http://3.38.35.43:8080"
 
 // Post : 로그인
@@ -55,6 +56,25 @@ export function PostSignUp(body){
             console.log(error)
             alert("이메일 혹은 전화번호 혹은 배송지가 중복됩니다")
         });
+}
+
+
+//상품 정보 수정하기
+export function PostEditProduct(editform){
+    const data = JSON.stringify({
+        name : editform.name,
+		price : editform.price,
+		category : editform.category,
+		description : editform.description,
+		size : editform.size,
+		imgKey : editform.imgKey
+      })
+    axios.put(`http://3.38.35.43:8080/register/product/${editform.id}`,data,{
+        headers: {  
+            "Content-Type": "application/json",
+            "Authorization" : window.localStorage.getItem('Login')
+           }
+    }).then(res => console.log('success'))
 }
 
 export function LogOut(){

@@ -86,6 +86,7 @@ export default function OrderList(){
             }
         }).then((response)=>{
             console.log("주문목록을 가져옵니다")
+            console.log(response.data)
             setOrders(response.data)
         }).catch((error) => console.log(error))
     },[])
@@ -93,7 +94,7 @@ export default function OrderList(){
         <>
             <OrdersHead/>
             <br/>
-            {orders.map((order,index)=>(
+            {orders&&orders.map((order,index)=>(
                 <OrdersBody key = {index} order={order}/>
             ))}
         </>

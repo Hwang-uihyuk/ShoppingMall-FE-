@@ -89,14 +89,15 @@ const PriceTD = styled.td`
     border : 1px solid #aaaaaadf;
 `
 const ImageContainer = styled.div`
-    width: 100%;
-    height : 100%;
+    width: 40%;
+    height : 40%;
     display : flex;
     align-items: center;
     justify-content: center;
 `
+
 const Image = styled.img`
-    width : 40%;
+    width : 100%;
     height : auto;
 `
 const SizedBox = styled.div`
@@ -114,24 +115,21 @@ const OrderInfo = ({label,imgKey,productname,price,count,size,...rest})=>(
         <OrderTable>
             <tbody>
                 <tr>
-                    <TD>PRODUCT IMAGE</TD>
+                    <TD></TD>
                     <TD>PRODUCT</TD>
-                    <PriceTD>PRICE</PriceTD>
-                    <QuantityTD>QUANTITY</QuantityTD>
-                    <SizeTD>SIZE</SizeTD>
+                    <TD>PRICE</TD>
+                    <TD>QUANTITY</TD>
+                    <TD>SIZE</TD>
                 </tr>
-                <br/>
                 <tr>
                     <TD>
                         <ImageContainer>
                             <Image src = {imgKey}/>
-                            <SizedBox/>
-                            <Image src={imgKey} />
                         </ImageContainer></TD>
                     <TD>{productname}</TD>
-                    <PriceTD>{price}</PriceTD>
-                    <QuantityTD>{count}</QuantityTD>
-                    <SizeTD>{size}</SizeTD>
+                    <TD>{price}</TD>
+                    <TD>{count}</TD>
+                    <TD>{size}</TD>
                 </tr>
             </tbody>
     </OrderTable>
@@ -183,7 +181,6 @@ export default function Order(){
         let today = new Date();
         let year = today.getFullYear();
         let month = ('0' + (today.getMonth() + 1)).slice(-2);
-
         let date = ('0' + (today.getDate())).slice(-2);
         let hours = ('0' + (today.getHours())).slice(-2);
         let minutes = ('0' + (today.getMinutes())).slice(-2);

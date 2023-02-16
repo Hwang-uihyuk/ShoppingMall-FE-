@@ -15,6 +15,7 @@ const CategoriesContainer = styled.div`
     padding : 15px 20px 10px 30px;
     position : relative;
     top : 30px;
+    display: flex;
 `
 const Category = styled.h2`
     color : black;
@@ -26,21 +27,68 @@ const Category = styled.h2`
         cursor : pointer;
     }
 `
-const Partition = styled.h2`
-    color : black;
-    float: left;
-    margin : 0 10px 0 10px;
-    font-size : 20px;
+const SearchContainer = styled.div`
+  width : 20%;
+  height : 70%;
+  margin-left: auto;
+  margin-right : 20px;
+  display: flex;
 `
+const SearchInput = styled.input`
+  width : 70%;
+  height : 30%;
+  align-self: center;
+  margin-right: 5px;
+  border-radius: 15px;
+  border : 1px solid grey;
+`
+const SearchBtn = styled.button`
+  width : 100px;
+  height : 30px;
+  margin-left: auto;
+  background-color : black;
+  color : white;
+  align-self: center;
+  border-radius: 15px;
+  font-family: "RalewayBold";
+`
+
+const Search = ({keywordHandler,searchHandler}) =>(
+  <SearchContainer>
+    <SearchInput onChange={keywordHandler}></SearchInput>
+    <SearchBtn onClick = {searchHandler}>SEARCH</SearchBtn>
+  </SearchContainer>
+)
 // const categoryClickHandler = (event) => {
 //   setUserAddress(event.currentTarget.value);
 // }
 
 export default function Products() {
     const [category,setCategory] = useState("all");
+    const [keyword,setKeyword] = useState("");
     const handleCategoryClick = (props) =>{
       setCategory(props)
     }
+    const onKeywordChangeHandeler =(event) =>{
+      const currentKeyword = event.currentTarget.value;
+      setKeyword(currentKeyword);
+
+    }
+    const onSearchHandeler = (event)=>{
+      event.preventDefault();
+      console.log(keyword);
+
+      axios({
+        method : "get",
+        url : `${baseURL}/shop/search/${keyword}?sort=hits`,
+        headers : {
+          "Content-Type" :"application/json"
+        }
+      }).then((response)=>{
+        setProducts(response.data)
+      }).catch((error)=>console.log(error))
+    }
+
     const [products,setProducts] = useState();
     useEffect(() => {
       axios({
@@ -63,14 +111,17 @@ export default function Products() {
           <Category onClick={() => handleCategoryClick("outer")}>OUTER</Category>
           <Category onClick={() => handleCategoryClick("pants")}>PANTS</Category>
           <Category onClick={() => handleCategoryClick("shoes")}>SHOES</Category>
+          <Search
+            keywordHandler={onKeywordChangeHandeler}
+            searchHandler= {onSearchHandeler}/>
         </CategoriesContainer>
+
         {/* {isLoading && <p>Loading...</p>}
         {error && <p>{error}</p>} */}
         <div className='p-10 pt-4'>
           <ul className='grid grid-cols-1 md:grid-cols-4 lg-grid-cols-4 gap-10'>
             {products &&
-              products.filter((product)=>{
-                
+              products.filter((product)=>{               
                 if(category === "all"){
                 
                   return product

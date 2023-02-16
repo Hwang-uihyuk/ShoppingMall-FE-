@@ -2,6 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 import React,{useState,useEffect} from 'react';
 import { getProducts } from '../api/firebase';
 import ProductCard from './ProductCard';
+import NoResult from '../pages/NoResult';
 import useProducts from './hooks/useProducts';
 import styled from "styled-components";
 import { LoadProductsAll } from '../api/api';
@@ -64,6 +65,7 @@ const Search = ({keywordHandler,searchHandler}) =>(
 // }
 
 export default function Products() {
+    const [isResult,setIsResult] = useState(true);
     const [category,setCategory] = useState("all");
     const [keyword,setKeyword] = useState("");
     const handleCategoryClick = (props) =>{
@@ -86,7 +88,11 @@ export default function Products() {
         }
       }).then((response)=>{
         setProducts(response.data)
-      }).catch((error)=>console.log(error))
+        setIsResult(true);
+      }).catch((error)=>{
+        console.log(error);
+        setIsResult(false);
+      })
     }
 
     const [products,setProducts] = useState();
@@ -98,9 +104,11 @@ export default function Products() {
           "Content-Type": "application/json",
         }
       }).then((response) => {
-        setProducts(response.data)
+        setProducts(response.data);
       })
-        .catch((error) => console.log(error))
+        .catch((error)=>{
+          console.log(error);
+        })
     }, [])
   
     return (
@@ -119,7 +127,8 @@ export default function Products() {
         {/* {isLoading && <p>Loading...</p>}
         {error && <p>{error}</p>} */}
         <div className='p-10 pt-4'>
-          <ul className='grid grid-cols-1 md:grid-cols-4 lg-grid-cols-4 gap-10'>
+          {isResult&&
+            <ul className='grid grid-cols-1 md:grid-cols-4 lg-grid-cols-4 gap-10'>
             {products &&
               products.filter((product)=>{               
                 if(category === "all"){
@@ -134,6 +143,8 @@ export default function Products() {
               ))
             }
           </ul>
+          }
+          {!isResult&&<NoResult></NoResult>}
         </div>
       </>
     );

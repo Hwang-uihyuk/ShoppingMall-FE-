@@ -1,6 +1,4 @@
 import axios from 'axios'
-// import { useAxiosAuthContext } from '../components/context/UserStateContext';
-
 const baseURL = "http://3.38.35.43:8080"
 
 // Post : 로그인

@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { uploadImage } from '../api/uploader';
 import Button from '../components/ui/Button';
 //aws
 import AWS from 'aws-sdk';

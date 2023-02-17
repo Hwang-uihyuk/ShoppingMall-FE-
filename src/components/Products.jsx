@@ -68,6 +68,7 @@ export default function Products() {
     const [isResult,setIsResult] = useState(true);
     const [category,setCategory] = useState("all");
     const [keyword,setKeyword] = useState("");
+    const [products, setProducts] = useState();
     const onCategoryClick = (props) =>{
       setCategory(props);
       axios({
@@ -78,9 +79,9 @@ export default function Products() {
         }
       }).then((response)=>{
         setProducts(response.data)
+        console.log(category)
       }).catch((error)=>{
         console.log(error);
-
       })
     }
     const onKeywordChangeHandeler =(event) =>{
@@ -105,8 +106,6 @@ export default function Products() {
         setIsResult(false);
       })
     }
-
-    const [products,setProducts] = useState();
     useEffect(() => {
       axios({
         method: "get",

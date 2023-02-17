@@ -42,7 +42,14 @@ const Container = styled.div`
     width : 100vh;
     display: flex;
     justify-content: center;
+    align-content : center;
     flex-direction: column;
+`
+const Page = styled.div`
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
 `
 const OrdersHead = ()=>(
         <thead>
@@ -109,17 +116,19 @@ export default function OrderList(){
     },[])
     return(
         <>
-            <Container>
-                <OrderListLabel>ORDERS</OrderListLabel>
-                <Table>
-                    <OrdersHead/>
-                    <br/>
-                    {orders &&
-                        orders.map((order,index)=>(
-                        <OrdersBody key = {index} order={order}/>
-                    ))}
-                </Table>
-            </Container>
+            <Page>
+                <Container>
+                    <OrderListLabel>ORDERS</OrderListLabel>
+                    <Table>
+                        <OrdersHead />
+                        <br />
+                        {orders &&
+                            orders.map((order, index) => (
+                                <OrdersBody key={index} order={order} />
+                            ))}
+                    </Table>
+                </Container>
+            </Page>
         </>
     )
 }

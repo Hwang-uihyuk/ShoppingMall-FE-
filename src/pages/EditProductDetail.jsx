@@ -8,6 +8,9 @@ import { PostEditProduct } from '../api/api';
 export default function EditProductDetail() {
     const location = useLocation();
     const [editform, setEditForm] = useState({})
+    
+    // console.log(editform);
+
 
     const [data, setData] = useState(({
         name : editform.name,
@@ -43,8 +46,7 @@ export default function EditProductDetail() {
             }
         }).then((response) => {
             console.log("수정할 데이터 값을 가져왔습니다.");
-            console.log(id)
-            console.log(response.data)
+            
             setEditForm(response.data)
     
          })
@@ -58,20 +60,25 @@ export default function EditProductDetail() {
         setEditForm((prevState)=>{
             return { ...prevState, stock : stock}
         })
+        // console.log(editform)
+    
+        //처음에 데이터 값을 가져오고 
+        // put을 해줘서 stock 값을 변경시켜주는건데
 
-
-        axios.put(`http://3.38.35.43:8080/register/product/add_stock`,{
-            "product_id":editform.id   ,
-            "stock" :stock
-
-
-            
-        },{
+        console.log(editform.id)
+        console.log(stock)
+        const data = JSON.stringify({
+            "product_id" : editform.id,
+            "stock" : stock
+        })
+        axios.put(`http://3.38.35.43:8080/register/product/add_stock`,data
+         
+        ,{
             headers: {
                 'Content-Type' : 'application/json',
                 "Authorization" : window.localStorage.getItem('Login')
             }
-        })
+        }).then(res => {})
     }
     // 상품 이름 변경
   const EditName = (e) => {

@@ -6,7 +6,6 @@ import { BsFillPencilFill } from 'react-icons/bs';
 import User from './User';
 import Button from './ui/Button';
 import { useAxiosAuthContext } from './context/UserStateContext';
-import CartStatus from './CartStatus';
 
 export default function Navbar() {
   const { user, logout } = useAxiosAuthContext();

@@ -1,15 +1,11 @@
 import React from 'react'
 import { Navigate } from 'react-router-dom';
-import { useAuthContext } from '../components/context/AuthContext'
 
 export default function ProtectedRoute({children,requirAdmin}) {
-  const {user} = useAuthContext();
 
-  if(!user || (requirAdmin && !user.isAdim)){
-      return <Navigate to ="/" replace />
+  return <Navigate to="/" replace />
       // 위에 조건이 없으면 바로 홈으로(Navigate쓰기)
       //Navigate에서 replace로 history에 남겨두지않음
-  }
 
   return children;
   //로그인한 사용자가 있는지 확인

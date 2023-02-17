@@ -2,14 +2,14 @@ import React, { useState } from 'react';
 import { useLocation,Link } from 'react-router-dom';
 import Button from '../components/ui/Button';
 
-import useCart from '../components/hooks/useCart';
+// import useCart from '../components/hooks/useCart';
 import axios, { AxiosError } from 'axios';
 import { useEffect } from 'react';
 
 
 export default function ProductDetail() {
 
-  const { addOrUpdateItem } = useCart();
+  // const { addOrUpdateItem } = useCart();
   const {
     state: {
       product: { id, image, title, description, category, price, options },
@@ -46,12 +46,12 @@ console.log(detaildata)
 
   const handleClick = (e) => {
     const product = { id, image, title, price, option: selected, quantity: 1 };
-    addOrUpdateItem.mutate(product, {
-      onSuccess: () => {
-        setSuccess('장바구니에 추가되었습니다.');
-        setTimeout(() => setSuccess(null), 3000);
-      },
-    });
+    // addOrUpdateItem.mutate(product, {
+    //   onSuccess: () => {
+    //     setSuccess('장바구니에 추가되었습니다.');
+    //     setTimeout(() => setSuccess(null), 3000);
+    //   },
+    // });
   };
   
   //이거 사이즈 쓰려면 이렇게 바꿔줘서 써야함 ㅇㅇ

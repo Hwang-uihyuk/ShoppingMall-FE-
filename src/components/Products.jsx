@@ -1,9 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import React,{useState,useEffect} from 'react';
-import { getProducts } from '../api/firebase';
 import ProductCard from './ProductCard';
 import NoResult from '../pages/NoResult';
-import useProducts from './hooks/useProducts';
 import styled from "styled-components";
 import { LoadProductsAll } from '../api/api';
 import axios from 'axios'

@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { getCart } from '../api/firebase';
 import { useQuery } from '@tanstack/react-query';
-import { useAuthContext } from '../components/context/AuthContext';
 import CartItem from '../components/CartItem';
 import { BsFillPlusCircleFill } from 'react-icons/bs';
 import { FaEquals } from 'react-icons/fa';
@@ -16,12 +14,6 @@ const SHIPPING = 3000;
 export const ContextCartProduct = createContext();
 export default function MyCart() {
   const [cartproduct, setCartProduct] = useState('')
-    
-  
-
-
-  const { uid } = useAuthContext();
-  const { isLoading, data: products } = useQuery(['carts'], () => getCart(uid));
   useEffect(()=>{
     console.log(cartproduct)},[])
 

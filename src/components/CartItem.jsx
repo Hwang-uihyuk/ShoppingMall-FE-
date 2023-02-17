@@ -1,11 +1,7 @@
 import React, { useState } from 'react';
 import { RiDeleteBin5Fill } from 'react-icons/ri';
 import { AiOutlinePlusSquare, AiOutlineMinusSquare } from 'react-icons/ai';
-import { addOrUpdateToCart, removeFromCart } from '../api/firebase';
 import axios from 'axios';
-
-import { useContext } from 'react';
-import { ContextCartProduct } from '../pages/MyCart';
 
 const ICON_CLASS =
   'transition-all cursor-pointer hover:text-brand hover:scale-105 mx-1';

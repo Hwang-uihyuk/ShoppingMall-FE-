@@ -5,7 +5,6 @@ import styled from 'styled-components'
 const Table = styled.table`
     margin : 10px 10px 10px 10px;
     border-collapse : collapse;
-    width : 1000px;
 `
 const TD = styled.td`
     width : 300px;
@@ -38,11 +37,14 @@ const Image = styled.img`
     width : 40%;
     height : auto;
 `
-const SizedBox = styled.div`
-    width : 15px;
+const Container = styled.div`
+    margin : 30px 0 0 100px;
+    width : 100vh;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
 `
 const OrdersHead = ()=>(
-    <Table>
         <thead>
             <tr>
                 <TD>ORDER DATE</TD>
@@ -53,15 +55,30 @@ const OrdersHead = ()=>(
                 <StatusTD>STATUS</StatusTD>
             </tr>
         </thead>
-    </Table>
 )
-const OrdersBody = (order,key) => (
-    <Table key = {key}>
-        <tbody>
+const parseDate = ((dateString)=>{
+    const date = new Date(dateString);
+    const year = date.getFullYear();
+    const month = date.getMonth();
+    const day = date.getDate();
+    const hour = date.getHours();
+    const minute = date.getMinutes();
+    const res = `${year}-${month}-${day}`;
+
+    return res;
+})
+
+const OrderListLabel = styled.label`
+  font-size: 25px;
+  color : #252525;
+  margin: 15px 10px 30px 10px;
+`
+const OrdersBody = ({order}) => (
             <tr>
-                <TD>{order.order_date}</TD>
+                <TD>{parseDate(order.order_date)}</TD>
                 <TD>
                     <ImageContainer>
+                        <Image src={ order.imgKey } />
                         <Image src={ order.imgKey } />
                     </ImageContainer>
                 </TD>
@@ -70,9 +87,9 @@ const OrdersBody = (order,key) => (
                 <PriceTD>{order.price}</PriceTD>
                 <StatusTD>{order.order_status}</StatusTD>
             </tr>
-        </tbody>
-    </Table>
 )
+
+
 const BaseUrl = "http://3.38.35.43:8080/";
 export default function OrderList(){
     const [orders,setOrders] = useState();
@@ -92,11 +109,17 @@ export default function OrderList(){
     },[])
     return(
         <>
-            <OrdersHead/>
-            <br/>
-            {orders&&orders.map((order,index)=>(
-                <OrdersBody key = {index} order={order}/>
-            ))}
+            <Container>
+                <OrderListLabel>ORDERS</OrderListLabel>
+                <Table>
+                    <OrdersHead/>
+                    <br/>
+                    {orders &&
+                        orders.map((order,index)=>(
+                        <OrdersBody key = {index} order={order}/>
+                    ))}
+                </Table>
+            </Container>
         </>
     )
 }

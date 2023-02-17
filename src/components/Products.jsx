@@ -68,13 +68,24 @@ export default function Products() {
     const [isResult,setIsResult] = useState(true);
     const [category,setCategory] = useState("all");
     const [keyword,setKeyword] = useState("");
-    const handleCategoryClick = (props) =>{
-      setCategory(props)
+    const onCategoryClick = (props) =>{
+      setCategory(props);
+      axios({
+        method : "get",
+        url : `${baseURL}/shop/category/${category}?sort=hits`,
+        headers : {
+          "Content-Type" :"application/json"
+        }
+      }).then((response)=>{
+        setProducts(response.data)
+      }).catch((error)=>{
+        console.log(error);
+
+      })
     }
     const onKeywordChangeHandeler =(event) =>{
       const currentKeyword = event.currentTarget.value;
       setKeyword(currentKeyword);
-
     }
     const onSearchHandeler = (event)=>{
       event.preventDefault();
@@ -114,11 +125,11 @@ export default function Products() {
     return (
       <>
         <CategoriesContainer>
-          <Category onClick={() => handleCategoryClick("all")}>ALL</Category>
-          <Category onClick={()=>handleCategoryClick("shirts")}>SHIRTS</Category>
-          <Category onClick={() => handleCategoryClick("outer")}>OUTER</Category>
-          <Category onClick={() => handleCategoryClick("pants")}>PANTS</Category>
-          <Category onClick={() => handleCategoryClick("shoes")}>SHOES</Category>
+          <Category onClick={() => onCategoryClick("all")}>ALL</Category>
+          <Category onClick={() => onCategoryClick("shirts")}>SHIRTS</Category>
+          <Category onClick={() => onCategoryClick("outer")}>OUTER</Category>
+          <Category onClick={() => onCategoryClick("pants")}>PANTS</Category>
+          <Category onClick={() => onCategoryClick("shoes")}>SHOES</Category>
           <Search
             keywordHandler={onKeywordChangeHandeler}
             searchHandler= {onSearchHandeler}/>
@@ -130,15 +141,7 @@ export default function Products() {
           {isResult&&
             <ul className='grid grid-cols-1 md:grid-cols-4 lg-grid-cols-4 gap-10'>
             {products &&
-              products.filter((product)=>{               
-                if(category === "all"){
-                
-                  return product
-                }
-                else if(product.category===category){
-                  return product
-                }
-              }).map((product)=>(
+              products.map((product)=>(
                 <ProductCard key={product.id} product={product} />
               ))
             }

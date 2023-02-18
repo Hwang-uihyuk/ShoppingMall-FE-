@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { useLocation } from 'react-router-dom';
 import styled from "styled-components";
 
-const baseURL = "http://3.38.35.43:8080"
+const baseURL = process.env.REACT_APP_URL;
 
 const InputForm = styled.input`
     border-style: 1px dotted;
@@ -150,7 +150,7 @@ export default function Order(){
     useEffect(() => {
         axios({
         method: "get",
-        url : "http://3.38.35.43:8080/user",
+        url : `${baseURL}/user`,
         headers: {  
             "Content-Type": "application/json",
             "Authorization" : window.localStorage.getItem('Login')
@@ -201,7 +201,7 @@ export default function Order(){
         })
         console.log(body);
         axios
-            .post(baseURL+"/user/order",body,{
+            .post(`${baseURL}/user/order`,body,{
                 headers : {
                     'Content-Type': 'application/json',
                     'Authorization' : window.localStorage.getItem('Login')

@@ -6,7 +6,7 @@ import styled from "styled-components";
 import { LoadProductsAll } from '../api/api';
 import axios from 'axios'
 
-const baseURL = "http://3.38.35.43:8080"
+const baseURL = process.env.REACT_APP_URL
 
 const CategoriesContainer = styled.div`
     height : 80px;

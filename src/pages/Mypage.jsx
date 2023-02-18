@@ -2,6 +2,7 @@ import React, {useEffect,useState} from 'react'
 import axios from 'axios'
 import { Link } from 'react-router-dom';
 
+const baseURL = process.env.REACT_APP_URL;
 //이 링크로 들어오자마자 
 //get으로 이 사용자의 정보를 가져온다.
 // 그리고 뿌려주면 된다.
@@ -22,7 +23,7 @@ export default function MyPage() {
 useEffect(() => {
     axios({
     method: "get",
-    url : "http://3.38.35.43:8080/user",
+    url : `${baseURL}/user`,
     headers: {  
      "Content-Type": "application/json",
       "Authorization" : window.localStorage.getItem('Login')

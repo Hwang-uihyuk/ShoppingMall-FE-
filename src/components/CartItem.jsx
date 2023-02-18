@@ -5,7 +5,7 @@ import axios from 'axios';
 
 const ICON_CLASS =
   'transition-all cursor-pointer hover:text-brand hover:scale-105 mx-1';
-
+const baseURL = process.env.REACT_APP_URL
 export default function CartItem(
   {
   product,
@@ -43,13 +43,13 @@ export default function CartItem(
   //cart
   //상품 삭제하기 
   console.log(product.id)
-console.log(typeof('M'))
-console.log(typeof(product.size))
+  console.log(typeof('M'))
+  console.log(typeof(product.size))
   const handleDelete = () => {
     
   
     
-      axios.delete(`http://3.38.35.43:8080/user/cart/${product.id}`,  
+      axios.delete(`${baseURL}/user/cart/${product.id}`,  
       {
         params : {
           size : product.size
@@ -63,9 +63,6 @@ console.log(typeof(product.size))
       .catch((error) => console.log(error))
   }
 //보냄
-
-//잠만 나갈게 ㄱㄷ //들림 ???????
-
 
   return (
     <li className='flex justify-between my-2 items-center'>

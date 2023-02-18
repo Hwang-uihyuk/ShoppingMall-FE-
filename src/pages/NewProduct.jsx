@@ -7,6 +7,13 @@ import { v1, v3, v4, v5 } from 'uuid'
 import { mockComponent } from 'react-dom/test-utils';
 import moment from 'moment';
 
+const baseURL = process.env.REACT_APP_URL;
+const ACCESS_KEY = process.env.ACCESS_KEY;
+const SECRET_ACCESS_KEY = process.env.SECRET_ACCESS_KEY;
+const REGION = process.env.REGION
+const S3_BUCKET = process.env.S3_BUCKET
+const IMG_KEY = process.env.IMG_KEY
+
 export default function NewProduct() {
   // const [product, setProduct] = useState({});
   // const [file, setFile] = useState();
@@ -43,16 +50,6 @@ export default function NewProduct() {
   const [selectedFile, setSelectedFile] = useState(null);
   const [showAlert, setShowAlert] = useState(false);
   const [key, setKey] = useState("")
-
-
-
-
-  const ACCESS_KEY = 'AKIAXARKUXBXVU2GBY5S';
-  const SECRET_ACCESS_KEY = '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';
-  const REGION = 'ap-northeast-2';
-  const S3_BUCKET = 'mallimageupload';
-
-
   AWS.config.update({
     accessKeyId: ACCESS_KEY,
     secretAccessKey: SECRET_ACCESS_KEY
@@ -95,7 +92,6 @@ export default function NewProduct() {
         }, 3000)
         setKey(params.Key)
         alert("success")
-        console.log(`https://mallimageupload.s3.ap-northeast-2.amazonaws.com/`+params.Key)
       })
       .send((err) => {
         if (err) console.log(err)
@@ -153,11 +149,11 @@ export default function NewProduct() {
       "category": category,
       "description": description,
       "size": size,
-      "imgKey": `https://mallimageupload.s3.ap-northeast-2.amazonaws.com/` + key,
+      "imgKey": `${IMG_KEY}/key`,
       "date": time
     })
 
-    axios.post(`http://3.38.35.43:8080/register/product`, data, {
+    axios.post(`${baseURL}/register/product`, data, {
       headers: {
         "Content-Type": "application/json",
         "Authorization": window.localStorage.getItem('Login')

@@ -3,6 +3,8 @@ import React from 'react'
 import { useNavigate } from 'react-router-dom';
 import EditProductDetail from '../pages/EditProductDetail';
 
+const baseURL = process.env.REACT_APP_URL
+
 export default function EditProductCard({
   product,
   product : {id, name, price, category, description, size, imgKey,favorite}
@@ -16,7 +18,7 @@ const navigate = useNavigate();
     console.log(product.id)
     const message = window.confirm('정말로 상품을 삭제하시겠습니까?')
     if(message === true){
-      axios.delete(`http://3.38.35.43:8080/register/product/${product.id}`,{
+      axios.delete(`${baseURL}/register/product/${product.id}`,{
         headers :{
           'Content-Type' : 'ap[lication/json',
           'Authorization' : window.localStorage.getItem('Login')

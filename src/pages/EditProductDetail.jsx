@@ -5,6 +5,8 @@ import { useState } from 'react';
 import Categories from '../components/Categories';
 import { PostEditProduct } from '../api/api';
 
+const baseURL = process.env.REACT_APP_URL;
+
 export default function EditProductDetail() {
     const location = useLocation();
     const [editform, setEditForm] = useState({})
@@ -39,7 +41,7 @@ export default function EditProductDetail() {
     useEffect(()=>{
         axios({
             method: "get",
-            url : `http://3.38.35.43:8080/register/product/${id}`, //url이 안먹히는듯
+            url : `${baseURL}/product/${id}`, //url이 안먹히는듯
             headers: {  
              "Content-Type": "application/json",
               "Authorization" : window.localStorage.getItem('Login')
@@ -71,7 +73,7 @@ export default function EditProductDetail() {
             "product_id" : editform.id,
             "stock" : stock
         })
-        axios.put(`http://3.38.35.43:8080/register/product/add_stock`,data
+        axios.put(`${baseURL}/register/product/add_stock`,data
          
         ,{
             headers: {

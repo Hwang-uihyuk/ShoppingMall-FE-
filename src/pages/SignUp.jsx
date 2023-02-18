@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { useState } from "react";
 import styled from "styled-components";
 import { PostSignUp } from "../api/api";
-const tmpUrl = "http://3.38.35.43:8080";
+const baseURL = process.env.REACT_APP_URL;
 const RegisterForm = styled.form`
     grid-template-columns: 300px 300px;
     grid-template-rows: 60px 60px 60px 60px;
@@ -199,7 +199,7 @@ function SignUp() {
   const onCheckIdHandler = async (event) => {
     event.preventDefault();
     axios
-      .get(tmpUrl + "/check_id/" + username)
+      .get(`${baseURL}/check_id/${username}`)
       .then((response) => {
         setIdChecked(true);
         setIsId(true);

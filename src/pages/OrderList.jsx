@@ -96,14 +96,13 @@ const OrdersBody = ({order}) => (
             </tr>
 )
 
-
-const BaseUrl = "http://3.38.35.43:8080/";
+const baseURL = process.env.REACT_APP_URL;
 export default function OrderList(){
     const [orders,setOrders] = useState();
     useEffect(()=>{
         axios({
             method :"get",
-            url : BaseUrl+"user/order",
+            url : `${baseURL}/user/order`,
             headers:{
                 "Content-Type" :"application/json",
                 "Authorization" :window.localStorage.getItem('Login')

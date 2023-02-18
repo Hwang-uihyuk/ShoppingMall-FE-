@@ -2,7 +2,6 @@ import React from 'react'
 
 export default function Iframe() {
   return (
-    
     <section className>
     <div className=' t-76 left-0 w-100% h-100%'>
     <div className='w-100% h-100%'>

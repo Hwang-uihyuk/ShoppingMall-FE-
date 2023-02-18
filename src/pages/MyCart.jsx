@@ -9,7 +9,7 @@ import axios from 'axios';
 import { createContext } from 'react';
 
 const SHIPPING = 3000;
-
+const baseURL = process.env.REACT_APP_URL;
 
 export const ContextCartProduct = createContext();
 export default function MyCart() {
@@ -20,7 +20,7 @@ export default function MyCart() {
        
     //장바구니 상품 가져오기 
     
-    useEffect(()=> {axios.get("http://3.38.35.43:8080/user/cart",{
+    useEffect(()=> {axios.get(`${baseURL}/user/cart`,{
       headers:{
         "Content-Type": "application/json",
         "Authorization": window.localStorage.getItem('Login')

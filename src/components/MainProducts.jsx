@@ -2,11 +2,13 @@ import axios from 'axios'
 import React, { useEffect ,useState} from 'react'
 import ProductCard from './ProductCard';
 
+const baseURL = process.env.REACT_APP_URL
+
 export default function MainProducts() {
     const [maindata,setMainData] = useState('')
 
     useEffect(()=> {
-        axios.get("http://3.38.35.43:8080",{
+        axios.get(baseURL,{
         headers : {
           "Content-Type" : "application/json"
         }

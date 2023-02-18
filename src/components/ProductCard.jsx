@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import AWS from "aws-sdk";
 import axios from 'axios';
 
+const baseURL = process.env.REACT_APP_URL
+
 export default function ProductCard({
   product,
   product: { id, name, price, imgKey, favorite},
@@ -27,7 +29,7 @@ export default function ProductCard({
   const LikeButton = (e) => {
     
     
-      axios.post(`http://3.38.35.43:8080/user/favorite/${product.id}`,{},{
+      axios.post(`${baseURL}/user/favorite/${product.id}`,{},{
       headers :{
         "Content-Type" : "application/json",
 				"Authorization" : window.localStorage.getItem('Login')
@@ -41,7 +43,7 @@ export default function ProductCard({
 
   const deleteLikeButton = (e) =>{
     !like && 
-      axios.delete(`http://3.38.35.43:8080/user/favorite/${product.id}`,{},{
+      axios.delete(`${baseURL}/user/favorite/${product.id}`,{},{
         headers :{
           "Content-Type" : "application/json",
           "Authorization" : window.localStorage.getItem('Login')

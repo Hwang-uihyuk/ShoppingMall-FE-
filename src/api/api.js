@@ -1,5 +1,5 @@
 import axios from 'axios'
-const baseURL = "http://3.38.35.43:8080"
+const baseURL = process.env.REACT_APP_URL
 
 // Post : 로그인
 

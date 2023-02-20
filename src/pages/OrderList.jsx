@@ -70,8 +70,7 @@ const parseDate = ((dateString)=>{
     const day = date.getDate();
     const hour = date.getHours();
     const minute = date.getMinutes();
-    const res = `${year}-${month}-${day}`;
-
+    const res = `${year}-${month+1}-${day}`;
     return res;
 })
 

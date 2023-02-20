@@ -160,6 +160,7 @@ export default function NewProduct() {
       }
     }).then((response) => {
       console.log("suceess")
+      console.log(data)
     })
       .catch((error) => console.log(error))
   }

@@ -67,57 +67,62 @@ export default function Products() {
     const [category,setCategory] = useState("all");
     const [keyword,setKeyword] = useState("");
     const [products, setProducts] = useState();
-    const onCategoryClick = (props) =>{
-      setCategory(props);
-      axios({
-        method : "get",
-        url : `${baseURL}/shop/category/${category}?sort=hits`,
-        headers : {
-          "Content-Type" :"application/json"
-        }
-      }).then((response)=>{
-        setProducts(response.data)
-        console.log(category)
-      }).catch((error)=>{
-        console.log(error);
-      })
-    }
-    const onKeywordChangeHandeler =(event) =>{
-      const currentKeyword = event.currentTarget.value;
-      setKeyword(currentKeyword);
-    }
-    const onSearchHandeler = (event)=>{
-      event.preventDefault();
-      console.log(keyword);
-
-      axios({
-        method : "get",
-        url : `${baseURL}/shop/search/${keyword}?sort=hits`,
-        headers : {
-          "Content-Type" :"application/json"
-        }
-      }).then((response)=>{
-        setProducts(response.data)
-        setIsResult(true);
-      }).catch((error)=>{
-        console.log(error);
-        setIsResult(false);
-      })
-    }
     useEffect(() => {
-      axios({
-        method: "get",
-        url: baseURL +"/shop",
-        headers: {
-          "Content-Type": "application/json",
-        }
-      }).then((response) => {
-        setProducts(response.data);
-      })
-        .catch((error)=>{
+      if(category==="all"){
+        axios({
+          method: "get",
+          url: baseURL + "/shop",
+          headers: {
+            "Content-Type": "application/json",
+          }
+        }).then((response) => {
+          setProducts(response.data);
+        })
+          .catch((error) => {
+            console.log(error);
+          })
+      }else{
+        axios({
+          method: "get",
+          url: `${baseURL}/shop/category/${category}?sort=hits`,
+          headers: {
+            "Content-Type": "application/json"
+          }
+        }).then((response) => {
+          setIsResult(true);
+          setProducts(response.data)
+          console.log(category)
+        }).catch((error) => {
+          setIsResult(false);
           console.log(error);
         })
-    }, [])
+      }
+    }, [category,isResult])
+  const onCategoryClick = (props) => {
+    setCategory(props);
+  }
+  const onKeywordChangeHandeler = (event) => {
+    const currentKeyword = event.currentTarget.value;
+    setKeyword(currentKeyword);
+  }
+  const onSearchHandeler = (event) => {
+    event.preventDefault();
+    console.log(keyword);
+
+    axios({
+      method: "get",
+      url: `${baseURL}/shop/search/${keyword}?sort=hits`,
+      headers: {
+        "Content-Type": "application/json"
+      }
+    }).then((response) => {
+      setIsResult(true);
+      setProducts(response.data)
+    }).catch((error) => {
+      setIsResult(false);
+      console.log(error);
+    })
+  }
   
     return (
       <>

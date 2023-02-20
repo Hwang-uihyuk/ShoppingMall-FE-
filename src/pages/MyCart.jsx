@@ -14,8 +14,6 @@ const baseURL = process.env.REACT_APP_URL;
 export const ContextCartProduct = createContext();
 export default function MyCart() {
   const [cartproduct, setCartProduct] = useState('')
-  useEffect(()=>{
-    console.log(cartproduct)},[])
 
        
     //장바구니 상품 가져오기 
@@ -28,13 +26,8 @@ export default function MyCart() {
     }).then((response) => 
     setCartProduct(response.data))},[])
 
-
-  // if (isLoading) return <p>Loading...</p>;
-
   const hasProducts = cartproduct.length > 0;
   
-  
-
   //총금액
   const totalPrice =
     cartproduct.price &&
@@ -42,12 +35,6 @@ export default function MyCart() {
       (prev, current) => prev + parseInt(current.price) * current.quantity,
       0
     );
- 
-    
-    
-  
-    
-
   return (
        
     <section className='p-8 flex flex-col'>
@@ -61,7 +48,7 @@ export default function MyCart() {
           <ul className='border-b border-gray-300 mb-8 p-4 px-8'>
             {cartproduct &&
               cartproduct.map((product) => (
-                <CartItem  product={product}  />
+                <CartItem  product={product}/>
               ))}
           </ul>
 

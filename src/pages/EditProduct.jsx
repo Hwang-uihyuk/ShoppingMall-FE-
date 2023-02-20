@@ -19,8 +19,6 @@ export default function EditProduct() {
           "Authorization" : window.localStorage.getItem('Login')
         }
     }).then((response) => {
-        console.log("처음 데이터 값을 가져왔습니다.");
-        console.log(response.data)
         setSellRig(response.data)
      })
      .catch((error) => console.log(error))
@@ -39,17 +37,3 @@ export default function EditProduct() {
 
   )
 }
-{/* <ul className='grid grid-cols-1 md:grid-cols-3 lg-grid-cols-4 gap-4 p-4'>
-          {products &&
-            products.filter((product)=>{
-              if(category === "all"){
-                return product
-              }
-              else if(product.category.toLowerCase()===category){
-                return product
-              }
-            }).map((product)=>(
-              <ProductCard key={product.id} product={product} />
-            ))
-          }
-        </ul> */}

@@ -20,7 +20,7 @@ const navigate = useNavigate();
     if(message === true){
       axios.delete(`${baseURL}/register/product/${product.id}`,{
         headers :{
-          'Content-Type' : 'ap[lication/json',
+          'Content-Type' : 'aplication/json',
           'Authorization' : window.localStorage.getItem('Login')
       }
       }).then(response => {

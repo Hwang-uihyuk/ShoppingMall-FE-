@@ -58,7 +58,7 @@ const onNickNameChangeHandler = (e) =>{
     })
 
     e.preventDefault();
-    axios.put("http://3.38.35.43:8080/user",data,{
+    axios.put(`${baseURL}/user`,data,{
         headers: {  
             "Content-Type": "application/json",
             "Authorization" : window.localStorage.getItem('Login')
@@ -88,7 +88,7 @@ const onTelePhoneChangeHandler = (e) =>{
     })
 
     e.preventDefault();
-    axios.put("http://3.38.35.43:8080/user",data,{
+    axios.put(`${baseURL}/user`,data,{
         headers: {  
             "Content-Type": "application/json",
             "Authorization" : window.localStorage.getItem('Login')
@@ -118,7 +118,7 @@ const onEmailChangeHandler = (e) =>{
     })
 
     e.preventDefault();
-    axios.put("http://3.38.35.43:8080/user",data,{
+    axios.put(`${baseURL}/user`,data,{
         headers: {  
             "Content-Type": "application/json",
             "Authorization" : window.localStorage.getItem('Login')
@@ -149,7 +149,7 @@ const onAddressChangeHandler = (e) =>{
     })
 
     e.preventDefault();
-    axios.put("http://3.38.35.43:8080/user",data,{
+    axios.put(`${baseURL}/user`,data,{
         headers: {  
             "Content-Type": "application/json",
             "Authorization" : window.localStorage.getItem('Login')
@@ -178,7 +178,7 @@ const PwData = JSON.stringify({
 
 const onPwChange = (e) => {
     e.preventDefault();
-    axios.post('http://3.38.35.43:8080/user/pwd_change',PwData, {
+    axios.post(`${baseURL}/user/pwd_change`,PwData, {
         headers : {
             'Content-Type' : 'application/json',
             'Authorization' : window.localStorage.getItem('Login')
@@ -371,7 +371,7 @@ console.log(pwchange)
                     const quickmessage = window.confirm('진짜로 탈퇴하시겠습니가?')
                     
                     if(quickmessage === true){
-                        axios.delete(`http://3.38.35.43:8080/user`,{
+                        axios.delete(`${baseURL}/user`,{
                             headers :{
                                 'Content-Type' : 'application/json',
                                 'Authorization' : window.localStorage.getItem('Login')

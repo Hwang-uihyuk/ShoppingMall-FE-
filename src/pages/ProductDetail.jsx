@@ -2,14 +2,13 @@ import React, { useState } from 'react';
 import { useLocation,Link } from 'react-router-dom';
 import Button from '../components/ui/Button';
 
-// import useCart from '../components/hooks/useCart';
 import axios, { AxiosError } from 'axios';
 import { useEffect } from 'react';
 
 const baseURL = process.env.REACT_APP_URL;
+
 export default function ProductDetail() {
 
-  // const { addOrUpdateItem } = useCart();
   const {
     state: {
       product: { id, image, title, description, category, price, options },
@@ -41,19 +40,10 @@ console.log(detaildata)
 
 
   const [success, setSuccess] = useState();
-  const [selected, setSelected] = useState(options && detaildata.size[0]);
+  const [selected, setSelected] = useState("사이즈를 선택하세요.");
+  // options && detaildata.size[0]
   const handleSelect = (e) => setSelected(e.target.value);
 
-  const handleClick = (e) => {
-    const product = { id, image, title, price, option: selected, quantity: 1 };
-    // addOrUpdateItem.mutate(product, {
-    //   onSuccess: () => {
-    //     setSuccess('장바구니에 추가되었습니다.');
-    //     setTimeout(() => setSuccess(null), 3000);
-    //   },
-    // });
-  };
-  
   //이거 사이즈 쓰려면 이렇게 바꿔줘서 써야함 ㅇㅇ
   
   const optiondata = String(detaildata.size).split('').filter(v => v!==',')
@@ -62,6 +52,7 @@ console.log(detaildata)
 
   //장바구니 추가 
   const handleAddCart = () => {
+    
     const data = JSON.stringify({
       "size" : selected
     })
@@ -77,7 +68,7 @@ console.log(detaildata)
       alert("상품이 장바구니에 추가되었습니다.")
 
   })
-  .catch(error => console.log(error))  }
+  .catch(error => alert("올바른 사이즈를 입력하세요.") ) }
 
 
   //좋아요 버튼클릭됬을때, 아닐때
@@ -85,7 +76,7 @@ console.log(detaildata)
   //좋아요등록하기
   const handleAddLike = (e) => { 
     e.preventDefault();
-    axios.post(`${baseURL}/user/favorite/${detaildata.id}`,{},{
+    axios.post(`http://3.38.35.43:8080/user/favorite/${detaildata.id}`,{},{
     headers : {
       'Content-Type' : 'application/json',
       'Authorization' : window.localStorage.getItem('Login')
@@ -93,7 +84,7 @@ console.log(detaildata)
   }).then((response) => {
     console.log(detaildata.check_favorite)
     
-    axios.get(`${baseURL}/shop/detail/${id}`,{
+    axios.get(`http://3.38.35.43:8080/shop/detail/${id}`,{
     "headers" : {
       "Content-type" : "application/json",
       'Authorization' : window.localStorage.getItem('Login')
@@ -113,14 +104,14 @@ console.log(detaildata)
 
 
   const handleDeleteLike = () => {
-    axios.delete(`${baseURL}/user/favorite/${detaildata.id}`,{
+    axios.delete(`http://3.38.35.43:8080/user/favorite/${detaildata.id}`,{
       headers : {
         'Content-Type' : 'application/json',
         'Authorization' : window.localStorage.getItem('Login')
       }
     }).then((response) => {
 
-      axios.get(`${baseURL}/shop/detail/${id}`,{
+      axios.get(`http://3.38.35.43:8080/shop/detail/${id}`,{
     "headers" : {
       "Content-type" : "application/json",
       'Authorization' : window.localStorage.getItem('Login')
@@ -158,9 +149,12 @@ console.log(detaildata)
               onChange={handleSelect}
               value={selected}
             >
+             <option>사이즈를 선택하세요.</option>
+              
               
               {optiondata &&
                 optiondata.map((option, index) => (
+                  
                   <option key={index}>{option}</option>
                 ))}
             </select>
@@ -173,13 +167,26 @@ console.log(detaildata)
           </div>
           {success && <p className='my-2'>✅{success}</p>}
           <span className='flex'>
-          <Button text='장바구니에 추가' onClick={handleAddCart} />
+
+          
+          {/* <Button text='장바구니에 추가' onClick={handleAddCart}/> */}
+
+          {selected === "사이즈를 선택하세요." ? 
+          <button className ="bg-slate-300 border" disabled onClick={handleAddCart}>사이즈를 선택하시오.</button>
+          :
+          <button text="장바구니 추가" className="bg-slate-600 border" onClick={handleAddCart}>장바구니추가</button>}
+          
+          {selected === "사이즈를 선택하세요." ? 
+          <button className ="bg-slate-300 border" disabled>사이즈를 골라주세요</button>
+          :
           <Link to ='/order' state = {{product : detaildata, size :selected}}>
-            <Button text='상품구매하기'/>
+            <button className='bg-slate-600 border'>상품 구매하기</button>
           </Link>
+}
 
           {!detaildata.check_favorite && <button onClick={handleAddLike} className='bg-slate-100 border'> 좋아요{detaildata.favorite} </button>}
           {detaildata.check_favorite && <button onClick={handleDeleteLike} className='bg-slate-100 border'> 좋아요 해제{detaildata.favorite} </button>}
+
           </span>
         </div>
       </section>

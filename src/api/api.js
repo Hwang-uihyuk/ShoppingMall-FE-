@@ -67,7 +67,7 @@ export function PostEditProduct(editform){
 		size : editform.size,
 		imgKey : editform.imgKey
       })
-    axios.put(`http://3.38.35.43:8080/register/product/${editform.id}`,data,{
+    axios.put(`${baseURL}/register/product/${editform.id}`,data,{
         headers: {  
             "Content-Type": "application/json",
             "Authorization" : window.localStorage.getItem('Login')

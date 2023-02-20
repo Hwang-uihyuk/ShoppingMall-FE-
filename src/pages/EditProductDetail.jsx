@@ -2,7 +2,6 @@ import axios from 'axios';
 import React, { useEffect } from 'react'
 import { useLocation } from 'react-router-dom';
 import { useState } from 'react';
-import Categories from '../components/Categories';
 import { PostEditProduct } from '../api/api';
 
 const baseURL = process.env.REACT_APP_URL;
@@ -12,8 +11,6 @@ export default function EditProductDetail() {
     const [editform, setEditForm] = useState({})
     
     // console.log(editform);
-
-
     const [data, setData] = useState(({
         name : editform.name,
 		price : editform.price,
@@ -37,11 +34,10 @@ export default function EditProductDetail() {
     //     setdata(e.currentTarget.value)
     // }
 
-
     useEffect(()=>{
         axios({
             method: "get",
-            url : `${baseURL}/product/${id}`, //url이 안먹히는듯
+            url : `${baseURL}/register/product/${id}`, //url이 안먹히는듯
             headers: {  
              "Content-Type": "application/json",
               "Authorization" : window.localStorage.getItem('Login')

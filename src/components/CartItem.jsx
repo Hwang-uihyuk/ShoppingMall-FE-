@@ -42,17 +42,12 @@ export default function CartItem(
 
   //cart
   //상품 삭제하기 
-  console.log(product.id)
-  console.log(typeof('M'))
-  console.log(typeof(product.size))
+ 
   const handleDelete = () => {
-    
-  
-    
       axios.delete(`${baseURL}/user/cart/${product.id}`,  
       {
         params : {
-          size : product.size
+          size : `${product.size}`
         },
         headers:{
           "Content-Type": "application/json",

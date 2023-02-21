@@ -7,6 +7,13 @@ import { LoadProductsAll } from '../api/api';
 import axios from 'axios'
 
 const baseURL = process.env.REACT_APP_URL
+const categories = ["all", "shirts", "outer", "pants", "shoes"];
+const sorts = ["hits", "date", "favorite", "purchase"];
+
+const Container = styled.div`
+  display: flex;
+  padding : 15px 20px 10px 30px;
+`
 
 const CategoriesContainer = styled.div`
     height : 80px;
@@ -65,14 +72,24 @@ const SortContainer = styled.div`
   display: flex;
   align-content: flex-start;
 `
-// const Sort = ({sortHandler}) =>(
-//   <SortContainer>
-//     <SortLabel onClick={sortHandler}>HITS</SortLabel>
-//     <SortLabel onClick={sortHandler}>NEWEST</SortLabel>
-//     <SortLabel onClick={sortHandler}>LIKE</SortLabel>
-//     <SortLabel onClick={sortHandler}>PURCHASE</SortLabel>
-//   </SortContainer>
-// )
+const Sort = ({ sortHandler, sorts }) => (
+  <SortContainer>
+    {sorts && sorts.map((sort, index) => (
+      <SortLabel key={index} onClick={() => sortHandler(sort)}>
+        {sort.toUpperCase()}
+      </SortLabel>
+    ))}
+  </SortContainer>
+)
+const Categories = ({ categoryHandler, categories }) => (
+  <CategoriesContainer>
+    {categories && categories.map((category, index) => (
+      <Category key={index} onClick={() => categoryHandler(category)}>
+        {category.toUpperCase()}
+      </Category>
+    ))}
+  </CategoriesContainer>
+)
 const Search = ({keywordHandler,searchHandler}) =>(
   <SearchContainer>
     <SearchInput onChange={keywordHandler}></SearchInput>
@@ -93,7 +110,7 @@ export default function Products() {
       if(category==="all"){
         axios({
           method: "get",
-          url: baseURL + "/shop",
+          url: `${baseURL}/shop?sort=${sort}`,
           headers: {
             "Content-Type": "application/json",
           }
@@ -151,22 +168,13 @@ export default function Products() {
   
     return (
       <>
-        <CategoriesContainer>
-          <Category onClick={() => onCategoryClick("all")}>ALL</Category>
-          <Category onClick={() => onCategoryClick("shirts")}>SHIRTS</Category>
-          <Category onClick={() => onCategoryClick("outer")}>OUTER</Category>
-          <Category onClick={() => onCategoryClick("pants")}>PANTS</Category>
-          <Category onClick={() => onCategoryClick("shoes")}>SHOES</Category>
-        <Search
-          keywordHandler={onKeywordChangeHandeler}
-            searchHandler= {onSearchHandeler}/>
-        </CategoriesContainer>
-        <SortContainer>
-          <SortLabel onClick={() => onSortClick("hits")}>HITS</SortLabel>
-          <SortLabel onClick={() => onSortClick("date")}>NEWEST</SortLabel>
-          <SortLabel onClick={() => onSortClick("favorite")}>LIKE</SortLabel>
-          <SortLabel onClick={() => onSortClick("purchase")}>PURCHASE</SortLabel>
-        </SortContainer>
+        <Container>
+          <Categories categoryHandler={onCategoryClick} categories={categories} />
+          <Search
+            keywordHandler={onKeywordChangeHandeler}
+            searchHandler={onSearchHandeler} />
+        </Container>
+        <Sort sortHandler={onSortClick} sorts={sorts} />
         {/* {isLoading && <p>Loading...</p>}
         {error && <p>{error}</p>} */}
         <div className='p-10 pt-4'>

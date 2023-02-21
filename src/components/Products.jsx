@@ -51,7 +51,28 @@ const SearchBtn = styled.button`
   border-radius: 15px;
   font-family: "RalewayBold";
 `
-
+const SortLabel = styled.label`
+  font-size : 15px;
+  font-family: "RalewayBold";
+  margin-right: 20px;
+  &:hover{
+        color : #666666e0;
+        cursor : pointer;
+  }
+`
+const SortContainer = styled.div`
+  padding : 40px 20px 10px 50px;
+  display: flex;
+  align-content: flex-start;
+`
+// const Sort = ({sortHandler}) =>(
+//   <SortContainer>
+//     <SortLabel onClick={sortHandler}>HITS</SortLabel>
+//     <SortLabel onClick={sortHandler}>NEWEST</SortLabel>
+//     <SortLabel onClick={sortHandler}>LIKE</SortLabel>
+//     <SortLabel onClick={sortHandler}>PURCHASE</SortLabel>
+//   </SortContainer>
+// )
 const Search = ({keywordHandler,searchHandler}) =>(
   <SearchContainer>
     <SearchInput onChange={keywordHandler}></SearchInput>
@@ -67,6 +88,7 @@ export default function Products() {
     const [category,setCategory] = useState("all");
     const [keyword,setKeyword] = useState("");
     const [products, setProducts] = useState();
+    const [sort,setSort] = useState("hits");
     useEffect(() => {
       if(category==="all"){
         axios({
@@ -84,22 +106,25 @@ export default function Products() {
       }else{
         axios({
           method: "get",
-          url: `${baseURL}/shop/category/${category}?sort=hits`,
+          url: `${baseURL}/shop/category/${category}?sort=${sort}`,
           headers: {
             "Content-Type": "application/json"
           }
         }).then((response) => {
           setIsResult(true);
           setProducts(response.data)
-          console.log(category)
+          console.log(`Sorted : ${sort}\nCategory : ${category}`)
         }).catch((error) => {
           setIsResult(false);
           console.log(error);
         })
       }
-    }, [category,isResult])
+    }, [category,sort,isResult])
   const onCategoryClick = (props) => {
     setCategory(props);
+  }
+  const onSortClick =(props)=>{
+    setSort(props);
   }
   const onKeywordChangeHandeler = (event) => {
     const currentKeyword = event.currentTarget.value;
@@ -111,7 +136,7 @@ export default function Products() {
 
     axios({
       method: "get",
-      url: `${baseURL}/shop/search/${keyword}?sort=hits`,
+      url: `${baseURL}/shop/search/${keyword}?sort=${sort}`,
       headers: {
         "Content-Type": "application/json"
       }
@@ -136,7 +161,12 @@ export default function Products() {
             keywordHandler={onKeywordChangeHandeler}
             searchHandler= {onSearchHandeler}/>
         </CategoriesContainer>
-
+        <SortContainer>
+          <SortLabel onClick={() => onSortClick("hits")}>HITS</SortLabel>
+          <SortLabel onClick={() => onSortClick("date")}>NEWEST</SortLabel>
+          <SortLabel onClick={() => onSortClick("favorite")}>LIKE</SortLabel>
+          <SortLabel onClick={() => onSortClick("purchase")}>PURCHASE</SortLabel>
+        </SortContainer>
         {/* {isLoading && <p>Loading...</p>}
         {error && <p>{error}</p>} */}
         <div className='p-10 pt-4'>

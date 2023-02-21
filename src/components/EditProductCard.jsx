@@ -13,8 +13,8 @@ const navigate = useNavigate();
 
 
   //상품 삭제
-  const DeleteProduct = (e) => {
-    e.preventDefault();
+  const DeleteProduct = () => {
+    
     console.log(product.id)
     const message = window.confirm('정말로 상품을 삭제하시겠습니까?')
     if(message === true){

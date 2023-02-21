@@ -8,6 +8,8 @@ const ICON_CLASS =
 const baseURL = process.env.REACT_APP_URL
 export default function CartItem(
   {
+  cartproduct,
+  setCartProduct,
   product,
   product: { id, image, name, size, count, price },
   uid,
@@ -54,7 +56,13 @@ export default function CartItem(
           "Authorization": window.localStorage.getItem('Login')
         }
       }
-      ).then((res) => console.log(res))
+      ).then((res) => {
+        setCartProduct(prev => prev.filter((val) => 
+          val.id !== product.id && val.size !== product.size
+          
+        ))
+      })
+        console.log(product.size)
       .catch((error) => console.log(error))
   }
 //보냄

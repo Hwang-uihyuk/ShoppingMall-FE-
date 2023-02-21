@@ -12,22 +12,46 @@ const SHIPPING = 3000;
 const baseURL = process.env.REACT_APP_URL;
 
 export const ContextCartProduct = createContext();
-export default function MyCart() {
-  const [cartproduct, setCartProduct] = useState('')
 
-       
+export default function MyCart() {
+
+  const [cartproduct, setCartProduct] = useState('')
+    console.log(cartproduct)
     //장바구니 상품 가져오기 
-    
-    useEffect(()=> {axios.get(`${baseURL}/user/cart`,{
-      headers:{
-        "Content-Type": "application/json",
-        "Authorization": window.localStorage.getItem('Login')
-      }
-    }).then((response) => 
-    setCartProduct(response.data))},[])
+    useEffect(() => {
+      axios.get(`${baseURL}/user/cart`,{
+        headers:{
+          "Content-Type": "application/json",
+          "Authorization": window.localStorage.getItem('Login')
+        }
+      }).then((response) => {
+        console.log(response.data)
+        setCartProduct(response.data)
+        console.log("sucess")
+        console.log(cartproduct)
+      }    
+    )
+    },[])
+
+    // console.log(cartproduct&& cartproduct[0].price)
+    // console.log(cartproduct[0].price)
 
   const hasProducts = cartproduct.length > 0;
+
+  //이건 왜안되지?
+
+  console.log(cartproduct)
+  cartproduct.price && cartproduct.price((v) =>
+  console.log(v.price))
+
+  cartproduct&&cartproduct.map((product)=>(
+    console.log(product.price)
+  ));
+
   
+
+  // console.log(cartproduct[0].price)
+
   //총금액
   const totalPrice =
     cartproduct.price &&
@@ -35,6 +59,21 @@ export default function MyCart() {
       (prev, current) => prev + parseInt(current.price) * current.quantity,
       0
     );
+    
+  const t = 
+      cartproduct &&
+      cartproduct.reduce((acc,val) =>  acc + parseInt(val.price) * val.quantity,0)
+
+
+      let bb = 0
+      const b = 
+      cartproduct && 
+      cartproduct.map(val => bb + val.price)
+      console.log(bb)
+  // let price = 0
+  // const totalPrice = 
+  //     cartproduct&&cartproduct.map((product)=> price + product.price).current.quantity,0}
+    
   return (
        
     <section className='p-8 flex flex-col'>
@@ -48,12 +87,12 @@ export default function MyCart() {
           <ul className='border-b border-gray-300 mb-8 p-4 px-8'>
             {cartproduct &&
               cartproduct.map((product) => (
-                <CartItem  product={product}/>
+                <CartItem  key= {product.id} product={product} setCartProduct={setCartProduct} cartproduct={cartproduct} />
               ))}
           </ul>
 
           <div className='flex justify-between items-center mb-6 px-2 md:px-8 lg:px-16'>
-            <PriceCard text='상품 총액' price={totalPrice} />
+            <PriceCard text='상품 총액' price={t} />
             <BsFillPlusCircleFill className='shrink-0' />
             <PriceCard text='배송액' price={SHIPPING} />
             <FaEquals className='shrink-0' />

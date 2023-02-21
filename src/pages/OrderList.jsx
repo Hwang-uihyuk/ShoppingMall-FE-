@@ -110,8 +110,10 @@ export default function OrderList(){
             console.log("주문목록을 가져옵니다")
             console.log(response.data)
             setOrders(response.data)
+            
         }).catch((error) => console.log(error))
     },[])
+
     return(
         <>
             <Page>

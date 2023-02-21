@@ -76,7 +76,7 @@ console.log(detaildata)
   //좋아요등록하기
   const handleAddLike = (e) => { 
     e.preventDefault();
-    axios.post(`http://3.38.35.43:8080/user/favorite/${detaildata.id}`,{},{
+    axios.post(`${baseURL}/user/favorite/${detaildata.id}`,{},{
     headers : {
       'Content-Type' : 'application/json',
       'Authorization' : window.localStorage.getItem('Login')
@@ -84,7 +84,7 @@ console.log(detaildata)
   }).then((response) => {
     console.log(detaildata.check_favorite)
     
-    axios.get(`http://3.38.35.43:8080/shop/detail/${id}`,{
+    axios.get(`${baseURL}/shop/detail/${id}`,{
     "headers" : {
       "Content-type" : "application/json",
       'Authorization' : window.localStorage.getItem('Login')
@@ -104,14 +104,14 @@ console.log(detaildata)
 
 
   const handleDeleteLike = () => {
-    axios.delete(`http://3.38.35.43:8080/user/favorite/${detaildata.id}`,{
+    axios.delete(`${baseURL}/user/favorite/${detaildata.id}`,{
       headers : {
         'Content-Type' : 'application/json',
         'Authorization' : window.localStorage.getItem('Login')
       }
     }).then((response) => {
 
-      axios.get(`http://3.38.35.43:8080/shop/detail/${id}`,{
+      axios.get(`${baseURL}/shop/detail/${id}`,{
     "headers" : {
       "Content-type" : "application/json",
       'Authorization' : window.localStorage.getItem('Login')

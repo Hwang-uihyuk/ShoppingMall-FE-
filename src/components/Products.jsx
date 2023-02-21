@@ -11,40 +11,40 @@ const baseURL = process.env.REACT_APP_URL
 const CategoriesContainer = styled.div`
     height : 80px;
     width : 100%;
-    padding : 15px 20px 10px 30px;
+    padding : 15px 20px 10px 20px;
     position : relative;
-    top : 30px;
     display: flex;
+    align-items: center;
 `
 const Category = styled.h2`
     color : black;
     float: left;
     font-size: 20px;
-    margin: 0 20px 0 20px;
+    margin-right: 30px;
     &:hover{
         color : #666666e0;
         cursor : pointer;
     }
 `
 const SearchContainer = styled.div`
-  width : 20%;
-  height : 70%;
+  width : 30%;
+  height : 80px;
   margin-left: auto;
   margin-right : 20px;
   display: flex;
+  align-items: center;
 `
 const SearchInput = styled.input`
   width : 70%;
   height : 30%;
-  align-self: center;
   margin-right: 5px;
   border-radius: 15px;
   border : 1px solid grey;
+  align-self: right;
 `
 const SearchBtn = styled.button`
-  width : 100px;
+  width : 30%;
   height : 30px;
-  margin-left: auto;
   background-color : black;
   color : white;
   align-self: center;
@@ -157,8 +157,8 @@ export default function Products() {
           <Category onClick={() => onCategoryClick("outer")}>OUTER</Category>
           <Category onClick={() => onCategoryClick("pants")}>PANTS</Category>
           <Category onClick={() => onCategoryClick("shoes")}>SHOES</Category>
-          <Search
-            keywordHandler={onKeywordChangeHandeler}
+        <Search
+          keywordHandler={onKeywordChangeHandeler}
             searchHandler= {onSearchHandeler}/>
         </CategoriesContainer>
         <SortContainer>

@@ -16,7 +16,7 @@ export const ContextCartProduct = createContext();
 export default function MyCart() {
 
   const [cartproduct, setCartProduct] = useState('')
-    console.log(cartproduct)
+    
     //장바구니 상품 가져오기 
     useEffect(() => {
       axios.get(`${baseURL}/user/cart`,{
@@ -25,10 +25,9 @@ export default function MyCart() {
           "Authorization": window.localStorage.getItem('Login')
         }
       }).then((response) => {
-        console.log(response.data)
+        
         setCartProduct(response.data)
-        console.log("sucess")
-        console.log(cartproduct)
+        
       }    
     )
     },[])
@@ -40,40 +39,24 @@ export default function MyCart() {
 
   //이건 왜안되지?
 
-  console.log(cartproduct)
-  cartproduct.price && cartproduct.price((v) =>
-  console.log(v.price))
+  
 
-  cartproduct&&cartproduct.map((product)=>(
-    console.log(product.price)
-  ));
 
   
 
   // console.log(cartproduct[0].price)
 
   //총금액
-  const totalPrice =
-    cartproduct.price &&
-    cartproduct.price.reduce(
-      (prev, current) => prev + parseInt(current.price) * current.quantity,
-      0
-    );
-    
-  const t = 
-      cartproduct &&
-      cartproduct.reduce((acc,val) =>  acc + parseInt(val.price) * val.quantity,0)
+ 
 
+      //이게됨.
+      let totalprice = 0
+      cartproduct&&
+      cartproduct.map((product)=>(
+        totalprice = totalprice + product.price
+      ));
+      
 
-      let bb = 0
-      const b = 
-      cartproduct && 
-      cartproduct.map(val => bb + val.price)
-      console.log(bb)
-  // let price = 0
-  // const totalPrice = 
-  //     cartproduct&&cartproduct.map((product)=> price + product.price).current.quantity,0}
-    
   return (
        
     <section className='p-8 flex flex-col'>
@@ -92,11 +75,11 @@ export default function MyCart() {
           </ul>
 
           <div className='flex justify-between items-center mb-6 px-2 md:px-8 lg:px-16'>
-            <PriceCard text='상품 총액' price={t} />
+            <PriceCard text='상품 총액' price={totalprice} />
             <BsFillPlusCircleFill className='shrink-0' />
             <PriceCard text='배송액' price={SHIPPING} />
             <FaEquals className='shrink-0' />
-            <PriceCard text='총가격' price={totalPrice + SHIPPING} />
+            <PriceCard text='총가격' price={totalprice + SHIPPING} />
           </div>
           <Button text='주문하기' />
         </>

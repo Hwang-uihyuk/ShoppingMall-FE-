@@ -29,7 +29,7 @@ export default function EditProduct() {
       <ul className='grid grid-cols-1 md:grid-cols-3 lg-grid-cols-4 gap-4 p-4'>
         {sellrig &&
           sellrig.map((product) =>(
-            <EditProductCard key={sellrig.id} product={product} />
+            <EditProductCard key={sellrig.id} product={product} setSellRig={setSellRig} sellrig={sellrig}/>
             
           ))}
       </ul>

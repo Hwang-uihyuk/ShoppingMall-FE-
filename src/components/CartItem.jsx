@@ -55,14 +55,14 @@ export default function CartItem(
           "Content-Type": "application/json",
           "Authorization": window.localStorage.getItem('Login')
         }
-      }
+      } 
       ).then((res) => {
+        console.log('삭제성공')
         setCartProduct(prev => prev.filter((val) => 
-          val.id !== product.id && val.size !== product.size
-          
+          val.id !== product.id
         ))
       })
-        console.log(product.size)
+        
       .catch((error) => console.log(error))
   }
 //보냄

@@ -34,6 +34,9 @@ useEffect(() => {
     setUserState(response.data)
  })
  .catch((error) => console.log(error))
+ return () => {
+     console.log("hello")
+ }
 }, [])
 
 

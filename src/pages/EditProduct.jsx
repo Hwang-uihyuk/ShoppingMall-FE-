@@ -1,8 +1,8 @@
+import { S3 } from 'aws-sdk';
 import axios from 'axios';
 import React from 'react'
 import { useEffect,useState } from 'react';
 import EditProductCard from '../components/EditProductCard';
-
 const baseURL = process.env.REACT_APP_URL;
 
 export default function EditProduct() {
@@ -13,7 +13,7 @@ export default function EditProduct() {
     useEffect(() => {
         axios({
         method: "get",
-        url : `${baseURL}/register/product/`, //url이 안먹히는듯
+        url : `${baseURL}/register/product/`, 
         headers: {  
          "Content-Type": "application/json",
           "Authorization" : window.localStorage.getItem('Login')
@@ -29,7 +29,7 @@ export default function EditProduct() {
       <ul className='grid grid-cols-1 md:grid-cols-3 lg-grid-cols-4 gap-4 p-4'>
         {sellrig &&
           sellrig.map((product) =>(
-            <EditProductCard key={sellrig.id} product={product} setSellRig={setSellRig} sellrig={sellrig}/>
+            <EditProductCard key={product.id} product={product} setSellRig={setSellRig} sellrig={sellrig}/>
             
           ))}
       </ul>

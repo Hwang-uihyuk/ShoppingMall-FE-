@@ -56,10 +56,11 @@ export default function NewProduct() {
   });
 
   const myBucket = new AWS.S3({
-    params: { Bucket: S3_BUCKET },
+    params: { Bucket: 'mallimageupload'},
     region: REGION,
   });
 
+  
   //파일선택시
   const handleFileInput = (e) => {
     const file = e.target.files[0];

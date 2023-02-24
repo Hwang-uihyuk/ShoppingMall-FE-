@@ -6,15 +6,18 @@ import EditProductDetail from '../pages/EditProductDetail';
 const baseURL = process.env.REACT_APP_URL
 
 export default function EditProductCard(
+  
   {
+  setSellRig,
   sellrig,
-  setSellrig,
   product,
   product : {id, name, price, category, description, size, imgKey,favorite}
-}, )
+} )
 
 {
-const navigate = useNavigate();
+  // const { mySetter } = setSellrig;
+
+  const navigate = useNavigate();
 
 
   //상품 삭제
@@ -29,7 +32,7 @@ const navigate = useNavigate();
           'Authorization' : window.localStorage.getItem('Login')
       }
       }).then(response => {
-        setSellrig(prev => prev.filter(val=> val.id !== product.id))
+        setSellRig(prev => prev.filter(val=> val.id !== product.id))
         console.log('성공')
          }
       ).catch('에러입니다.')
@@ -40,7 +43,7 @@ const navigate = useNavigate();
   
   return (
     <div>
-    <li
+    <li 
         onClick={() => {
             console.log(id)
             navigate(`products/edit/products/products/edit/products/${name}` , {state : { product }});

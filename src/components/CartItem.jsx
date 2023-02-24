@@ -18,6 +18,7 @@ export default function CartItem(
 
 
 {
+  
   // const value = useContext(ContextCartProduct);
   // console.log(value)
 

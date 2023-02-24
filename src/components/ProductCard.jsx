@@ -67,8 +67,8 @@ export default function ProductCard({
       {/* <img className='w-96' src={image} alt={name} /> */}
       
       <img className='w-100 justify-center' 
-        src={imgKey}
-        alt={name} />
+        src={imgKey !=='undefined/key' ? imgKey : '/images/noimg.jpg'}
+        alt={name}/>
       <div className='mt-2 px-2 text-base flex justify-between items-center'>
         <h3 className='truncate'>{name}</h3>
         <p>{`KRW ${price}`}</p>

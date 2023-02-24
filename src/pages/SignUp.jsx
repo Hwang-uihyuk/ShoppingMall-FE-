@@ -2,6 +2,8 @@ import axios from "axios";
 import React, { useState } from "react";
 import styled from "styled-components";
 import { PostSignUp } from "../api/api";
+import PostPopUp from "../components/PostPopUp";
+
 const baseURL = process.env.REACT_APP_URL;
 const RegisterForm = styled.form`
     grid-template-columns: 300px 300px;
@@ -64,6 +66,7 @@ const LabelledInput = ({label,msg,handler,isValidated,...rest}) =>(
       <InputWrapper>
         <InputForm {...rest} />
         {label === "아이디" && <CheckIdButton onClick={handler}>중복확인</CheckIdButton>}
+        {label ==="주소" && <CheckIdButton onClick={handler}>주소 검색</CheckIdButton>}
       </InputWrapper>
     <ShowMsg isValidated={isValidated}>{msg}</ShowMsg>
   </Wrapper>
@@ -102,7 +105,6 @@ const JoinButton = styled.button`
     }
 
 `
-
 function SignUp() {
   const [idChecked,setIdChecked] = useState(false);
   const [username, setUserName] = useState("");
@@ -110,7 +112,9 @@ function SignUp() {
   const [password, setPassword] = useState("");
   const [telephone, setTelephone] = useState("");
   const [email, setEmail] = useState("");
+  const [addressDetail,setAddressDetail] = useState("")
   const [address, setAddress] = useState("");
+  const [addressFull,setAddressFull] = useState("");
 
   const [msgId,setIdMsg] = useState("");
   const [msgNickname,setNicknameMsg] = useState("");
@@ -125,6 +129,7 @@ function SignUp() {
   const [isPhone,setIsPhone] = useState(false);
   const [isEmail,setIsEmail] = useState(false);
   const [isAddress,setIsAddress] = useState(false);
+  const [popup, setPopup] = useState(false);
 
   const onUserNameHandler = (event) => {
     const currentId = event.currentTarget.value;
@@ -187,8 +192,23 @@ function SignUp() {
   const onAddressHandler = (event) => {
     const currentAddress = event.currentTarget.value;
     setAddress(currentAddress);
+    setAddressFull(`${address} ${addressDetail}`)
     if (currentAddress.length===0){
       setAddressMsg("주소는 공백일 수 없습니다");
+      setIsAddress(false)
+    }else{
+      setAddressMsg("사용 가능한 주소입니다");
+      setIsAddress(true);
+    }
+  }
+
+  const onAddressDetailHandler = (event) => {
+    const currentAddressDetail = event.currentTarget.value;
+    setAddressDetail(currentAddressDetail);
+    setAddressFull(`${address} ${addressDetail}`)
+    console.log(addressFull);
+    if (currentAddressDetail.length===0){
+      setAddressMsg("상세 주소를 입력해주세요");
       setIsAddress(false)
     }else{
       setAddressMsg("사용 가능한 주소입니다");
@@ -241,6 +261,7 @@ function SignUp() {
   return (
       <RegisterForm>
         <SingUpLabel>회원가입</SingUpLabel>
+
         <IdWrapper>
           <LabelledInput
           label="아이디"
@@ -283,15 +304,30 @@ function SignUp() {
           placeholder="이메일 (welcome@example.com)"
           isValidated={isEmail}/>
 
-        <LabelledInput
-          label="주소"
-          msg ={msgAddress}
+
+        <IdWrapper>
+          <LabelledInput
           value={address}
+          label="주소"
           onChange={onAddressHandler}
-          placeholder="주소"
+          handler={(e)=>{
+            e.preventDefault();
+            setPopup(!popup);
+          }}
+          placeholder="주소를 검색해주세요 "/>
+        </IdWrapper>
+        {
+          popup&&
+            <PostPopUp address={address} setAddress={setAddress}></PostPopUp>
+        }
+        <LabelledInput
+          value={addressDetail}
+          onChange={onAddressDetailHandler}
+          placeholder="상세주소"
           isValidated={isAddress}/>
 
         <JoinButton onClick={onSubmitHandler}>회원가입</JoinButton>
+
 
       </RegisterForm>
   )

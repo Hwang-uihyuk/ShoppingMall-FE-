@@ -19,7 +19,7 @@ const IMG_KEY = process.env.REACT_APP_IMG_KEY
 
 export default function NewProduct() {
   const navigate = useNavigate();
-  
+
   const AWS = require('aws-sdk');
   const [progress, setProgress] = useState(0);
   const [selectedFile, setSelectedFile] = useState(null);
@@ -31,7 +31,7 @@ export default function NewProduct() {
   });
 
   const myBucket = new AWS.S3({
-    params: { Bucket: S3_BUCKET},
+    params: { Bucket: 'mallimageupload'},
     region: REGION,
   });
 
@@ -138,7 +138,7 @@ export default function NewProduct() {
       "category": category,
       "description": description,
       "size": size,
-      "imgKey": `${IMG_KEY}/key`,
+      "imgKey": `${IMG_KEY}/${key}`,
       "date": time
     })
     

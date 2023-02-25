@@ -56,7 +56,7 @@ const onNickNameChangeHandler = (e) =>{
         "username" : userstate.username,
         "nickname" : nickname,
         "telephone" : userstate.telephone,
-        "e_mail" : userstate.e_mail,
+        "email" : userstate.email,
         "address" :  userstate.address
     })
 
@@ -86,7 +86,7 @@ const onTelePhoneChangeHandler = (e) =>{
         "username" : userstate.username,
         "nickname" : userstate.nickname,
         "telephone" : telephone,
-        "e_mail" : userstate.e_mail,
+        "email" : userstate.email,
         "address" :  userstate.address
     })
 
@@ -116,7 +116,7 @@ const onEmailChangeHandler = (e) =>{
         "username" : userstate.username,
         "nickname" : userstate.nickname,
         "telephone" : userstate.telephone,
-        "e_mail" : email,
+        "email" : email,
         "address" :  userstate.address
     })
 
@@ -147,7 +147,7 @@ const onAddressChangeHandler = (e) =>{
         "username" : userstate.username,
         "nickname" : userstate.nickname,
         "telephone" : userstate.telephone,
-        "e_mail" : userstate.e_mail,
+        "email" : userstate.email,
         "address" :  address
     })
 
@@ -281,7 +281,7 @@ console.log(pwchange)
 
             {/* email 변경 form */}
             <div>
-                email : {userstate.e_mail}
+                email : {userstate.email}
                 <button className ="border-4"
                 onClick={(e)=>{
                     e.preventDefault();

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useLocation,Link } from 'react-router-dom';
+import { useLocation, Link, Navigate, useNavigate } from 'react-router-dom';
 import Button from '../components/ui/Button';
 
 import axios, { AxiosError } from 'axios';
@@ -8,7 +8,7 @@ import { useEffect } from 'react';
 const baseURL = process.env.REACT_APP_URL;
 
 export default function ProductDetail() {
-
+  const navigate = useNavigate();
   const {
     state: {
       product: { id, image, title, description, category, price, options },
@@ -17,9 +17,7 @@ export default function ProductDetail() {
 
   // console.log(addOrUpdateItem)
 
-  
-  //황의혁 작성 상세페이지 위에 것 누가?
-  //처음에 데이터 조회하기 
+    //처음에 데이터 조회하기 
   const [detaildata, setDetailData] = useState("")
   
   useEffect(()=>{
@@ -51,11 +49,17 @@ console.log(detaildata)
 
 
   //장바구니 추가 
+   
   const handleAddCart = () => {
     
     const data = JSON.stringify({
       "size" : selected
     })
+    !window.localStorage.getItem('Login') ? 
+    navigate('/login')
+    
+    
+    :
     axios.post(`${baseURL}/user/cart/${detaildata.id}`,data, {
       headers : {
           'Content-Type' : 'application/json',
@@ -76,6 +80,11 @@ console.log(detaildata)
   //좋아요등록하기
   const handleAddLike = (e) => { 
     e.preventDefault();
+    !window.localStorage.getItem('Login') ? 
+    navigate('/login')
+    
+    
+    :
     axios.post(`${baseURL}/user/favorite/${detaildata.id}`,{},{
     headers : {
       'Content-Type' : 'application/json',
@@ -178,6 +187,11 @@ console.log(detaildata)
           
           {selected === "사이즈를 선택하세요." ? 
           <button className ="bg-slate-300 border" disabled>사이즈를 골라주세요</button>
+          :
+          !window.localStorage.getItem('Login') ? 
+          navigate('/login')
+          
+          
           :
           <Link to ='/order' state = {{product : detaildata, size :selected}}>
             <button className='bg-slate-600 border'>상품 구매하기</button>

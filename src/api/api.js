@@ -33,6 +33,7 @@ export function PostLogin(id,password){
             // ... 에러 처리
             console.log("에러")
             console.log(error)
+            alert("아이디나 비밀번호를 다시 확인하세요.")
         });
 }
 // Post : 회원가입
@@ -48,7 +49,7 @@ export function PostSignUp(body){
         .then((response) => {
             console.log(response.data);
             alert("회원가입이 완료되었습니다")
-            document.location.href = '/'
+            document.location.href = '/login'
         })
         .catch((error) => {
             console.log(error)

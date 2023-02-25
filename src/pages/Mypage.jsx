@@ -172,6 +172,7 @@ const onAddressChangeHandler = (e) =>{
 // 비밀번호 변경하기
 const [pw, setPw] = useState('')
 const [pwchange, setPwChange] = useState('')
+const [pwcheck, setPwCheck] = useState('')
 const [hidePw, setHidePw] = useState(false)
 
 const PwData = JSON.stringify({
@@ -200,6 +201,9 @@ const onPwHandler = (e) => {
 }
 const onPwChangeHandler = (e) => {
     setPwChange(e.currentTarget.value)
+}
+const onPwChangeCheckHandler = (e) => {
+    setPwCheck(e.currentTarget.value)
 }
 
 console.log(pw)
@@ -360,8 +364,20 @@ console.log(pwchange)
                 placeholder = "변경비밀번호"
                 onChange={onPwChangeHandler}/>
             </div>
+
+            <div>
+                <label>변경비밀번호확인 : </label>
+                <input
+                type='text'
+                placeholder = "변경비밀번호확인"
+                onChange={onPwChangeCheckHandler}/>
+            </div>
+
             <div className="">
-                <button onClick={onPwChange} className="border" >비밀번호변경하기</button>           
+                {pwcheck === pwchange ?
+                <button onClick={onPwChange} className="border" >비밀번호변경하기</button>:
+                <div>비밀번호가 다릅니다.</div>}
+                
             </div>
             </div>}
 
@@ -409,30 +425,3 @@ console.log(pwchange)
     
   )
 }
-//   {/* 닉네임 변경 form */}
-//   <div>
-//   nickname : {userstate.nickname}
-//   <button className='border-4' onClick={(e)=>{
-//       e.preventDefault();
-//       setHide1(mode => !mode)
-//   }}>닉네임 변경</button> 
-// </div>
-
-// {/* 버튼 클릭하면 이 form이 나타나야함. */}
-// {hide1 &&<div className='border p-5 m-3'>
-//   <div>
-//       <label>닉네임 변경하기 : </label>
-//       <input 
-//       type ="text" 
-//       placeholder ="닉네임을 변경하세요."
-//       onChange={onNickNameHandler}></input>
-//   </div>
-
-//   <div>
-//   <button className="border p-2"> 취소 </button>
-//   <button 
-//   className="border p-2"
-//   onClick={onNickNameChangeHandler}
-//   > 확인 </button>
-//   </div>
-// </div>}

@@ -6,6 +6,7 @@ import axios from 'axios';
 import { v1, v3, v4, v5 } from 'uuid'
 import { mockComponent } from 'react-dom/test-utils';
 import moment from 'moment';
+import { useNavigate } from 'react-router-dom';
 
 
 const baseURL = process.env.REACT_APP_URL;
@@ -14,6 +15,7 @@ const SECRET_ACCESS_KEY = process.env.REACT_APP_SECRET_ACCESS_KEY;
 const REGION = process.env.REACT_APP_REGION
 const S3_BUCKET = process.env.REACT_APP_S3_BUCKET
 const IMG_KEY = process.env.REACT_APP_IMG_KEY
+<<<<<<< Updated upstream
 
 // const webpack = require('webpack');
 // const dotenvt = require('dotenv');
@@ -56,6 +58,11 @@ export default function NewProduct() {
   //     .finally(() => setIsUploading(false));
   // };
 
+=======
+
+export default function NewProduct() {
+  const navigate = useNavigate();
+>>>>>>> Stashed changes
   //aws
 
 
@@ -70,7 +77,7 @@ export default function NewProduct() {
   });
 
   const myBucket = new AWS.S3({
-    params: { Bucket: 'mallimageupload'},
+    params: { Bucket: S3_BUCKET},
     region: REGION,
   });
 
@@ -143,6 +150,7 @@ export default function NewProduct() {
 
 
   const handleSubmit = (e) => {
+    
     e.preventDefault();
 
     let time = ""
@@ -167,7 +175,7 @@ export default function NewProduct() {
       "imgKey": `${IMG_KEY}/key`,
       "date": time
     })
-
+    
     axios.post(`${baseURL}/register/product`, data, {
       headers: {
         "Content-Type": "application/json",
@@ -176,15 +184,15 @@ export default function NewProduct() {
     }).then((response) => {
       console.log("suceess")
       console.log(data)
-    })
-      .catch((error) => console.log(error))
+      navigate('./products/edit')
+    }).catch((error) => alert('상품 정보를 모두 입력해주세요'))
+
+    
   }
+  
   return (
     <section className='w-full text-center'>
       {/* aws */}
-
-      {/* <div className="App-header">  */}
-
       <div className="App-body">
         {/* { showAlert?
               alert(`업로드 진행률 : ${progress}%`)
@@ -234,69 +242,7 @@ export default function NewProduct() {
         />
         <button onClick={handleSubmit}>등록하기</button>
       </form>
-      {/* cloudiary */}
-      {/* <h2 className='text-2xl font-bold my-4'>새로운 제품 등록</h2>
-      {success && <p className='my-2'>✅ {success}</p>}
-      {file && (
-        <img
-          className='w-96 mx-auto mb-2'
-          src={URL.createObjectURL(file)}
-          alt='local file'
-        />
-      )}
-      <form className='flex flex-col px-12' onSubmit={handleSubmit}>
-        <input
-          type='file'
-          accept='image/*'
-          name='file'
-          required
-          onChange={handleChange}
-        />
-        <input
-          type='text'
-          name='title'
-          value={product.title ?? ''}
-          placeholder='제품명'
-          required
-          onChange={handleChange}
-        />
-        <input
-          type='number'
-          name='price'
-          value={product.price ?? ''}
-          placeholder='가격'
-          required
-          onChange={handleChange}
-        />
-        <input
-          type='text'
-          name='category'
-          value={product.category ?? ''}
-          placeholder='카테고리'
-          required
-          onChange={handleChange}
-        />
-        <input
-          type='text'
-          name='description'
-          value={product.description ?? ''}
-          placeholder='제품 설명'
-          required
-          onChange={handleChange}
-        />
-        <input
-          type='text'
-          name='options'
-          value={product.options ?? ''}
-          placeholder='옵션들(콤마(,)로 구분)'
-          required
-          onChange={handleChange}
-        />
-        <Button
-          text={isUploading ? '업로드중...' : '제품 등록하기'}
-          disabled={isUploading}
-        />
-      </form> */}
+      
     </section>
 
 

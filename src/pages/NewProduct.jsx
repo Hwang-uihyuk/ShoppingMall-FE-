@@ -15,57 +15,10 @@ const SECRET_ACCESS_KEY = process.env.REACT_APP_SECRET_ACCESS_KEY;
 const REGION = process.env.REACT_APP_REGION
 const S3_BUCKET = process.env.REACT_APP_S3_BUCKET
 const IMG_KEY = process.env.REACT_APP_IMG_KEY
-<<<<<<< Updated upstream
-
-// const webpack = require('webpack');
-// const dotenvt = require('dotenv');
-
-// dotenvt.config();
-// const defineEnvVariables = new webpack.DefinePlugin({
-//   'ACCESS_KEY': JSON.stringify(process.env.ACCESS_KEY),
-//   'SECRET_ACCESS_KEY': JSON.stringify(process.env.SECRET_ACCESS_KEY)
-// });
-
-export default function NewProduct() {
-
-  // const [product, setProduct] = useState({});
-  // const [file, setFile] = useState();
-  // const [isUploading, setIsUploading] = useState(false);
-  // const [success, setSuccess] = useState();
-
-  // const handleChange = (e) => {
-  //   const { name, value, files } = e.target;
-  //   if (name === 'file') {
-  //     setFile(files && files[0]);
-  //     console.log(files[0]);
-  //     return;
-  //   }
-  //   setProduct((product) => ({ ...product, [name]: value }));
-  // };
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
-  //   setIsUploading(true);
-  //   uploadImage(file) //
-  //     .then((url) => {
-  //       addNewProduct(product, url) //
-  //         .then(() => {
-  //           setSuccess('성공적으로 제품이 추가되었습니다.');
-  //           setTimeout(() => {
-  //             setSuccess(null);
-  //           }, 4000);
-  //         });
-  //     })
-  //     .finally(() => setIsUploading(false));
-  // };
-
-=======
 
 export default function NewProduct() {
   const navigate = useNavigate();
->>>>>>> Stashed changes
-  //aws
-
-
+  
   const AWS = require('aws-sdk');
   const [progress, setProgress] = useState(0);
   const [selectedFile, setSelectedFile] = useState(null);

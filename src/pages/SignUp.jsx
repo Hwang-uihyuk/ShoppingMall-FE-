@@ -60,17 +60,6 @@ const SingUpLabel = styled.label`
   color : #252525;
   margin: 15px 10px 10px 10px;
 `
-const LabelledInput = ({label,msg,handler,isValidated,...rest}) =>(
-  <Wrapper>
-    <Label>{label}</Label>
-      <InputWrapper>
-        <InputForm {...rest} />
-        {label === "아이디" && <CheckIdButton onClick={handler}>중복확인</CheckIdButton>}
-        {label ==="주소" && <CheckIdButton onClick={handler}>주소 검색</CheckIdButton>}
-      </InputWrapper>
-    <ShowMsg isValidated={isValidated}>{msg}</ShowMsg>
-  </Wrapper>
-)
 
 const CheckIdButton = styled.button`
     height: 50px;
@@ -103,10 +92,26 @@ const JoinButton = styled.button`
         background-color: #666666e0;
         cursor : pointer;
     }
-
 `
+
+const LabelledInput = ({label,msg,handler,isValidated,...rest}) =>(
+  <Wrapper>
+    <Label>{label}</Label>
+      <InputWrapper>
+        <InputForm {...rest} />
+        {label === "아이디" && <CheckIdButton onClick={handler}>중복확인</CheckIdButton>}
+        {label ==="주소" && <CheckIdButton onClick={handler}>주소 검색</CheckIdButton>}
+        {label ==="전화번호" && <CheckIdButton onClick={handler}>번호 확인</CheckIdButton>}
+        {label ==="이메일" && <CheckIdButton onClick={handler}>메일 확인</CheckIdButton>}
+      </InputWrapper>
+    <ShowMsg isValidated={isValidated}>{msg}</ShowMsg>
+  </Wrapper>
+)
 function SignUp() {
   const [idChecked,setIdChecked] = useState(false);
+  const [phoneChecked,setPhoneChecked] = useState(false);
+  const [emailChecked,setEmailChecked] = useState(false);
+
   const [username, setUserName] = useState("");
   const [nickname, setNickName] = useState("");
   const [password, setPassword] = useState("");
@@ -173,7 +178,7 @@ function SignUp() {
       setPhoneMsg("올바르지 않은 전화번호입니다");
       setIsPhone(false);
     } else {
-      setPhoneMsg("사용 가능한 전화번호입니다");
+      setPhoneMsg("전화번호 중복확인을 해주세요. ");
       setIsPhone(true);
     }
   }
@@ -185,8 +190,7 @@ function SignUp() {
       setEmailMsg("이메일 형식(welcome@example.com)에 맞게 입력해주세요");
       setIsEmail(false);
     } else {
-      setEmailMsg("사용 가능한 이메일입니다");
-      setIsEmail(true);
+      setEmailMsg("이메일 확인을 해주세요.");
     }
   }
   const onAddressHandler = (event) => {
@@ -198,7 +202,6 @@ function SignUp() {
       setIsAddress(false)
     }else{
       setAddressMsg("사용 가능한 주소입니다");
-      setIsAddress(true);
     }
   }
 
@@ -212,7 +215,6 @@ function SignUp() {
       setIsAddress(false)
     }else{
       setAddressMsg("사용 가능한 주소입니다");
-      setIsAddress(true);
     }
   }
   //중복체크
@@ -233,6 +235,43 @@ function SignUp() {
         alert("이미 사용중인 아이디입니다")
       });
   }
+
+  const onCheckPhoneHandler = async (event) => {
+    event.preventDefault();
+    axios
+      .get(`${baseURL}/check_telephone/${telephone}`)
+      .then((response) => {
+        setPhoneChecked(true);
+        setIsPhone(true);
+        setPhoneMsg("사용 가능한 번호입니다.")
+        console.log(response.data)
+      })
+      .catch((error) => {
+        console.log("error!")
+        console.log(error)
+        setPhoneChecked(false);
+        setIsPhone(false);
+        alert("사용중인 번호입니다.")
+      });
+  }
+
+  const onCheckEmailHandler = async (event) => {
+    event.preventDefault();
+    axios
+      .get(`${baseURL}/check_email/${email}`)
+      .then((response) => {
+        setEmailChecked(true);
+        setIsEmail(true);
+        setEmailMsg("사용 가능한 메일입니다.")
+        console.log(response.data)
+      })
+      .catch((error) => {
+        console.log(error)
+        setEmailChecked(false);
+        setIsEmail(false);
+        setEmailMsg("사용 중인 메일입니다.")
+      });
+  }
   const onSubmitHandler = async (event) => {
     event.preventDefault();
     if(isId&&isPw&&isPhone&&isNickname&&isAddress&&isEmail&&idChecked){
@@ -242,7 +281,7 @@ function SignUp() {
           'nickname': nickname,
           'password': password,
           'telephone': telephone,
-          'e_mail': email,
+          'email': email,
           'address': address
         }
       )
@@ -289,21 +328,28 @@ function SignUp() {
           type="password"
           isValidated={isPw}/>
 
-        <LabelledInput
+        <IdWrapper>
+          <LabelledInput
+          msg={msgPhone}
           label="전화번호"
-          msg ={msgPhone}
+          disabled={phoneChecked}
           onChange={onTelephoneHandler}
-          placeholder="전화번호 (ex.01023456789)"
-          isValidated={isPhone}/>
+          handler={onCheckPhoneHandler}
+          placeholder="전화번호 (ex.01023456789) "
+          isValidated={phoneChecked} />
+        </IdWrapper>
 
-        <LabelledInput
-          label="이메일"
-          msg = {msgEmail}
+        <IdWrapper>
+          <LabelledInput
+          msg={msgEmail}
           value={email}
+          label="이메일"
+          disabled={emailChecked}
           onChange={onEmailHandler}
-          placeholder="이메일 (welcome@example.com)"
-          isValidated={isEmail}/>
-
+          handler={onCheckEmailHandler}
+          placeholder="이메일 (welcome@example.com) "
+          isValidated={emailChecked}/>
+        </IdWrapper>
 
         <IdWrapper>
           <LabelledInput

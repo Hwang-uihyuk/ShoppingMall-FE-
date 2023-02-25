@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Button from '../components/ui/Button';
 //aws
 import AWS from 'aws-sdk';
@@ -7,6 +7,7 @@ import { v1, v3, v4, v5 } from 'uuid'
 import { mockComponent } from 'react-dom/test-utils';
 import moment from 'moment';
 import { useNavigate } from 'react-router-dom';
+import { checkSpecKeys } from 'react-slick/lib/utils/innerSliderUtils';
 
 
 const baseURL = process.env.REACT_APP_URL;
@@ -33,6 +34,16 @@ export default function NewProduct() {
     params: { Bucket: S3_BUCKET},
     region: REGION,
   });
+
+  //업로드 버튼 누를 시(true)에만 버튼이 활성화 되게 해야한다.
+  const [checkupload, setCheckUpload] = useState(false);
+  
+  useEffect(() => {
+    return() => {
+      setCheckUpload(false)
+      }
+  }, [navigate])
+  /// 다른 페이지 이동하면 이렇게 된다 .
 
   
   //파일선택시
@@ -66,6 +77,8 @@ export default function NewProduct() {
           setSelectedFile(null);
         }, 3000)
         setKey(params.Key)
+        //업로드 true값으로
+        setCheckUpload(prev => !prev)
         alert("success")
       })
       .send((err) => {
@@ -101,7 +114,7 @@ export default function NewProduct() {
   // const test = new moment('2020-01-01 00:00:00').format('LLL');
   // console.log('sdf',typeof(test))
 
-
+  
   const handleSubmit = (e) => {
     
     e.preventDefault();
@@ -135,10 +148,13 @@ export default function NewProduct() {
         "Authorization": window.localStorage.getItem('Login')
       }
     }).then((response) => {
+     
       console.log("suceess")
       console.log(data)
-      navigate('./products/edit')
-    }).catch((error) => alert('상품 정보를 모두 입력해주세요'))
+      
+      alert('상품이 등록되었습니다.')
+      document.location.href = '/products'
+    }).catch((error) => alert('형식에 맞는 입력 값을 넣어주세요.'))
 
     
   }
@@ -193,7 +209,9 @@ export default function NewProduct() {
           required
           onChange={handleChangeSize}
         />
-        <button onClick={handleSubmit}>등록하기</button>
+        {checkupload ? (productname&&price&&category&&description&&size ?<button onClick={handleSubmit}>등록하기</button> : <div>모든 정보를 입력해주세요.</div>)
+        : <div> upload를 먼저 해주세요.</div>}
+        
       </form>
       
     </section>

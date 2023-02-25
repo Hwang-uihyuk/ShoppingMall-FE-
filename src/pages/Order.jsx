@@ -2,6 +2,7 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { useLocation } from 'react-router-dom';
 import styled from "styled-components";
+import PostPopUp from "../components/PostPopUp";
 
 const baseURL = process.env.REACT_APP_URL;
 

@@ -7,14 +7,25 @@ import { v1, v3, v4, v5 } from 'uuid'
 import { mockComponent } from 'react-dom/test-utils';
 import moment from 'moment';
 
+
 const baseURL = process.env.REACT_APP_URL;
-const ACCESS_KEY = process.env.ACCESS_KEY;
-const SECRET_ACCESS_KEY = process.env.SECRET_ACCESS_KEY;
-const REGION = process.env.REGION
-const S3_BUCKET = process.env.S3_BUCKET
-const IMG_KEY = process.env.IMG_KEY
+const ACCESS_KEY = process.env.REACT_APP_ACCESS_KEY;
+const SECRET_ACCESS_KEY = process.env.REACT_APP_SECRET_ACCESS_KEY;
+const REGION = process.env.REACT_APP_REGION
+const S3_BUCKET = process.env.REACT_APP_S3_BUCKET
+const IMG_KEY = process.env.REACT_APP_IMG_KEY
+
+// const webpack = require('webpack');
+// const dotenvt = require('dotenv');
+
+// dotenvt.config();
+// const defineEnvVariables = new webpack.DefinePlugin({
+//   'ACCESS_KEY': JSON.stringify(process.env.ACCESS_KEY),
+//   'SECRET_ACCESS_KEY': JSON.stringify(process.env.SECRET_ACCESS_KEY)
+// });
 
 export default function NewProduct() {
+
   // const [product, setProduct] = useState({});
   // const [file, setFile] = useState();
   // const [isUploading, setIsUploading] = useState(false);
@@ -46,13 +57,16 @@ export default function NewProduct() {
   // };
 
   //aws
+
+
+  const AWS = require('aws-sdk');
   const [progress, setProgress] = useState(0);
   const [selectedFile, setSelectedFile] = useState(null);
   const [showAlert, setShowAlert] = useState(false);
   const [key, setKey] = useState("")
   AWS.config.update({
-    accessKeyId: ACCESS_KEY,
-    secretAccessKey: SECRET_ACCESS_KEY
+      accessKeyId: ACCESS_KEY,
+      secretAccessKey: SECRET_ACCESS_KEY
   });
 
   const myBucket = new AWS.S3({

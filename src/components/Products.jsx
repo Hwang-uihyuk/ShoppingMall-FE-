@@ -6,6 +6,7 @@ import styled from "styled-components";
 import { LoadProductsAll } from '../api/api';
 import axios from 'axios'
 
+
 const baseURL = process.env.REACT_APP_URL
 const categories = ["all", "shirts", "outer", "pants", "shoes"];
 const sorts = ["hits", "date", "favorite", "purchase"];

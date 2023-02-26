@@ -21,6 +21,7 @@ export default function MyPage() {
 
     const [isPhone, setIsPhone] = useState(false);
     const [isEmail, setIsEmail] = useState(false);
+    const [isNickName,setIsNickName] = useState(false);
 
     const [phoneChecked, setPhoneChecked] = useState(false);
     const [mailChecked, setMailChecked] = useState(false);
@@ -55,7 +56,7 @@ useEffect(() => {
 
 //NickName handle들
 const onNickNameHandler = (e) => {
-    setNickName(e.currentTarget.value) 
+    setNickName(e.currentTarget.value);
 }
 const onNickNameChangeHandler = (e) =>{
     const data = JSON.stringify({
@@ -65,21 +66,22 @@ const onNickNameChangeHandler = (e) =>{
         "email" : userstate.email,
         "address" :  userstate.address
     })
-
-    e.preventDefault();
-    axios.put(`${baseURL}/user`,data,{
-        headers: {  
-            "Content-Type": "application/json",
-            "Authorization" : window.localStorage.getItem('Login')
-           }
-    } ).then((res) => {
-        setNickName(nickname)
-        console.log("값 변경이 되었습니다.");
+    if(nickname.length<1){
+        alert("닉네임은 공백일 수 없습니다.")
+    }else{
+        e.preventDefault();
+        axios.put(`${baseURL}/user`,data,{
+            headers: {  
+                "Content-Type": "application/json",
+                "Authorization" : window.localStorage.getItem('Login')
+            }
+        } ).then((res) => {
+        alert("닉네임이 변경되었습니다.")
         console.log(res)
         document.location.href = '/mypage'
+        }).catch((error) => console.log(error))
     }
-    )
-    .catch((error) => console.log(error))
+    
 }
 
 // telephone handler

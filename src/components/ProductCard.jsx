@@ -7,7 +7,7 @@ const baseURL = process.env.REACT_APP_URL
 
 export default function ProductCard({
   product,
-  product: { id, name, price, imgKey, favorite},
+  product: { id, name, price, imgKey, favorite, stock_zero},
 }) {
   const navigate = useNavigate();
 
@@ -74,6 +74,10 @@ export default function ProductCard({
         <p>{`KRW ${price}`}</p>
       </div>
       <p className='mb-2 px-2 text-gray-600'>{favorite}</p>
+
+
+
+      {stock_zero === false ? <div className ="font-bold text-red-600"> 품절입니다.</div> : ""}
       
       <div className='flex'>
       {/* 좋아요 버튼 */}

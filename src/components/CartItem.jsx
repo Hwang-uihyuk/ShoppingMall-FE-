@@ -73,16 +73,19 @@ export default function CartItem(
       <img className='w-24 md:w-48 rounded-lg' src={product.imgKey}  />
       <div className='flex-1 flex justify-between ml-4'>
         <div className='basis-3/5'>
+        
           <p className='text-lg'>{product.name}</p>
           <p className='text-xl font-bold text-brand'>{product.size}</p>
           <p>₩{product.price}</p>
         </div>
-        <div className='text-2xl flex items-center'>
+        
+        {!product.stock_zero ? <div className='font-bold text-red-600'>품절입니다.</div> 
+        : <div className='text-2xl flex items-center'>
           <AiOutlineMinusSquare className={ICON_CLASS}  />
           <span>{product.count}</span>
           <AiOutlinePlusSquare className={ICON_CLASS} />
           <RiDeleteBin5Fill className={ICON_CLASS} onClick={handleDelete} />
-        </div>
+        </div>}
       </div>
     </li>
   );

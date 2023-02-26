@@ -25,6 +25,7 @@ export default function MyCart() {
           "Authorization": window.localStorage.getItem('Login')
         }
       }).then((response) => {
+        console.log(response.data)
         
         setCartProduct(response.data)
         
@@ -38,12 +39,6 @@ export default function MyCart() {
   const hasProducts = cartproduct.length > 0;
 
   //이건 왜안되지?
-
-  
-
-
-  
-
   // console.log(cartproduct[0].price)
 
   //총금액
@@ -56,6 +51,17 @@ export default function MyCart() {
         totalprice = totalprice + product.price
       ));
       
+
+      //품절된 상품들의 가격들
+      let stock_zero_price = 0
+        cartproduct && 
+        cartproduct.map((product)=> 
+          product.stock_zero === false ? stock_zero_price += product.price: "")
+        
+          
+        
+        
+
 
   return (
        
@@ -75,11 +81,11 @@ export default function MyCart() {
           </ul>
 
           <div className='flex justify-between items-center mb-6 px-2 md:px-8 lg:px-16'>
-            <PriceCard text='상품 총액' price={totalprice} />
+            <PriceCard text='상품 총액' price={totalprice - stock_zero_price} />
             <BsFillPlusCircleFill className='shrink-0' />
             <PriceCard text='배송액' price={SHIPPING} />
             <FaEquals className='shrink-0' />
-            <PriceCard text='총가격' price={totalprice + SHIPPING} />
+            <PriceCard text='총가격' price={totalprice + SHIPPING - stock_zero_price} />
           </div>
           <Button text='주문하기' />
         </>

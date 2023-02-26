@@ -78,7 +78,7 @@ export default function MyCart() {
           <ul className='border-b border-gray-300 mb-8 p-4 px-8'>
             {cartproduct &&
               cartproduct.map((product) => (
-                <CartItem  key= {uuid + product.size} product={product} setCartProduct={setCartProduct} cartproduct={cartproduct} />
+                <CartItem  key= {product.id + product.size} product={product} setCartProduct={setCartProduct} cartproduct={cartproduct} />
               ))}
           </ul>
 

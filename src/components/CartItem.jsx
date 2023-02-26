@@ -18,32 +18,12 @@ export default function CartItem(
   uid,
 }
 )
-
-
 {
   const uuid = uuidv4();
-  // const value = useContext(ContextCartProduct);
-  // console.log(value)
-
-
-
-
-    // 장바구니 상품 가져오기 
-    // const [cartproduct, setCartProduct] = useState('')
-    // axios.get("http://3.38.35.43:8080/user/cart",{
-    //   headers:{
-    //     "Content-Type": "application/json",
-    //     "Authorization": window.localStorage.getItem('Login')
-    //   }
-
-    // }).then((response) => {
-    // setCartProduct(response.data)})
-
-  //cart
   //상품 삭제하기 
  
   const handleDelete = () => {
-      axios.delete(`${baseURL}/user/cart/${product.id}`,  
+      axios.delete(`${baseURL}/user/cart/all/${product.id}`,  
       {
         params : {
           size : `${product.size}`
@@ -77,7 +57,7 @@ export default function CartItem(
     const data = JSON.stringify({
       "size" : product.size
     })
-   
+   console.log(product.id)
     axios.post(`${baseURL}/user/cart/${product.id}`,data, {
       headers : {
           'Content-Type' : 'application/json',
@@ -88,31 +68,24 @@ export default function CartItem(
       console.log("장바구니 상품 추가 완료")
       console.log(response.data)
       setCartProduct(response.data)
-  })
+      
   .catch(error => alert("올바른 사이즈를 입력하세요.") ) 
+  })
   }
 
-  const deleteCount = () => {
-      if(product.count > 1){
-        axios.delete(`${baseURL}/user/cart/${product.id}`,  
-      {
-        params : {
-          size : `${product.size}`
-        },
-        headers:{
-          "Content-Type": "application/json",
-          "Authorization": window.localStorage.getItem('Login')
-        }
-      } 
-      ).then((res) => {
-        console.log('삭제성공')
-        setCartProduct(prev => prev.filter((val) => 
-          (val.id !== product.id || val.size !== product.size)
-        ))
-      })
-        
-      .catch((error) => console.log(error))
-      }
+
+
+  const deleteCount = () =>{
+    axios.delete(`${baseURL}/user/cart/${product.id}`,{
+      params : {
+        size : `${product.size}`
+      },
+      headers : {
+        'Content-Type' : 'application/json',
+        'Authorization' : window.localStorage.getItem('Login')
+    }
+}).then((res) => setCartProduct(res.data))
+
   }
 
 
@@ -133,7 +106,7 @@ export default function CartItem(
         
         {!product.stock_zero ? <div className='font-bold text-red-600'>품절입니다.</div> 
         : <div className='text-2xl flex items-center'>
-          <AiOutlineMinusSquare type ="button" className={ICON_CLASS} onClick={deleteCount}/>
+          <AiOutlineMinusSquare type ="button" className={ICON_CLASS} onClick={deleteCount} />
           <span>{product.count}</span>
           <AiOutlinePlusSquare className={ICON_CLASS} onClick={addCount}/>
           <RiDeleteBin5Fill className={ICON_CLASS} onClick={handleDelete} />

@@ -206,8 +206,6 @@ const onPwChangeCheckHandler = (e) => {
     setPwCheck(e.currentTarget.value)
 }
 
-console.log(pw)
-console.log(pwchange)
   return (
     <div className='flex flex-col justify-center items-center w-full h-screen' >
 

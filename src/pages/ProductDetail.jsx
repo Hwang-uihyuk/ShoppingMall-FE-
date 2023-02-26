@@ -145,13 +145,18 @@ console.log(detaildata)
           <p className='text-2xl font-bold py-2  border-b border-gray-400'>
             ₩{price}
           </p>
-          <p className='py-4 text-lg'>{detaildata.description}description</p>
+          <p className='py-4 text-lg'>{detaildata.description}</p>
+
+          {/* 상품 재고  */}
+          {detaildata &&
+            detaildata.stock <= 10 ? <div className='font-bold'> 품절임박 남은 재고 수 : {detaildata.stock} </div> : ''}
           <div className='flex items-center'>
             <label className='text-brand font-bold' htmlFor='select'>
               옵션:
             </label>
             
-            
+          
+
             <select
               id='select'
               className='p-2 m-4 flex-1 border-2 border-dashed border-brand outline-none'

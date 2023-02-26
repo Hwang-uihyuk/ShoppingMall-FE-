@@ -136,6 +136,41 @@ const OrderInfo = ({label,imgKey,productname,price,count,size,...rest})=>(
     </OrderTable>
     </OrderWrapper>
 )
+
+const OrderCart =({products})=>(
+    <OrderWrapper>
+        <OrderLabel>ORDER</OrderLabel>
+        <OrderTable>
+            <thead>
+                <tr>
+                    <TD></TD>
+                    <TD>PRODUCT</TD>
+                    <TD>PRICE</TD>
+                    <TD>QUANTITY</TD>
+                    <TD>SIZE</TD>
+                </tr>
+                </thead>
+            <tbody>
+                    {products&&
+                        products.map((product)=>(
+                            <>
+                                <tr>
+                                    <TD>
+                                    <ImageContainer>
+                                        <Image src = {product.imgKey}/>
+                                    </ImageContainer></TD>
+                                    <TD>{product.name}</TD>
+                                    <TD>{product.price}</TD>
+                                    <TD>{product.count}</TD>
+                                    <TD>{product.size}</TD>
+                                </tr>
+                            </>
+                        ))}
+            </tbody>
+        </OrderTable>
+    </OrderWrapper>
+)
+
 export default function Order(){
 
     const location = useLocation();
@@ -147,7 +182,10 @@ export default function Order(){
     const [count,setCount] = useState(1);
     const size = location.state.size;
     const [address,setAddress] = useState("");
-
+    const from= location.state.from;
+    const cartproduct = location.state.product;
+    console.log(from,'에서 왔습니다.');
+    console.log(cartproduct);
     useEffect(() => {
         axios({
         method: "get",
@@ -157,24 +195,19 @@ export default function Order(){
             "Authorization" : window.localStorage.getItem('Login')
         }
     }).then((response) => {
-        console.log("처음 데이터 값을 가져왔습니다.");
         console.log(response.data)
         setAddress(response.data.address)
      })
      .catch((error) => console.log(error))
     }, [])
 
-    console.log(location.state.product);
-    console.log("productId : ",productId);
-    console.log("count : ",count);
-    console.log("size : ",size);
-    console.log("Address:", address)
     const onAddressChangeHandler = (e)=>{
         e.preventDefault();
         const currentAddress = e.currentTarget.value
         setAddress(currentAddress);
     }
     // submit order
+
     const onSubmitHandler = (event) =>{
         event.preventDefault();
 
@@ -189,45 +222,101 @@ export default function Order(){
 
         time = year + "-" + month + "-" + date + "T" + hours + ":" + minutes + ":" + seconds
 
-        let body = JSON.stringify({
-            "queryOrderProductList":[
-                {
-                    "product_id": productId,
-                    "count" : count,
-                    "size" : size
-                }
-            ],
-            "order_status" : orderState,
-            "order_date" : time
+            let body = JSON.stringify({
+                "queryOrderProductList":[
+                    {
+                        "product_id": productId,
+                        "count" : count,
+                        "size" : size
+                    }
+                ],
+                "order_status" : orderState,
+                "order_date" : time
+            })
+            axios
+                .post(`${baseURL}/user/order`,body,{
+                    headers : {
+                        'Content-Type': 'application/json',
+                        'Authorization' : window.localStorage.getItem('Login')
+                    }
+                })
+                .then((response)=>{
+                    console.log(response);
+                    alert("주문완료")
+                    document.location.href = '/'
+                })
+                .catch((error) => {
+                    console.log(error)
+                });
+    }
+
+    const onCartSubmitHandler = (event) =>{
+        event.preventDefault();
+
+        let time = ""
+        let today = new Date();
+        let year = today.getFullYear();
+        let month = ('0' + (today.getMonth() + 1)).slice(-2);
+        let date = ('0' + (today.getDate())).slice(-2);
+        let hours = ('0' + (today.getHours())).slice(-2);
+        let minutes = ('0' + (today.getMinutes())).slice(-2);
+        let seconds = ('0' + (today.getSeconds())).slice(-2);
+
+        time = year + "-" + month + "-" + date + "T" + hours + ":" + minutes + ":" + seconds
+
+        cartproduct.forEach((product)=>{
+            let body = JSON.stringify({
+                "queryOrderProductList":[
+                    {
+                        "product_id": product.id,
+                        "count" : product.count,
+                        "size" : product.size
+                    }
+                ],
+                "order_status" : orderState,
+                "order_date" : time
+            })
+            axios
+                .post(`${baseURL}/user/order`,body,{
+                    headers : {
+                        'Content-Type': 'application/json',
+                        'Authorization' : window.localStorage.getItem('Login')
+                    }
+                })
+                .then((response)=>{
+                    console.log(response);
+                    console.log(`${product.name} 주문 완료!`)
+
+                })
+                .catch((error) => {
+                    console.log(error)
+                });
         })
-        console.log(body);
-        axios
-            .post(`${baseURL}/user/order`,body,{
-                headers : {
-                    'Content-Type': 'application/json',
-                    'Authorization' : window.localStorage.getItem('Login')
-                }
-            })
-            .then((response)=>{
-                console.log(response);
-                alert("주문완료")
-                document.location.href = '/'
-            })
-            .catch((error) => {
-                console.log(error)
-            });
+
+        document.location.href = '/'
     }
     return (
         <OrderForm>
             <AddressInfo label ="ADDRESS" value ={address}/>
-            <OrderInfo
-                label="ORDER"
-                imgKey={imgKey}
-                productname={productName}
-                price={price}
-                count={count}
-                size={size}/>
-            <OrderBtn onClick ={onSubmitHandler}>ORDER NOW</OrderBtn>
+            {(from==='details')&&
+                <>
+                    <OrderInfo
+                        label="ORDER"
+                        imgKey={imgKey}
+                        productname={productName}
+                        price={price}
+                        count={count}
+                        size={size}/>
+                    <OrderBtn onClick ={onSubmitHandler}>ORDER NOW</OrderBtn>
+                </>
+            }
+            {(from==='cart')&&
+                <>
+                    <OrderCart products = {cartproduct}></OrderCart>
+                    <OrderBtn onClick ={onCartSubmitHandler}>ORDER NOW</OrderBtn>
+                </>
+            }
+            
         </OrderForm>
     )
 }

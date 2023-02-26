@@ -198,7 +198,7 @@ console.log(detaildata)
           
           
           :
-          <Link to ='/order' state = {{product : detaildata, size :selected}}>
+          <Link to ='/order' state = {{product : detaildata, from : 'details', size :selected,}}>
             <button className='bg-slate-600 border'>상품 구매하기</button>
           </Link>
 }

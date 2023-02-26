@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useQuery } from '@tanstack/react-query';
+import { Link } from  'react-router-dom';
 import CartItem from '../components/CartItem';
 import { BsFillPlusCircleFill } from 'react-icons/bs';
 import { FaEquals } from 'react-icons/fa';
@@ -89,7 +89,9 @@ export default function MyCart() {
             <FaEquals className='shrink-0' />
             <PriceCard text='총가격' price={totalprice + SHIPPING - stock_zero_price} />
           </div>
-          <Button text='주문하기' />
+          <Link to='/order' state ={{product : cartproduct, from : 'cart'}}>
+            <Button text='주문하기' />
+          </Link>
         </>
       )}
       {/* <ContextCartProduct.Provider value={cartproduct}>

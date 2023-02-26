@@ -7,6 +7,8 @@ import PriceCard from '../components/PriceCard';
 import Button from '../components/ui/Button';
 import axios from 'axios';
 import { createContext } from 'react';
+import { v4 as uuidv4 } from 'uuid';
+
 
 const SHIPPING = 3000;
 const baseURL = process.env.REACT_APP_URL;
@@ -16,7 +18,7 @@ export const ContextCartProduct = createContext();
 export default function MyCart() {
 
   const [cartproduct, setCartProduct] = useState('')
-    
+  const uuid = uuidv4();
     //장바구니 상품 가져오기 
     useEffect(() => {
       axios.get(`${baseURL}/user/cart`,{
@@ -48,7 +50,7 @@ export default function MyCart() {
       let totalprice = 0
       cartproduct&&
       cartproduct.map((product)=>(
-        totalprice = totalprice + product.price
+        totalprice = totalprice + Number(product.price) * Number(product.count)
       ));
       
 
@@ -76,7 +78,7 @@ export default function MyCart() {
           <ul className='border-b border-gray-300 mb-8 p-4 px-8'>
             {cartproduct &&
               cartproduct.map((product) => (
-                <CartItem  key= {product.id} product={product} setCartProduct={setCartProduct} cartproduct={cartproduct} />
+                <CartItem  key= {uuid + product.size} product={product} setCartProduct={setCartProduct} cartproduct={cartproduct} />
               ))}
           </ul>
 

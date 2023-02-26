@@ -129,7 +129,7 @@ export default function Products() {
             "Content-Type": "application/json"
           }
         }).then((response) => {
-          console.log(response.data)
+          console.log(response)
           setIsResult(true);
           setProducts(response.data)
           console.log(`Sorted : ${sort}\nCategory : ${category}`)

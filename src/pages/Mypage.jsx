@@ -18,7 +18,13 @@ export default function MyPage() {
     const [hide2, setHide2] = useState(false)
     const [hide3, setHide3] = useState(false)
     const [hide4, setHide4] = useState(false)
-    
+
+    const [isPhone, setIsPhone] = useState(false);
+    const [isEmail, setIsEmail] = useState(false);
+
+    const [phoneChecked, setPhoneChecked] = useState(false);
+    const [mailChecked, setMailChecked] = useState(false);
+
 //처음 사용자 정보 가져오기
 useEffect(() => {
     axios({
@@ -78,10 +84,16 @@ const onNickNameChangeHandler = (e) =>{
 
 // telephone handler
 const onTelePhoneHandler = (e) => {
-    setTelePhone(e.currentTarget.value);
+    const currentPhone = e.currentTarget.value;
+    setTelePhone(currentPhone);
+    const phoneRegExp = /^[0-9]{8,13}$/;
+    if (phoneRegExp.test(currentPhone)) {
+      setIsPhone(true);
+    } else {
+      setIsPhone(false);
+    }
 }
 const onTelePhoneChangeHandler = (e) =>{
-
     const data = JSON.stringify({
         "username" : userstate.username,
         "nickname" : userstate.nickname,
@@ -91,24 +103,44 @@ const onTelePhoneChangeHandler = (e) =>{
     })
 
     e.preventDefault();
-    axios.put(`${baseURL}/user`,data,{
-        headers: {  
-            "Content-Type": "application/json",
-            "Authorization" : window.localStorage.getItem('Login')
-           }
-    } ).then((res) => {
-        setTelePhone(telephone)
-        console.log("값 변경이 되었습니다.");
-        console.log(res)
-        document.location.href = '/mypage'
+    if(!isPhone){
+        alert("전화번호는 8자리 이상 입력해주세요.")
+    }else{
+        axios
+            .get(`${baseURL}/check_telephone/${telephone}`)
+            .then((response) => {
+                axios.put(`${baseURL}/user`,data,{
+                    headers: {  
+                        "Content-Type": "application/json",
+                        "Authorization" : window.localStorage.getItem('Login')
+                       }
+                } ).then((res) => {
+                    alert("전화번호가 변경되었습니다.")
+                    console.log(res)
+                    document.location.href = '/mypage'
+                }
+                )
+                .catch((error) => {
+                    alert("전화번호가 중복됩니다.");
+                })
+            })
+            .catch(() => {
+                alert("사용중인 번호입니다")
+      });
     }
-    )
-    .catch((error) => console.log(error))
 }
 // email handler
 
 const onEmailHandler = (e) =>{
+    const currentEmail = e.currentTarget.value;
     setEmail(e.currentTarget.value);
+    const emailRegExp = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+.[A-Za-z]{2,6}$/;
+    if (emailRegExp.test(currentEmail)) {
+        setIsEmail(true);
+        }else{
+        setIsEmail(false);
+    }
+
 }
 
 const onEmailChangeHandler = (e) =>{
@@ -121,19 +153,27 @@ const onEmailChangeHandler = (e) =>{
     })
 
     e.preventDefault();
-    axios.put(`${baseURL}/user`,data,{
-        headers: {  
-            "Content-Type": "application/json",
-            "Authorization" : window.localStorage.getItem('Login')
-           }
-    } ).then((res) => {
-        setEmail(email)
-        console.log("값 변경이 되었습니다.");
-        console.log(res)
-        document.location.href = '/mypage'
+    if(!isEmail){
+        alert("이메일 형식에 맞게 입력해주세요");
+    }else{
+        axios.get(`${baseURL}/check_email/${email}`)
+            .then(()=>{
+                axios.put(`${baseURL}/user`,data,{
+                    headers: {  
+                        "Content-Type": "application/json",
+                        "Authorization" : window.localStorage.getItem('Login')
+                       }
+                }).then((res) => {
+                    alert("이메일이 변경되었습니다.");
+                    console.log(res)
+                    document.location.href = '/mypage'
+                }
+                )
+                .catch((error) => {
+                })
+            })
+            .catch((error)=>alert("이메일이 중복됩니다"))
     }
-    )
-    .catch((error) => console.log(error))
 }
 // address handler
 
@@ -229,7 +269,7 @@ const onPwChangeCheckHandler = (e) => {
                     <label>닉네임 변경하기 : </label>
                     <input 
                     type ="text" 
-                    placeholder ="닉네임을 변경하세요."
+                    placeholder ="닉네임을 입력하세요."
                     onChange={onNickNameHandler}></input>
                 </div>
 
@@ -261,7 +301,7 @@ const onPwChangeCheckHandler = (e) => {
                     <label>전화번호 변경하기 : </label>
                     <input 
                     type ="text" 
-                    placeholder ="닉네임을 변경하세요."
+                    placeholder ="전화번호를 입력하세요."
                     onChange={onTelePhoneHandler}></input>
                 </div>
 
@@ -293,7 +333,7 @@ const onPwChangeCheckHandler = (e) => {
                     <label>이메일 변경하기 : </label>
                     <input 
                     type ="text" 
-                    placeholder ="닉네임을 변경하세요."
+                    placeholder ="이메일을 입력하세요."
                     onChange={onEmailHandler}></input>
                 </div>
 
@@ -323,7 +363,7 @@ const onPwChangeCheckHandler = (e) => {
                     <label>주소 변경하기 : </label>
                     <input 
                     type ="text" 
-                    placeholder ="닉네임을 변경하세요."
+                    placeholder ="주소를 입력 하세요."
                     onChange={onAddressHandler}></input>
                 </div>
 

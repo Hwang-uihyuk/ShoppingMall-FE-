@@ -94,7 +94,17 @@ const JoinButton = styled.button`
         cursor : pointer;
     }
 `
-
+const CloseBtn = styled.button`
+  display: block;
+  width : 70px;
+  height : 40px;
+  position : relative;
+  z-index: 101;
+  justify-content: center;
+  background-color: black;
+  color : white;
+  top : -400px;
+`
 const LabelledInput = ({label,msg,handler,isValidated,...rest}) =>(
   <Wrapper>
     <Label>{label}</Label>
@@ -381,10 +391,13 @@ function SignUp() {
 
         <JoinButton onClick={onSubmitHandler}>회원가입</JoinButton>
       </RegisterForm>
-      {popup&&
-        <PopUpContainer>
-          <PostPopUp address={address} setAddress={setAddress} setPopup ={setPopup} ></PostPopUp>
-        </PopUpContainer>
+        {popup&&
+          <>
+            <PopUpContainer>
+              <CloseBtn onClick={()=>setPopup(false)}>CLOSE</CloseBtn>
+              <PostPopUp address={address} setAddress={setAddress} setPopup ={setPopup} ></PostPopUp>
+            </PopUpContainer>
+          </>
         }
       </>
   )

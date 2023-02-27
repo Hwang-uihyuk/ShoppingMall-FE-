@@ -20,11 +20,12 @@ const RegisterForm = styled.form`
     position: relative;
     z-index: 2;
     font-family: "RalewayBold";
+    opacity : ${props => (props.popup ? 0.5:1)};
 `
 const Wrapper =  styled.div`
   margin-top : 20px;
   background-color: white;
-  width : 600px
+  width : 600px;
 `
 const InputWrapper = styled.div`
   display : flex;
@@ -107,6 +108,12 @@ const LabelledInput = ({label,msg,handler,isValidated,...rest}) =>(
     <ShowMsg isValidated={isValidated}>{msg}</ShowMsg>
   </Wrapper>
 )
+
+const PopUpContainer = styled.div`
+  display: flex;
+  justify-content: center;
+
+`
 function SignUp() {
   const [idChecked,setIdChecked] = useState(false);
   const [phoneChecked,setPhoneChecked] = useState(false);
@@ -196,6 +203,7 @@ function SignUp() {
   const onAddressHandler = (event) => {
     const currentAddress = event.currentTarget.value;
     setAddress(currentAddress);
+    setPopup(false);
     setAddressFull(`${address} ${addressDetail}`)
     if (currentAddress.length===0){
       setAddressMsg("주소는 공백일 수 없습니다");
@@ -298,7 +306,9 @@ function SignUp() {
   }
 
   return (
-      <RegisterForm>
+    <>
+      <RegisterForm
+        popup = {popup}>
         <SingUpLabel>회원가입</SingUpLabel>
 
         <IdWrapper>
@@ -355,6 +365,7 @@ function SignUp() {
           <LabelledInput
           value={address}
           label="주소"
+          disabled={!popup}
           onChange={onAddressHandler}
           handler={(e)=>{
             e.preventDefault();
@@ -362,10 +373,6 @@ function SignUp() {
           }}
           placeholder="주소를 검색해주세요 "/>
         </IdWrapper>
-        {
-          popup&&
-            <PostPopUp address={address} setAddress={setAddress}></PostPopUp>
-        }
         <LabelledInput
           value={addressDetail}
           onChange={onAddressDetailHandler}
@@ -373,9 +380,13 @@ function SignUp() {
           isValidated={isAddress}/>
 
         <JoinButton onClick={onSubmitHandler}>회원가입</JoinButton>
-
-
       </RegisterForm>
+      {popup&&
+        <PopUpContainer>
+          <PostPopUp address={address} setAddress={setAddress} setPopup ={setPopup} ></PostPopUp>
+        </PopUpContainer>
+        }
+      </>
   )
 }
 

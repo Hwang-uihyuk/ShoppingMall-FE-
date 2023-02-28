@@ -2,11 +2,11 @@ import React from "react";
 import DaumPostCode from "react-daum-postcode";
 const PostPopUp = (props)=>{
     const setAddress = props.setAddress;
+    const setPopup = props.setPopup;
     const onCompletePost = (data)=>{
         setAddress(data.address);
+        setPopup(false);
     };
-
-
     const postCodeStyle = {
         display : 'block',
         width : '500px',

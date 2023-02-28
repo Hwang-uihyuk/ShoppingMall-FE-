@@ -134,6 +134,7 @@ function SignUp() {
       setIsAddress(false)
     }else{
       setAddressMsg("사용 가능한 주소입니다");
+      setIsAddress(true)
     }
   }
   //중복체크
@@ -193,6 +194,7 @@ function SignUp() {
   }
   const onSubmitHandler = async (event) => {
     event.preventDefault();
+    console.log(isId, isPw, isPhone,isNickname,isAddress,isEmail,idChecked)
     if(isId&&isPw&&isPhone&&isNickname&&isAddress&&isEmail&&idChecked){
       let body = JSON.stringify(
         {
@@ -291,7 +293,7 @@ function SignUp() {
           <>
             <PopUpContainer>
               <S.CloseBtn onClick={PopUpToggle}>CLOSE</S.CloseBtn>
-              <PostPopUp address={address} setAddress={setAddress}></PostPopUp>
+              <PostPopUp address={address} setAddress={setAddress} setPopup={setPopup}></PostPopUp>
             </PopUpContainer>
           </>
         }

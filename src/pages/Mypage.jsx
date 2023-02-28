@@ -1,7 +1,7 @@
 import React, {useEffect,useState} from 'react'
 import axios from 'axios'
 import { Link } from 'react-router-dom';
-
+import { BsFillPlusCircleFill } from 'react-icons/bs';
 const baseURL = process.env.REACT_APP_URL;
 //이 링크로 들어오자마자 
 //get으로 이 사용자의 정보를 가져온다.
@@ -249,8 +249,37 @@ const onPwChangeCheckHandler = (e) => {
 }
 
   return (
-    <div className='flex flex-col justify-center items-center w-full h-screen' >
+    <div className='flex flex-col justify-center  w-full h-screen bg-gray-50 dark:bg-gray-900' >
+    {/* // <div className='' > */}
+        {/* 사이드 바 만들기 */}
+        <div className="sidebar fixed top-0 bottom-0 lg:left-0 p-2 w-[0px] overflow-y-auto text-center bg-gray-900">
+            <div className='text-gray-100 text-xl'>
+                <div className='p-2.5 mt-1 flex items-center'>
+                    <BsFillPlusCircleFill className='m-5 px- py-8 bg-blue-600 rounded-md'></BsFillPlusCircleFill>
+                    <h1 className='font-bold text-gray-200 text -[15px] ml-3'>Shoppy</h1>
 
+                </div>
+                <hr className='my-2 text-purple-700'/>
+            </div>
+            <div className='p-2.5 mt-3 flex items-center rounded-md px-4 duration-300
+            cursor-pointer bg-gray-700'>
+            </div>
+
+            <div className='p-2.5 mt-3 flex items-center rounded-md px-4 duration-300
+            cursor-pointer hover:bg-slate-400 text-gray-100'>
+                비밀번호 변경
+            </div>
+
+            <div className='p-2.5 mt-3 flex items-center rounded-md px-4 duration-300
+            cursor-pointer hover:bg-slate-400 text-gray-100'>
+                헬로우
+            </div>
+
+            <div className='p-2.5 mt-3 flex items-center rounded-md px-4 duration-300
+            cursor-pointer hover:bg-slate-400 text-gray-100'>
+                헬로우
+            </div>
+        </div>
         <form className='flex flex-col border-8 rounded-lg p-10'>
             <div>
                 아이디 : {userstate.username}

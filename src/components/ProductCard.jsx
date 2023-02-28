@@ -11,24 +11,9 @@ export default function ProductCard({
 }) {
   const navigate = useNavigate();
 
-  
   //좋아요 버튼 
   const [like,setLike] = useState(false)
-
-
-  // useEffect(()=>{axios.post(`http://3.38.35.43:8080/user/favorite/${product.id}`,{},{
-  //     headers :{
-  //       "Content-Type" : "application/json",
-	// 			"Authorization" : window.localStorage.getItem('Login')
-  //     }
-  //   }).then(response => {
-  //     console.log('좋아요 등록 success')
-  //     })
-  //   },[])
-  
   const LikeButton = (e) => {
-    
-    
       axios.post(`${baseURL}/user/favorite/${product.id}`,{},{
       headers :{
         "Content-Type" : "application/json",
@@ -55,7 +40,6 @@ export default function ProductCard({
       setLike(!like)
   }
 
-
   return (
     <form>
     <li
@@ -69,16 +53,13 @@ export default function ProductCard({
       <img className='w-100 justify-center' 
         src={imgKey !=='undefined/key' ? imgKey : '/images/noimg.jpg'}
         alt={name}/>
-      <div className='mt-2 px-2 text-base flex justify-between items-center'>
-        <h3 className='truncate'>{name}</h3>
-        <p>{`KRW ${price}`}</p>
+      <div className='mt-2 px-2 text-base column justify-between items-left'>
+        <h3 className='font-normal truncate text-lg'>{name}</h3>
+        <p className='font-semibold'>{`${price.toLocaleString('to-KR')} 원`}</p>
       </div>
-      <p className='mb-2 px-2 text-gray-600'>{favorite}</p>
-
-
-
+      <p className='flex items-center mb-2 px-2 mt-1   font-semibold text-pink-700 flex'>
+        <img src = {'/images/heart.png'} className='w-5 h-5 mr-1'/>{favorite}</p>
       {stock_zero === false ? <div className ="font-bold text-red-600"> 품절입니다.</div> : ""}
-      
       <div className='flex'>
       {/* 좋아요 버튼 */}
       

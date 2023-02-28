@@ -13,7 +13,7 @@ const sorts = ["hits", "date", "favorite", "purchase"];
 
 const Container = styled.div`
   display: flex;
-  padding : 15px 20px 10px 30px;
+  padding : 10px 20px 5px 30px;
 `
 
 const CategoriesContainer = styled.div`
@@ -44,34 +44,46 @@ const SearchContainer = styled.div`
 `
 const SearchInput = styled.input`
   width : 70%;
-  height : 30%;
+  height : 40%;
   margin-right: 5px;
-  border-radius: 15px;
+  border-radius: 0.375rem;
+  padding: 0.625rem;
   border : 1px solid grey;
   align-self: right;
 `
 const SearchBtn = styled.button`
   width : 30%;
-  height : 30px;
-  background-color : black;
+  height : 40%;
+  font-size: 0.875rem;
+  font-weight: 500;
+  border-radius: 0.375rem;
+  background-color : #252525;
   color : white;
   align-self: center;
-  border-radius: 15px;
   font-family: "RalewayBold";
+  transition: background-color 0.2s ease-in-out;
+    &:hover {
+        background-color: #374151;
+    }
+    &:focus {
+        outline: none;
+        box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.3);
+    }
 `
 const SortLabel = styled.label`
   font-size : 15px;
   font-family: "RalewayBold";
   margin-right: 20px;
+  align-content: flex-end;
   &:hover{
         color : #666666e0;
         cursor : pointer;
   }
 `
 const SortContainer = styled.div`
-  padding : 40px 20px 10px 50px;
+  padding : 0px 20px 10px 50px;
   display: flex;
-  align-content: flex-start;
+  justify-content: right;
 `
 const Sort = ({ sortHandler, sorts }) => (
   <SortContainer>

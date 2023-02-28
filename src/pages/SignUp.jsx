@@ -11,10 +11,10 @@ const LabelledInput = ({label,msg,handler,isValidated,...rest}) =>(
     <S.Label>{label}</S.Label>
       <S.InputWrapper>
         <S.InputForm {...rest} />
-        {label === "아이디" && <S.CheckButton onClick={handler}>중복확인</S.CheckButton>}
-        {label ==="주소" && <S.CheckButton onClick={handler}>주소 검색</S.CheckButton>}
-        {label ==="전화번호" && <S.CheckButton onClick={handler}>번호 확인</S.CheckButton>}
-        {label ==="이메일" && <S.CheckButton onClick={handler}>메일 확인</S.CheckButton>}
+        {label === "ID" && <S.CheckButton onClick={handler}>중복확인</S.CheckButton>}
+        {label ==="Address" && <S.CheckButton onClick={handler}>주소 검색</S.CheckButton>}
+        {label ==="Telephone" && <S.CheckButton onClick={handler}>번호 확인</S.CheckButton>}
+        {label ==="Email" && <S.CheckButton onClick={handler}>메일 확인</S.CheckButton>}
       </S.InputWrapper>
     <S.ShowMsg isValidated={isValidated}>{msg}</S.ShowMsg>
   </S.Wrapper>
@@ -225,10 +225,10 @@ function SignUp() {
     <>
       <S.RegisterForm
         popup = {popup}>
-        <S.SingUpLabel>회원가입</S.SingUpLabel>
+        <S.SignUpLabel>Sign Up</S.SignUpLabel>
 
         <LabelledInput
-          label="아이디"
+          label="ID"
           msg={msgId}
           minlength="4"
           disabled={idChecked}
@@ -238,14 +238,14 @@ function SignUp() {
           isValidated={isId}/>
 
         <LabelledInput
-          label="닉네임"
+          label="Nickname"
           msg ={msgNickname}
           onChange={onNickNameHandler}
           placeholder="닉네임"
           isValidated={isNickname}/>
 
         <LabelledInput
-          label="비밀번호"
+          label="Password"
           msg ={msgPw}
           onChange={onPwHandler}
           placeholder="비밀번호 (8~12자)"
@@ -254,7 +254,7 @@ function SignUp() {
 
         <LabelledInput
           msg={msgPhone}
-          label="전화번호"
+          label="Telephone"
           disabled={phoneChecked}
           onChange={onTelephoneHandler}
           handler={onCheckPhoneHandler}
@@ -264,7 +264,7 @@ function SignUp() {
         <LabelledInput
           msg={msgEmail}
           value={email}
-          label="이메일"
+          label="Email"
           disabled={emailChecked}
           onChange={onEmailHandler}
           handler={onCheckEmailHandler}
@@ -273,7 +273,7 @@ function SignUp() {
 
         <LabelledInput
           value={address}
-          label="주소"
+          label="Address"
           disabled={!popup}
           onChange={onAddressHandler}
           handler={PopUpToggle}

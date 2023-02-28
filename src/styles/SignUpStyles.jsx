@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const Label = styled.div`
-  margin-left: 8px;
+  margin : 0 0 4px 4px;
   font-size : 1rem;
   color : #252525;
   left : rem;
@@ -24,13 +24,16 @@ export const RegisterForm = styled.form`
     opacity : ${props => (props.popup ? 0.5:1)};
 `
 export const Wrapper =  styled.div`
-  justify-content: left;
-  margin-top : 20px;
-  background-color: white;
-  width : 600px;
+    justify-content: left;
+    background-color: white;
+    width : 600px;
+    align-items: center;
+    margin-bottom : 20px;
 `
 export const InputWrapper = styled.div`
   display : flex;
+  justify-content: center;
+  align-items: center;
 `
 export const ShowMsg = styled.div`
   color : ${props => (props.isValidated ? 'green' : 'red')};
@@ -38,54 +41,63 @@ export const ShowMsg = styled.div`
   margin : 3px 0 0 10px;
 `
 export const InputForm = styled.input`
-    border-style: 1px dotted;
-    height : 50px;
-    width: 600px;
-    font-family: "RalewayLight";
-    font-size: 17px;
-    margin-top: 10px;
-    padding-left : 20px;
-    border-radius: 30px;
-    /* border-color : ${props => (props.isValidated ? 'white' : '#252525')};
-    box-shadow : ${props => (props.isValidated ? '0 0 5px blue':null) }; */
+    background-color: #F9FAFB;
+    border: 1px solid #D1D5DB;
+    color: #374151;
+    font-size: 1rem;
+    border-radius: 0.375rem;
+    padding: 0.625rem;
+    width: 100%;
+    margin : auto;
+    &:focus {
+    outline: none;
+    border-color: #2563EB;
+    box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.3);
+  }
 `
 
-export const SingUpLabel = styled.label`
+export const SignUpLabel = styled.label`
   font-size: 25px;
   color : #252525;
   margin: 15px 10px 10px 10px;
 `
 
 export const CheckButton = styled.button`
-    height: 50px;
-    width : 180px;
-    margin-left: 10px;
-    font-family: "RalewayLight";
-    font-size: 17px;
-    margin-top: 10px;
-    background-color: #252525;
-    color : white;
-    border-style: none;
-    border-radius: 30px;
-    &:hover{
-        background-color: #666666e0;
-        cursor : pointer;
-    };
+    width: 20%;
+    margin-left : 10px;
+    background-color: #38B2AC;
+    color: #FFFFFF;
+    font-size: 0.875rem;
+    font-weight: 500;
+    border-radius: 0.375rem;
+    padding: 0.625rem 1.25rem;
+    /* margin-top: 1.25rem; */
+    transition: background-color 0.2s ease-in-out;
+    &:hover {
+        background-color: #374151;
+    }
+    &:focus {
+        outline: none;
+        box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.3);
+    }
 `
 export const JoinButton = styled.button`
-    height: 50px;
-    width : 170px;
-    align-self: center;
-    font-family: "RalewayLight";
-    font-size: 17px;
-    margin-top: 30px;
-    background-color: #252525;
-    color : white;
-    border-style: none;
-    border-radius: 30px;
-    &:hover{
-        background-color: #666666e0;
-        cursor : pointer;
+    width: 20%;
+    margin-left : 10px;
+    background-color: #38B2AC;
+    color: #FFFFFF;
+    font-size: 0.875rem;
+    font-weight: 500;
+    border-radius: 0.375rem;
+    padding: 0.625rem 1.25rem;
+    /* margin-top: 1.25rem; */
+    transition: background-color 0.2s ease-in-out;
+    &:hover {
+        background-color: #374151;
+    }
+    &:focus {
+        outline: none;
+        box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.3);
     }
 `
 export const CloseBtn = styled.button`
@@ -95,7 +107,8 @@ export const CloseBtn = styled.button`
   position : relative;
   z-index: 101;
   justify-content: center;
-  background-color: black;
+  border-radius: 0.375rem;
+  background-color: #38B2AC;
   color : white;
-  top : -400px;
+  top : -360px;
 `

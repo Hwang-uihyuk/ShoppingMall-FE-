@@ -3,120 +3,21 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { PostSignUp } from "../api/api";
 import PostPopUp from "../components/PostPopUp";
-
+import * as S from '../styles/SignUpStyles';
 const baseURL = process.env.REACT_APP_URL;
-const RegisterForm = styled.form`
-    grid-template-columns: 300px 300px;
-    grid-template-rows: 60px 60px 60px 60px;
-    align-self: center;
-    align-items: center;
-    margin : 10px;
-    padding : 10px;
-    display: flex;
-    height : 1000px;
-    width : flex;
-    flex-direction: column;
-    background-color: white;
-    position: relative;
-    z-index: 2;
-    font-family: "RalewayBold";
-    opacity : ${props => (props.popup ? 0.5:1)};
-`
-const Wrapper =  styled.div`
-  margin-top : 20px;
-  background-color: white;
-  width : 600px;
-`
-const InputWrapper = styled.div`
-  display : flex;
-`
-const IdWrapper = styled.div`
-  justify-content: left;
-`
-const ShowMsg = styled.div`
-  color : ${props => (props.isValidated ? 'green' : 'red')};
-  font-size : 8px;
-  margin : 3px 0 0 10px;
-`
-const InputForm = styled.input`
-    border-style: 1px dotted;
-    height : 50px;
-    width: 600px;
-    font-family: "RalewayLight";
-    font-size: 17px;
-    margin-top: 10px;
-    padding-left : 20px;
-    border-radius: 30px;
-    /* border-color : ${props => (props.isValidated ? 'white' : '#252525')};
-    box-shadow : ${props => (props.isValidated ? '0 0 5px blue':null) }; */
-`
-const Label = styled.div`
-  margin-left: 8px;
-  font-size : 1rem;
-  color : #252525;
-  left : rem;
-`
-const SingUpLabel = styled.label`
-  font-size: 25px;
-  color : #252525;
-  margin: 15px 10px 10px 10px;
-`
 
-const CheckIdButton = styled.button`
-    height: 50px;
-    width : 180px;
-    margin-left: 10px;
-    font-family: "RalewayLight";
-    font-size: 17px;
-    margin-top: 10px;
-    background-color: #252525;
-    color : white;
-    border-style: none;
-    border-radius: 30px;
-    &:hover{
-        background-color: #666666e0;
-        cursor : pointer;
-    };
-`
-const JoinButton = styled.button`
-    height: 50px;
-    width : 170px;
-    align-self: center;
-    font-family: "RalewayLight";
-    font-size: 17px;
-    margin-top: 30px;
-    background-color: #252525;
-    color : white;
-    border-style: none;
-    border-radius: 30px;
-    &:hover{
-        background-color: #666666e0;
-        cursor : pointer;
-    }
-`
-const CloseBtn = styled.button`
-  display: block;
-  width : 70px;
-  height : 40px;
-  position : relative;
-  z-index: 101;
-  justify-content: center;
-  background-color: black;
-  color : white;
-  top : -400px;
-`
 const LabelledInput = ({label,msg,handler,isValidated,...rest}) =>(
-  <Wrapper>
-    <Label>{label}</Label>
-      <InputWrapper>
-        <InputForm {...rest} />
-        {label === "아이디" && <CheckIdButton onClick={handler}>중복확인</CheckIdButton>}
-        {label ==="주소" && <CheckIdButton onClick={handler}>주소 검색</CheckIdButton>}
-        {label ==="전화번호" && <CheckIdButton onClick={handler}>번호 확인</CheckIdButton>}
-        {label ==="이메일" && <CheckIdButton onClick={handler}>메일 확인</CheckIdButton>}
-      </InputWrapper>
-    <ShowMsg isValidated={isValidated}>{msg}</ShowMsg>
-  </Wrapper>
+  <S.Wrapper>
+    <S.Label>{label}</S.Label>
+      <S.InputWrapper>
+        <S.InputForm {...rest} />
+        {label === "아이디" && <S.CheckButton onClick={handler}>중복확인</S.CheckButton>}
+        {label ==="주소" && <S.CheckButton onClick={handler}>주소 검색</S.CheckButton>}
+        {label ==="전화번호" && <S.CheckButton onClick={handler}>번호 확인</S.CheckButton>}
+        {label ==="이메일" && <S.CheckButton onClick={handler}>메일 확인</S.CheckButton>}
+      </S.InputWrapper>
+    <S.ShowMsg isValidated={isValidated}>{msg}</S.ShowMsg>
+  </S.Wrapper>
 )
 
 const PopUpContainer = styled.div`
@@ -315,14 +216,18 @@ function SignUp() {
     }
   }
 
+  const PopUpToggle = (e) =>{
+    e.preventDefault();
+    setPopup(!popup);
+  }
+
   return (
     <>
-      <RegisterForm
+      <S.RegisterForm
         popup = {popup}>
-        <SingUpLabel>회원가입</SingUpLabel>
+        <S.SingUpLabel>회원가입</S.SingUpLabel>
 
-        <IdWrapper>
-          <LabelledInput
+        <LabelledInput
           label="아이디"
           msg={msgId}
           minlength="4"
@@ -330,8 +235,7 @@ function SignUp() {
           handler={onCheckIdHandler}
           onChange={onUserNameHandler}
           placeholder="아이디를 입력해주세요 (4~12자) "
-            isValidated={isId}/>
-        </IdWrapper>
+          isValidated={isId}/>
 
         <LabelledInput
           label="닉네임"
@@ -348,8 +252,7 @@ function SignUp() {
           type="password"
           isValidated={isPw}/>
 
-        <IdWrapper>
-          <LabelledInput
+        <LabelledInput
           msg={msgPhone}
           label="전화번호"
           disabled={phoneChecked}
@@ -357,10 +260,8 @@ function SignUp() {
           handler={onCheckPhoneHandler}
           placeholder="전화번호 (ex.01023456789) "
           isValidated={phoneChecked} />
-        </IdWrapper>
 
-        <IdWrapper>
-          <LabelledInput
+        <LabelledInput
           msg={msgEmail}
           value={email}
           label="이메일"
@@ -369,33 +270,28 @@ function SignUp() {
           handler={onCheckEmailHandler}
           placeholder="이메일 (welcome@example.com) "
           isValidated={emailChecked}/>
-        </IdWrapper>
 
-        <IdWrapper>
-          <LabelledInput
+        <LabelledInput
           value={address}
           label="주소"
           disabled={!popup}
           onChange={onAddressHandler}
-          handler={(e)=>{
-            e.preventDefault();
-            setPopup(!popup);
-          }}
+          handler={PopUpToggle}
           placeholder="주소를 검색해주세요 "/>
-        </IdWrapper>
+
         <LabelledInput
           value={addressDetail}
           onChange={onAddressDetailHandler}
           placeholder="상세주소"
           isValidated={isAddress}/>
 
-        <JoinButton onClick={onSubmitHandler}>회원가입</JoinButton>
-      </RegisterForm>
+        <S.JoinButton onClick={onSubmitHandler}>회원가입</S.JoinButton>
+      </S.RegisterForm>
         {popup&&
           <>
             <PopUpContainer>
-              <CloseBtn onClick={()=>setPopup(false)}>CLOSE</CloseBtn>
-              <PostPopUp address={address} setAddress={setAddress} setPopup ={setPopup} ></PostPopUp>
+              <S.CloseBtn onClick={PopUpToggle}>CLOSE</S.CloseBtn>
+              <PostPopUp address={address} setAddress={setAddress}></PostPopUp>
             </PopUpContainer>
           </>
         }

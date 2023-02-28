@@ -1,15 +1,11 @@
-import React,{useEffect,useState} from "react";
+import React from "react";
 import DaumPostCode from "react-daum-postcode";
 const PostPopUp = (props)=>{
-    const address = props.address;
     const setAddress = props.setAddress;
-    const setPopup = props.setPopup;
     const onCompletePost = (data)=>{
         setAddress(data.address);
     };
-    const onClosePost=()=>{
-        setPopup(false)
-    }
+
 
     const postCodeStyle = {
         display : 'block',
@@ -26,7 +22,6 @@ const PostPopUp = (props)=>{
                 style = {postCodeStyle}
                 autoClose
                 onComplete={onCompletePost}
-                onClose={onClosePost}
             >
             </DaumPostCode>
         </>

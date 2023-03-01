@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
 import { useLocation, Link, Navigate, useNavigate } from 'react-router-dom';
-import Button from '../components/ui/Button';
-
 import axios, { AxiosError } from 'axios';
 import { useEffect } from 'react';
+import {AiFillHeart,AiOutlineHeart } from 'react-icons/ai';
 
 const baseURL = process.env.REACT_APP_URL;
 
@@ -136,16 +135,19 @@ console.log(detaildata)
   }
   return (
     <>
-      <p className='mx-12 mt-4 text-gray-700'>{detaildata.category}</p>
+      
       <section className='flex flex-col md:flex-row p-4'>
+        
         {/* <img className='w-full px-4 basis-7/12' src={detaildata.imgkey} alt={title} /> */}
         <img className=" w-150 px-4 basis-3/12" src={detaildata.imgKey}></img>
         <div className='w-full basis-5/12 flex flex-col p-4'>
+          <p className='text-xl mt-4 text-gray-700'>{detaildata.category}</p>
+          <p className='text-2xl font-bold mt-3 text-gray-700'>{detaildata.name}</p>
           <h2 className='text-3xl font-bold py-2'>{title}</h2>
           <p className='text-2xl font-bold py-2  border-b border-gray-400'>
             ₩{price}
           </p>
-          <p className='py-4 text-lg'>{detaildata.description}</p>
+          <p className='py-4 text-lg opacity-50'>{detaildata.description}</p>
 
           {/* 상품 재고  */}
           {detaildata &&
@@ -186,12 +188,17 @@ console.log(detaildata)
           {/* <Button text='장바구니에 추가' onClick={handleAddCart}/> */}
 
           {selected === "사이즈를 선택하세요." ? 
-          <button className ="bg-slate-300 border" disabled onClick={handleAddCart}>사이즈를 선택하시오.</button>
+          <button className =" text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800" disabled onClick={handleAddCart}>Select the size</button>
           :
-          <button text="장바구니 추가" className="bg-slate-600 border" onClick={handleAddCart}>장바구니추가</button>}
+          <button type="submit"  onClick={handleAddCart} className=" text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
+            Add to Cart</button>
+        }
           
+
+
           {selected === "사이즈를 선택하세요." ? 
-          <button className ="bg-slate-300 border" disabled>사이즈를 골라주세요</button>
+          <button className=" text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800" disabled>Select the size</button>
+          
           :
           !window.localStorage.getItem('Login') ? 
           navigate('/login')
@@ -199,13 +206,25 @@ console.log(detaildata)
           
           :
           <Link to ='/order' state = {{product : detaildata, from : 'details', size :selected,}}>
-            <button className='bg-slate-600 border'>상품 구매하기</button>
+            <button className=" text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Buy</button>
           </Link>
 }
 
-          {!detaildata.check_favorite && <button onClick={handleAddLike} className='bg-slate-100 border'> 좋아요{detaildata.favorite} </button>}
-          {detaildata.check_favorite && <button onClick={handleDeleteLike} className='bg-slate-100 border'> 좋아요 해제{detaildata.favorite} </button>}
+<div className='flex'>
+          <div className='flex'>
+          {!detaildata.check_favorite && 
+          <AiOutlineHeart size = "38" onClick={handleAddLike} className=' p-1 text-lg hover:focus'> </AiOutlineHeart>}
+          </div>
 
+          <div>
+          {detaildata.check_favorite && 
+          <AiFillHeart size = "38" onClick={handleDeleteLike} className=' p-1 text-lg'> 좋아요 해제{detaildata.favorite} </AiFillHeart>
+          }
+          </div>
+
+          <div className='pt-1.5'>{detaildata.favorite}</div>
+          
+</div>     
           </span>
         </div>
       </section>

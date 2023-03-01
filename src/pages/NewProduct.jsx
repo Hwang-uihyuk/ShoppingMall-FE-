@@ -171,7 +171,7 @@ export default function NewProduct() {
       <div className="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
       {/* aws */}
       
-      <form className='flex flex-col px-12' onSubmit={handleSubmit}>
+      <form className='flex flex-col px-12 space-y-2.5' onSubmit={handleSubmit}>
 
       <div className="App-body">
        

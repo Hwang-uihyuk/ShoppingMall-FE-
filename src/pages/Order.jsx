@@ -9,7 +9,7 @@ const baseURL = process.env.REACT_APP_URL;
 const InputForm = styled.input`
     border-style: 1px dotted;
     height : 50px;
-    width: 600px;
+    width: 60vw;
     font-family: "RalewayLight";
     font-size: 17px;
     margin: 12px 0 0 9px;
@@ -20,15 +20,12 @@ const InputForm = styled.input`
     }
 `
 const OrderForm = styled.form`
-    grid-template-columns: 300px 300px;
-    grid-template-rows: 60px 60px 60px 60px;
-    align-self: left;
+    /* grid-template-columns: 300px 300px;
+    grid-template-rows: 60px 60px 60px 60px; */
     align-items: center;
-    margin : 10px;
-    padding : 10px;
     display: flex;
     height : 1000px;
-    width : flex;
+    width : 100vw;
     flex-direction: column;
     background-color: white;
     position: relative;
@@ -44,7 +41,9 @@ const OrderLabel = styled.label`
 `
 const OrderWrapper = styled.div` 
     margin-top : 20px;
-    width : 1000px;
+    width : 75vw;
+    display: flex;
+    flex-direction: column;
     height :flex;
 `
 const OrderBtn = styled.button`
@@ -65,14 +64,14 @@ const OrderBtn = styled.button`
 `
 const OrderTable = styled.table`
     margin : 10px 10px 10px 10px;
-    border-collapse: collapse;
-    width : 1000px;
+    display: flex;
 `
 
 const TD = styled.td`
-    width : 300px;
+    width : 30vw;
     padding : 15px;
-    border : 1px solid #aaaaaadf;
+    border-top : 2px solid #252525;
+    border-bottom : 2px solid;
 `
 const QuantityTD = styled.td`
     width : 100px;
@@ -90,8 +89,8 @@ const PriceTD = styled.td`
     border : 1px solid #aaaaaadf;
 `
 const ImageContainer = styled.div`
-    width: 40%;
-    height : 40%;
+    width: 70%;
+    height : 70%;
     display : flex;
     align-items: center;
     justify-content: center;
@@ -103,6 +102,23 @@ const Image = styled.img`
 `
 const SizedBox = styled.div`
     width : 15px;
+`
+const SLabel = styled.p`
+    color : #252525;
+    font-weight: 300;
+    font-size: 14px;
+    margin-bottom: 10px;
+`
+const MLabel = styled.p`
+    color : #252525;
+    font-weight: 500;
+    font-size: 17px;
+`
+const LLabel = styled.p`
+    color : #252525;
+    font-weight: 500;
+    font-size: 22px;
+    margin-bottom: 10px;
 `
 const AddressInfo = ({label,value,...rest})=>(
     <OrderWrapper>
@@ -118,19 +134,21 @@ const OrderInfo = ({label,imgKey,productname,price,count,size,...rest})=>(
                 <tr>
                     <TD></TD>
                     <TD>PRODUCT</TD>
-                    <TD>PRICE</TD>
                     <TD>QUANTITY</TD>
-                    <TD>SIZE</TD>
                 </tr>
                 <tr>
                     <TD>
                         <ImageContainer>
                             <Image src = {imgKey}/>
-                        </ImageContainer></TD>
-                    <TD>{productname}</TD>
-                    <TD>{price}</TD>
+                        </ImageContainer>
+                        
+                    </TD>
+                    <TD>
+                        <LLabel>{productname}</LLabel>
+                        <SLabel> SIZE : {size}</SLabel>
+                        <MLabel >{price.toLocaleString('to-KR')}원</MLabel>
+                    </TD>
                     <TD>{count}</TD>
-                    <TD>{size}</TD>
                 </tr>
             </tbody>
     </OrderTable>

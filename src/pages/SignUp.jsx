@@ -241,7 +241,8 @@ function SignUp() {
           handler={onCheckIdHandler}
           onChange={onUserNameHandler}
           placeholder="아이디를 입력해주세요 (4~12자) "
-          isValidated={isId}/>
+          isValidated={isId}
+          />
 
         <LabelledInput
           label="Nickname"

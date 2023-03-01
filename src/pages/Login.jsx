@@ -58,7 +58,7 @@ Shoppy      </a>
                       </div>
                       <a href="#" className="text-sm font-medium text-primary-600 hover:underline dark:text-primary-500">Forgot password?</a>
                   </div>
-                  <button type="submit" onClick={onLogin} className="w-full  bg-gray-600 text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Sign in</button>
+                  <button type="submit" onClick={onLogin} className="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Sign in</button>
                   <p className="text-sm font-light  text-gray-500 dark:text-gray-400">
                       Don’t have an account yet? <a href="/signup" className="font-medium text-primary-600 hover:underline dark:text-primary-500">Sign up</a>
                   </p>
@@ -67,51 +67,7 @@ Shoppy      </a>
       </div>
   </div>
 </section>
-    //기존
-  //   <div className='flex flex-col bg-gray-100 relative top-0 bottom-0 right-1/2 translate-x-1/2 w-full  overflow-hidden  translate-y-0' >
-
-
-
-      
-  //     <div className='titleWrap'>
-  //       로그인
-  //     </div>
-  // <form className='flex flex-col mt-26 flex-1' onChange={onSubmitHandler}>
-            
-  //           <label>ID</label>
-  //           <input 
-  //           type="text"
-  //           placeholder='ID'
-  //           className='rounded-3xl flex w-full bg-white mt-8 p-16'
-  //           value={Id}
-  //           onChange={onIdHandler}
-  //           >
-  //           </input>
-
-  //           <label>PASSWARD</label>
-  //           <input
-  //           type="text"
-  //           placeeholder="PASSWORD"
-  //           className='rounded-3xl'
-  //           value={Password}
-  //           onChange={onPasswordHandler}
-  //           >
-  //           </input>
-  //           <br />
-  //           <div>
-  //           <button onClick={onLogin}> 로그인 버튼!!</button>
-  //           <div></div>
-  //           </div>
-  //       </form>    
-
-
-
-
-        
-  //   </div>
-
-
-
+    
 
     
   )

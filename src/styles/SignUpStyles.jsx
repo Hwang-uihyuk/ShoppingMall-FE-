@@ -12,7 +12,7 @@ export const RegisterForm = styled.form`
     align-self: center;
     align-items: center;
     margin : 10px;
-    padding : 10px;
+    padding : 40px;
     display: flex;
     height : 1000px;
     width : flex;

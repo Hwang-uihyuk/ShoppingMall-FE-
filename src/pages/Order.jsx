@@ -24,8 +24,7 @@ const OrderForm = styled.form`
     grid-template-rows: 60px 60px 60px 60px; */
     align-items: center;
     display: flex;
-    height : 1000px;
-    width : 100vw;
+    height : 70%;
     flex-direction: column;
     background-color: white;
     position: relative;
@@ -41,7 +40,7 @@ const OrderLabel = styled.label`
 `
 const OrderWrapper = styled.div` 
     margin-top : 20px;
-    width : 75vw;
+    width : 70vw;
     display: flex;
     flex-direction: column;
     height :flex;
@@ -52,7 +51,7 @@ const OrderBtn = styled.button`
     align-self: center;
     font-family: "RalewayLight";
     font-size: 17px;
-    margin-top: 30px;
+    margin: 50px;
     background-color: #252525;
     color : white;
     border-style: none;
@@ -68,7 +67,7 @@ const OrderTable = styled.table`
 `
 
 const TD = styled.td`
-    width : 30vw;
+    width : 20vw;
     padding : 15px;
     border-top : 2px solid #252525;
     border-bottom : 2px solid;
@@ -159,28 +158,29 @@ const OrderCart =({products})=>(
     <OrderWrapper>
         <OrderLabel>ORDER</OrderLabel>
         <OrderTable>
-            <thead>
+            <tbody>
                 <tr>
                     <TD></TD>
                     <TD>PRODUCT</TD>
-                    <TD>PRICE</TD>
                     <TD>QUANTITY</TD>
-                    <TD>SIZE</TD>
                 </tr>
-                </thead>
-            <tbody>
                     {products&&
                         products.map((product)=>(
                             <>
                                 <tr>
+
                                     <TD>
-                                    <ImageContainer>
-                                        <Image src = {product.imgKey}/>
-                                    </ImageContainer></TD>
-                                    <TD>{product.name}</TD>
-                                    <TD>{product.price}</TD>
+                                        <ImageContainer>
+                                            <Image src={product.imgKey} />
+                                        </ImageContainer>
+
+                                    </TD>
+                                    <TD>
+                                        <LLabel>{product.name}</LLabel>
+                                        <SLabel> SIZE : {product.size}</SLabel>
+                                        <MLabel >{product.price.toLocaleString('to-KR')}원</MLabel>
+                                    </TD>
                                     <TD>{product.count}</TD>
-                                    <TD>{product.size}</TD>
                                 </tr>
                             </>
                         ))}

@@ -21,6 +21,8 @@ export const RegisterForm = styled.form`
     position: relative;
     z-index: 2;
     font-family: "RalewayBold";
+    border-radius : 15px;
+    box-shadow: 1px 1px 1.5px lightgray;
     opacity : ${props => (props.popup ? 0.5:1)};
 `
 export const Wrapper =  styled.div`

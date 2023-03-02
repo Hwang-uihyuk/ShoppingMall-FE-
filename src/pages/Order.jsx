@@ -119,6 +119,14 @@ const LLabel = styled.p`
     font-size: 22px;
     margin-bottom: 10px;
 `
+const TLabel = styled.label`
+    color : #252525;
+    font-weight: 500;
+    font-size: 25px;
+    display : flex;
+    justify-content: flex-end;
+    margin : 5px 5px 0 0 ;
+`
 const AddressInfo = ({label,value,...rest})=>(
     <OrderWrapper>
         <OrderLabel>{label}</OrderLabel>
@@ -154,7 +162,7 @@ const OrderInfo = ({label,imgKey,productname,price,count,size,...rest})=>(
     </OrderWrapper>
 )
 
-const OrderCart =({products})=>(
+const OrderCart =({products,total})=>(
     <OrderWrapper>
         <OrderLabel>ORDER</OrderLabel>
         <OrderTable>
@@ -163,6 +171,7 @@ const OrderCart =({products})=>(
                     <TD></TD>
                     <TD>PRODUCT</TD>
                     <TD>QUANTITY</TD>
+                    <TD>SUBTOTAL</TD>
                 </tr>
                     {products&&
                         products.map((product)=>(
@@ -181,6 +190,7 @@ const OrderCart =({products})=>(
                                         <MLabel >{product.price.toLocaleString('to-KR')}원</MLabel>
                                     </TD>
                                     <TD>{product.count}</TD>
+                                    <TD>{(product.price * product.count).toLocaleString('to-KR')}</TD>
                                 </tr>
                             </>
                         ))}
@@ -202,6 +212,7 @@ export default function Order(){
     const [address,setAddress] = useState("");
     const from= location.state.from;
     const cartproduct = location.state.product;
+    const total = cartproduct.reduce((acc,cur)=> acc+(cur.price*cur.count),0);
     console.log(from,'에서 왔습니다.');
     console.log(cartproduct);
     useEffect(() => {
@@ -325,13 +336,17 @@ export default function Order(){
                         price={price}
                         count={count}
                         size={size}/>
-                    <OrderBtn onClick ={onSubmitHandler}>ORDER NOW</OrderBtn>
+                    <OrderBtn onClick ={onSubmitHandler}>{total.toLocaleString('to-KR')}원 결제</OrderBtn>
+
+                    
                 </>
             }
             {(from==='cart')&&
                 <>
-                    <OrderCart products = {cartproduct}></OrderCart>
-                    <OrderBtn onClick ={onCartSubmitHandler}>ORDER NOW</OrderBtn>
+                    <OrderCart
+                    products = {cartproduct}
+                    total = {total}></OrderCart>
+                    <OrderBtn onClick ={onCartSubmitHandler}>{total.toLocaleString('to-KR')}원 결제</OrderBtn>
                 </>
             }
             

@@ -29,9 +29,11 @@ const Category = styled.h2`
     float: left;
     font-size: 20px;
     margin-right: 30px;
+    transition : font-size 3s ease out 100ms;
     &:hover{
         color : #666666e0;
         cursor : pointer;
+        font-size: 20.1px;
     }
 `
 const SearchContainer = styled.div`

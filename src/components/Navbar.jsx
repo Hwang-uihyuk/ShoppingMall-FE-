@@ -10,10 +10,10 @@ import { useAxiosAuthContext } from './context/UserStateContext';
 export default function Navbar() {
   const { user, logout } = useAxiosAuthContext();
   return (
-    <header className='flex justify-between border-b border-none p-2 pt-3 sticky top-0 bg-white z-10 shadow-none'>
-      <Link to='/' className='flex items-center text-4xl pl-10'>
+    <header className='flex justify-between border-b border-none p-4 pt-3 sticky top-0 bg-white z-10 shadow-none'>
+      <Link to='/' className='flex items-center text-4xl pl-3'>
         {/* <AiFillShop /> */}
-        <h1>SHOPPY</h1>
+        <h1 className = 'justify-center'>SHOPPY</h1>
       </Link>
 
       <nav className='flex items-center gap-4 font-semibold pr-6'>
@@ -50,7 +50,7 @@ export default function Navbar() {
           )}
           
 
-        {!window.localStorage.getItem('Login') &&<Link to='/signup'>JOIN </Link>}  
+        {!window.localStorage.getItem('Login') &&<Link to='/signup'>SIGNUP </Link>}  
 
         {user && <User user={user} />}
         {/* {!user && <Button text={'Login(axios)'} onClick={login} />} */}

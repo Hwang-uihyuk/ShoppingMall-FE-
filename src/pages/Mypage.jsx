@@ -248,6 +248,31 @@ const onPwChangeCheckHandler = (e) => {
     setPwCheck(e.currentTarget.value)
 }
 
+const handleUpgradeAuth = (e) => {
+    e.preventDefault();
+    const upgradeId = prompt('업그레이드 할 아이디는 무엇입니까?')
+    console.log(upgradeId)
+    axios.patch(`${baseURL}/admin/upgradeAuth/${upgradeId}`,"",{
+        headers : {
+            'Content-Type' : 'application/json',
+            'Authorization' : window.localStorage.getItem('Login')
+        }
+    }).then(() => alert('권한이 업그레이드 됬습니다.'))
+    .catch((error) => {
+        console.log(error)
+        alert("이미 충분한 권한을 가지고 있습니다.")
+        
+    }
+    )
+}
+
+// axios.put(`${baseURL}/user`,data,{
+//     headers: {  
+//         "Content-Type": "application/json",
+//         "Authorization" : window.localStorage.getItem('Login')
+//     }
+// } ).then((res) => {
+
   return (
     <div className='flex flex-col justify-center  w-full h-screen bg-gray-50 dark:bg-gray-900' >
     {/* // <div className='' > */}
@@ -313,9 +338,6 @@ const onPwChangeCheckHandler = (e) => {
                 </div>
             </div>}
 
-
-
-
             {/* telephone 변경 form */}
             <div>
                 telephone : {userstate.telephone}
@@ -344,9 +366,6 @@ const onPwChangeCheckHandler = (e) => {
                 > 확인 </button>
                 </div>
             </div>}
-
-
-
 
             {/* email 변경 form */}
             <div>
@@ -406,10 +425,6 @@ const onPwChangeCheckHandler = (e) => {
                 > 확인 </button>
                 </div>
             </div>}
-            
-            
-
-
         </form>    
         <div>
         <button className='border-4' onClick={(e) => {
@@ -450,7 +465,6 @@ const onPwChangeCheckHandler = (e) => {
             </div>
             </div>}
 
-
             {/* 회원탈퇴 폼 */}
             <div className='border'>
                 <button onClick={(e)=>{
@@ -486,9 +500,11 @@ const onPwChangeCheckHandler = (e) => {
             </div>
 
             <div>
-                <Link to ="/mypage/orderlist">주문목록</Link>
+                <Link to ="/mypage/ =orderlist">주문목록</Link>
             </div>
-
+            {window.localStorage.getItem('ID') === 'hwang' ?
+            <button onClick={handleUpgradeAuth}>권한 업그레이드</button> : ""}
+            
             
     </div>
     

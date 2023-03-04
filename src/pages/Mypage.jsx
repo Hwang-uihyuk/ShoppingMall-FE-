@@ -3,13 +3,10 @@ import axios from 'axios'
 import { Link } from 'react-router-dom';
 import { BsFillPlusCircleFill } from 'react-icons/bs';
 const baseURL = process.env.REACT_APP_URL;
-//이 링크로 들어오자마자 
-//get으로 이 사용자의 정보를 가져온다.
-// 그리고 뿌려주면 된다.
+
 export default function MyPage() {
     const [userstate, setUserState ] = useState("");
 
-    //이걸 해주는 input text에 값을 넣어줘야 하기 때문이다. 그 값을 가져와서 보내줘야함
     const [nickname,setNickName] = useState(userstate.username)
     const [telephone,setTelePhone] = useState(userstate.telephone)
     const [email,setEmail] = useState(userstate.email)
@@ -266,140 +263,225 @@ const handleUpgradeAuth = (e) => {
     )
 }
 
-// axios.put(`${baseURL}/user`,data,{
-//     headers: {  
-//         "Content-Type": "application/json",
-//         "Authorization" : window.localStorage.getItem('Login')
-//     }
-// } ).then((res) => {
 
   return (
-    <div className='flex flex-col justify-center  w-full h-screen bg-gray-50 dark:bg-gray-900' >
-    {/* // <div className='' > */}
-        {/* 사이드 바 만들기 */}
-        <div className="sidebar fixed top-0 bottom-0 lg:left-0 p-2 w-[0px] overflow-y-auto text-center bg-gray-900">
-            <div className='text-gray-100 text-xl'>
-                <div className='p-2.5 mt-1 flex items-center'>
-                    <BsFillPlusCircleFill className='m-5 px- py-8 bg-blue-600 rounded-md'></BsFillPlusCircleFill>
-                    <h1 className='font-bold text-gray-200 text -[15px] ml-3'>Shoppy</h1>
+    <div >
+    
+        {/* real side var */}
+          {/* <div class="h-screen flex items-end justify-end px-4 pb-6">
+  <button class="relative z-30 lg:hidden peer h-14 w-14 rounded-full bg-cyan-500 hover:bg-cyan-600 focus:bg-cyan-600 active:bg-cyan-700 transition">
+    <span class="text-white">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="w-6 m-auto" viewBox="0 0 16 16">
+        <path fill-rule="evenodd" d="M3.646 9.146a.5.5 0 0 1 .708 0L8 12.793l3.646-3.647a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 0-.708zm0-2.292a.5.5 0 0 0 .708 0L8 3.207l3.646 3.647a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 0 0 0 .708z"/>
+      </svg>
+    </span>
+  </button>
 
-                </div>
-                <hr className='my-2 text-purple-700'/>
-            </div>
-            <div className='p-2.5 mt-3 flex items-center rounded-md px-4 duration-300
-            cursor-pointer bg-gray-700'>
-            </div>
-
-            <div className='p-2.5 mt-3 flex items-center rounded-md px-4 duration-300
-            cursor-pointer hover:bg-slate-400 text-gray-100'>
-                비밀번호 변경
-            </div>
-
-            <div className='p-2.5 mt-3 flex items-center rounded-md px-4 duration-300
-            cursor-pointer hover:bg-slate-400 text-gray-100'>
-                헬로우
-            </div>
-
-            <div className='p-2.5 mt-3 flex items-center rounded-md px-4 duration-300
-            cursor-pointer hover:bg-slate-400 text-gray-100'>
-                헬로우
-            </div>
+  <div class="z-20 fixed top-0 -left-96 lg:left-0 h-screen w-9/12 lg:w-72 bg-white shadow-2xl peer-focus:left-0 peer:transition ease-out delay-150 duration-200">
+    <nav role="navigation" class="p-6">
+        <div class="flex items-center gap-4 pb-4">
+          <img class="w-32" src="https://raw.githubusercontent.com/Meschacirung/Tailus-website/f59a4b3ecc1ad9f6a2b0ad9e3fca6f957140cc4d/public/images/logo.svg" alt="tailus-logo"/>
         </div>
-        <form className='flex flex-col border-8 rounded-lg p-10'>
-            <div>
-                아이디 : {userstate.username}
+
+        <div class="relative">
+          <form action="" class="text-gray-500 focus-within:text-cyan-400 focus-within:bg-white focus-within:shadow rounded search transition duration-300">
+            <div class="relative w-full">
+              <div class="absolute top-0 bottom-0 h-full flex items-center mb-auto left-4">
+                <svg xmlns="http://ww50w3.org/2000/svg" class="w-4 fill-current" viewBox="0 0 35.997 36.004">
+                  <path id="Icon_awesome-search" data-name="search" d="M35.508,31.127l-7.01-7.01a1.686,1.686,0,0,0-1.2-.492H26.156a14.618,14.618,0,1,0-2.531,2.531V27.3a1.686,1.686,0,0,0,.492,1.2l7.01,7.01a1.681,1.681,0,0,0,2.384,0l1.99-1.99a1.7,1.7,0,0,0,.007-2.391Zm-20.883-7.5a9,9,0,1,1,9-9A8.995,8.995,0,0,1,14.625,23.625Z"></path>
+                </svg>
+              </div>
+              <input type="search" placeholder="Rechercher" name="search" id="search" class="text-sm text-gray-500 placeholder-gray-500 w-full rounded py-3 pr-4 pl-12 bg-gray-200 bg-opacity-75 outline-none focus:bg-transparent focus:rounded-3xl transition-all" />
+            </div>
+          </form>
+        </div>
+
+        <div class="mt-4 -mx-4 relative overflow-y-auto overflow-x-hidden h-[85vh]">
+          <span class="uppercase px-4 text-gray-500">Docs</span>
+          <ul class="space-y-4 mb-12 px-4 mt-8">
+            <li>
+              <a href="" class="flex gap-4 text-gray-600 hover:text-gray-800 transition">
+                <img src="https://raw.githubusercontent.com/Meschacirung/Tailus-website/f59a4b3ecc1ad9f6a2b0ad9e3fca6f957140cc4d/public/images/icons/favorites.svg" class="w-6" alt="" />
+                Documentation
+              </a>
+            </li>
+            <li>
+              <a href="" class="flex gap-4 text-gray-600 hover:text-gray-800 transition">
+                <img src="https://raw.githubusercontent.com/Meschacirung/Tailus-website/f59a4b3ecc1ad9f6a2b0ad9e3fca6f957140cc4d/public/images/icons/atom.svg" class="w-6" alt="" />
+                Atomic css
+              </a>
+            </li>
+            <li>
+              <a href="" class="flex gap-4 text-gray-600 hover:text-gray-800 transition">
+                <img src="https://raw.githubusercontent.com/Meschacirung/Tailus-website/f59a4b3ecc1ad9f6a2b0ad9e3fca6f957140cc4d/public/images/icons/molecule.svg" class="w-6" alt="" />
+                Atomic Design
+              </a>
+            </li>
+            <li>
+              <a href="" class="flex gap-4 text-gray-600 hover:text-gray-800 transition">
+                <img src="https://raw.githubusercontent.com/Meschacirung/Tailus-website/f59a4b3ecc1ad9f6a2b0ad9e3fca6f957140cc4d/public/images/icons/template.svg" class="w-6" alt="" />
+                Default look
+              </a>
+            </li>
+          </ul>
+          <ul class="space-y-4">
+            <li class="pr-2">
+              <div class="py-2 px-4 text-gray-700 uppercase">
+                <a href="" class="block">Atoms</a>
+              </div>
+              <ul class="text-sm pb-24">
+                <li>
+                  <a href="" class="block py-2 px-5 rounded bg-cyan-500 bg-opacity-10 hover:bg-opacity-20 text-cyan-500">Alert</a>
+                </li>
+                <li>
+                  <a class="block py-2 px-5 hover:text-gray-800 transition" href="">Avatars</a>
+                </li>
+                <li>
+                  <a class="block py-2 px-5 hover:text-gray-800 transition" href="">Badges</a>
+                </li>
+                <li>
+                  <a class="block py-2 px-5 hover:text-gray-800 transition" href="">Banners</a>
+                </li>
+                <li>
+                  <a class="block py-2 px-5 hover:text-gray-800 transition" href="">Buttons</a>
+                </li>
+                <li>
+                  <a class="block py-2 px-5 hover:text-gray-800 transition" href="">Button-groups</a>
+                </li>
+                <li>
+                  <a class="block py-2 px-5 hover:text-gray-800 transition" href="">Avatar</a>
+                </li>
+                <li>
+                  <a class="block py-2 px-5 hover:text-gray-800 transition" href="">Badges</a>
+                </li>
+                <li>
+                  <a class="block py-2 px-5 hover:text-gray-800 transition" href="">Checkboxes</a>
+                </li>
+                <li>
+                  <a class="block py-2 px-5 hover:text-gray-800 transition" href="">Chips</a>
+                </li>
+                <li>
+                  <a class="block py-2 px-5 hover:text-gray-800 transition" href="">File inputs</a>
+                </li>
+                <li>
+                  <a class="block py-2 px-5 hover:text-gray-800 transition" href="">Flags</a>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </nav>
+  </div>
+
+  <div class="z-10 lg:hidden fixed top-0 left-0 w-screen h-screen bg-gray-900 bg-opacity-30 opacity-0 peer-focus:opacity-100 peer:transition duration-200"></div>
+</div> */}
+<section className="bg-gray-50 dark:bg-gray-900">
+    <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
+        <div className="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white">
+            Mypage</div>
+            <div className="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
+                  <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
+             
+            <form className='space-y-4 md:space-y-6'>
+            <div className='font-bold text-xl border-b-2'>
+                ID : {userstate.username}
              </div>
 
              {/* 닉네임 변경 form */}
             <div>
                 nickname : {userstate.nickname}
-                <button className='border-4' onClick={(e)=>{
+                <button className="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800" onClick={(e)=>{
                     e.preventDefault();
                     setHide1(mode => !mode)
                 }}>닉네임 변경</button> 
             </div>
 
             {/* 버튼 클릭하면 이 form이 나타나야함. */}
-            {hide1 &&<div className='border p-5 m-3'>
+            {hide1 &&<div className='border p-5 m-3 rounded-xl'>
                 <div>
-                    <label>닉네임 변경하기 : </label>
+                    <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">닉네임 변경하기</label>
                     <input 
+                    className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
                     type ="text" 
                     placeholder ="닉네임을 입력하세요."
                     onChange={onNickNameHandler}></input>
                 </div>
 
                 <div>
-                <button className="border p-2"> 취소 </button>
+                
                 <button 
-                className="border p-2"
+                className="border p-2 rounded-xl hover:bg-slate-100"
                 onClick={onNickNameChangeHandler}
                 > 확인 </button>
+                <button className="border p-2 rounded-xl hover:bg-slate-100"> 취소 </button>
                 </div>
             </div>}
 
             {/* telephone 변경 form */}
             <div>
                 telephone : {userstate.telephone}
-                <button className ="border-4"
+                <button className="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
                 onClick={(e)=>{
                     e.preventDefault();
                     setHide2(mode =>!mode)
                 }}> 전화번호 변경 </button>
             </div>
 
-            {hide2 &&<div className='border p-5 m-3'>
-                <label>전화번호 변경하기 </label>
+            {hide2 &&<div className='border p-5 m-3 rounded-xl'>
+                
                 <div>
-                    <label>전화번호 변경하기 : </label>
+                    <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">전화번호 변경하기</label>
                     <input 
+                    className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
                     type ="text" 
                     placeholder ="전화번호를 입력하세요."
                     onChange={onTelePhoneHandler}></input>
                 </div>
 
                 <div>
-                <button className="border p-2"> 취소 </button>
+                
                 <button 
-                className="border p-2"
+                 className="border p-2 rounded-xl hover:bg-slate-100"
                 onClick={onTelePhoneChangeHandler}
                 > 확인 </button>
+                <button  className="border p-2 rounded-xl hover:bg-slate-100"> 취소 </button>
                 </div>
             </div>}
 
             {/* email 변경 form */}
             <div>
                 email : {userstate.email}
-                <button className ="border-4"
+                <button className="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
                 onClick={(e)=>{
                     e.preventDefault();
                     setHide3(mode => !mode)
                 }}> 이메일 변경 </button>
             </div>
             {/* 버튼 클릭시 email 변경 form */}
-            {hide3 &&<div className='border p-5 m-3'>
-                <label>이메일 변경하기 </label>
+            {hide3 &&<div className='border p-5 m-3 rounded-xl'>
                 <div>
-                    <label>이메일 변경하기 : </label>
+                    <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">이메일 변경하기</label>
                     <input 
+                    className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
                     type ="text" 
                     placeholder ="이메일을 입력하세요."
                     onChange={onEmailHandler}></input>
                 </div>
 
                 <div>
-                <button className="border p-2"> 취소 </button>
                 <button 
-                className="border p-2"
+                className="border p-2 rounded-xl hover:bg-slate-100"
                 onClick={onEmailChangeHandler}
                 > 확인 </button>
+                <button
+                className="border p-2 rounded-xl hover:bg-slate-100"  > 취소 </button>
                 </div>
             </div>}
 
             {/* address 변경 form */}
             <div>
                 address : {userstate.address}
-                <button className ="border-4"
+                <button className="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
                 onClick={(e)=>{
                     e.preventDefault();
                     setHide4(mode => !mode)
@@ -407,25 +489,34 @@ const handleUpgradeAuth = (e) => {
             </div>
                 
             {/* 버튼 클릭시 address 변경 form */}
-            {hide4 &&<div className='border p-5 m-3'>
-                <label>주소 변경하기 </label>
+            {hide4 &&<div className='border p-5 m-3 rounded-xl'>
                 <div>
-                    <label>주소 변경하기 : </label>
+                    <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">주소 변경하기 : </label>
                     <input 
+                    className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
                     type ="text" 
                     placeholder ="주소를 입력 하세요."
                     onChange={onAddressHandler}></input>
                 </div>
 
                 <div>
-                <button className="border p-2"> 취소 </button>
+               
                 <button 
-                className="border p-2"
+                className="border p-2 rounded-xl hover:bg-slate-100"
                 onClick={onAddressChangeHandler}
                 > 확인 </button>
+                 <button
+                className='border rounded-xl p-2 hover:bg-slate-100'> 취소 </button>
                 </div>
             </div>}
-        </form>    
+            </form>
+          </div>
+        </div>
+    </div>
+</section>
+
+
+        {/* 비밀번호변경 */}
         <div>
         <button className='border-4' onClick={(e) => {
             e.preventDefault();

@@ -3,7 +3,7 @@ import {styled} from 'styled-components';
 
 export default function Iframe() {
   return (
-    <div className='top- w-full h-full flex'>
+    <div className='top- w-full h-full flex pointer-events-none'>
       <div className='w-full h-screen'>
           <iframe
             class="clip-iframe"
@@ -13,7 +13,7 @@ export default function Iframe() {
             title="tonywack"
             width="100%"
             height="100%"
-            src="https://www.youtube.com/embed/pT1ZjkN73Q4?autoplay=1&amp;loop=1&amp;mute=1&amp;controls=0&amp;origin=https%3A%2F%2Fliebe-bzi38kvx1-howooking.vercel.app&amp;playsinline=1&amp;showinfo=0&amp;rel=0&amp;iv_load_policy=3&amp;modestbranding=1&amp;enablejsapi=1&amp;widgetid=1"
+            src="https://www.youtube.com/embed/pT1ZjkN73Q4?autoplay=1&amp;playlist=pT1ZjkN73Q4&amp;loop=1&amp;mute=1&amp;controls=0&amp;origin=https%3A%2F%2Fliebe-bzi38kvx1-howooking.vercel.app&amp;playsinline=1&amp;showinfo=0&amp;rel=0&amp;iv_load_policy=3&amp;modestbranding=1&amp;enablejsapi=1&amp;widgetid=1"
             id="widget2">
           </iframe>
       </div>

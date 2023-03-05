@@ -8,9 +8,6 @@ import Products from '../components/Products';
 import SimpleSlider from '../components/SimpleSlider';
 
 export default function Home() {
-
-  
-
   return (
     <>
       <Iframe/>

@@ -54,9 +54,10 @@ const SearchInput = styled.input`
   align-self: right;
 `
 const SearchBtn = styled.button`
+  margin-left : 1%;
   width : 30%;
   height : 40%;
-  font-size: 0.875rem;
+  font-size: 90%;
   font-weight: 500;
   border-radius: 0.375rem;
   background-color : #252525;

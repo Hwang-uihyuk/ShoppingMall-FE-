@@ -178,7 +178,7 @@ const onEmailChangeHandler = (e) =>{
 
 
 const onAddressHandler = (e) =>{
-    setEmail(e.currentTarget.value);
+    setAddress(e.currentTarget.value);
 }
 
 const onAddressChangeHandler = (e) =>{

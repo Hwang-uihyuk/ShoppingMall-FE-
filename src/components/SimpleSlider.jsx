@@ -3,6 +3,7 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 
 const CarouselContainer= styled.div`
@@ -50,7 +51,10 @@ const Carousel = ({link,text})=>(
   <CarouselContainer>
     <BannerImg src = {link}/>
     <Label1>{text}</Label1>
-    <BannerBtn>GO SHOP</BannerBtn>
+    <BannerBtn>
+    <Link to = "/products">GO SHOP</Link>
+    
+    </BannerBtn>
   </CarouselContainer>
 );
 export default function SimpleSlider() {

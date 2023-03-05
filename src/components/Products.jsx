@@ -50,11 +50,13 @@ const SearchInput = styled.input`
   margin-right: 5px;
   border-radius: 0.375rem;
   padding: 0.625rem;
-  border : 1px solid grey;
+  border : 1px solid;
+  border-color: rgb(209 213 219);
   align-self: right;
-`
+  background-color: rgb(248 250 252);
+  `
 const SearchBtn = styled.button`
-  margin-left : 1%;
+  margin-left : 2%;
   width : 30%;
   height : 40%;
   font-size: 90%;

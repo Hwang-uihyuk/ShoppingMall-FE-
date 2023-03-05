@@ -89,9 +89,14 @@ export default function MyCart() {
             <FaEquals className='shrink-0' />
             <PriceCard text='총가격' price={totalprice + SHIPPING - stock_zero_price} />
           </div>
+
+          <div className='flex justify-center m-2'>
+          <button className=" text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-xl px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800" >
           <Link to='/order' state ={{product : cartproduct, from : 'cart'}}>
-            <Button text='주문하기' />
+            {/* <Button text='주문하기' /> */}주문하기
           </Link>
+          </button>
+          </div>
         </>
       )}
       {/* <ContextCartProduct.Provider value={cartproduct}>

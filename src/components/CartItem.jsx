@@ -100,7 +100,7 @@ export default function CartItem(
         <div className='basis-3/5'>
         
           <p className='text-lg'>{product.name}</p>
-          <p className='text-xl font-bold text-brand'>{product.size}</p>
+          <p className='text-xl font-bold'>{product.size}</p>
           <p>₩{product.price}</p>
         </div>
         

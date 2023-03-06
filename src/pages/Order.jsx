@@ -212,7 +212,10 @@ export default function Order(){
     const [address,setAddress] = useState("");
     const from= location.state.from;
     const cartproduct = location.state.product;
-    const total = cartproduct.reduce((acc,cur)=> acc+(cur.price*cur.count),0);
+    const total = from =="cart"
+        ? cartproduct.reduce((acc, cur) => acc + (cur.price * cur.count), 0)
+        : price;
+
     console.log(from,'에서 왔습니다.');
     console.log(cartproduct);
     useEffect(() => {
@@ -335,8 +338,9 @@ export default function Order(){
                         productname={productName}
                         price={price}
                         count={count}
-                        size={size}/>
-                    <OrderBtn onClick ={onSubmitHandler}>{total.toLocaleString('to-KR')}원 결제</OrderBtn>
+                        size={size}
+                        />
+                    <OrderBtn onClick ={onSubmitHandler}>{price.toLocaleString('to-KR')}원 결제</OrderBtn>
 
                     
                 </>

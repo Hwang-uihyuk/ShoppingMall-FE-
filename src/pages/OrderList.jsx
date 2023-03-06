@@ -29,7 +29,7 @@ const ImageContainer = styled.div`
     justify-content: center;
 `
 const Image = styled.img`
-    width : 40%;
+    width : 90%;
     height : auto;
 `
 const Container = styled.div`
@@ -76,18 +76,6 @@ const OrderWrapper = styled.div`
     height :flex;
     position: relative;
 `
-const OrdersHead = ()=>(
-        <thead>
-            <tr>
-                <TD>ORDER DATE</TD>
-                <TD>IMAGE</TD>
-                <TD>PRODUCT</TD>
-                <SizeTD>SIZE</SizeTD>
-                <PriceTD>PRICE</PriceTD>
-                <StatusTD>STATUS</StatusTD>
-            </tr>
-        </thead>
-)
 const parseDate = ((dateString)=>{
     const date = new Date(dateString);
     const year = date.getFullYear();
@@ -109,53 +97,65 @@ const OrderListLabel = styled.label`
   margin: 15px 10px 30px 10px;
 `
 const TD = styled.td`
+    padding : 15px;
+    width : 20vw;
+    border-top : 2px solid #252525;
+    border-bottom : 2px solid #252525;
+`
+const ImageTD = styled(TD)`
+    padding : 0;
+`
+const DateTD = styled(TD)`
+    width: 14vw;
+`;
+const BodyTD = styled.td`
     width : 20vw;
     padding : 15px;
-    border-top : 2px solid #252525;
+    border-top : none;
+    border-bottom : 2px solid #252525;
 `
-const DateTD = styled.td`
-    width : 14vh;
-    padding : 15px;
-    border-top : 2px solid #252525;
+const BodyImageTD = styled.td`
+    width : 20vw;
+    padding : 1%;
+    border-top : none;
+    border-bottom : 2px solid #252525;
 `
-const TR = styled.tr`
-    border-bottom: none;
-`
-const THead = styled.thead`
-    border-bottom : none
+const BodyDateTD = styled(BodyTD)`
+    width: 14vw;
 `
 const OrderListTB = ({orders})=>(
     <OrderWrapper>
         <OrderTable>
-            <THead>
-                <TR>
+            <thead>
+                <tr>
                     <DateTD>DATE</DateTD>
-                    <TD></TD>
+                    <ImageTD></ImageTD>
                     <TD>PRODUCT</TD>
                     <TD>COUNT</TD>
                     <TD>STATUES</TD>
-                </TR>
-            </THead>
+                </tr>
+            </thead>
             <tbody>
                 {orders&&
                     orders.map((order)=>(
-                        <TR>
-                            <DateTD>{parseDate(order.order_date)}</DateTD>
-                            <TD>
-                                <ImageContainer>
+                        <tr>
+                            <BodyDateTD>
+                                {parseDate(order.order_date)}
+                            </BodyDateTD>
+                            <BodyImageTD>
                                     <Image src={ order.imgKey } />
-                                </ImageContainer>
-                            </TD>
-                            <TD>
+
+                            </BodyImageTD>
+                            <BodyTD>
                                 <LLabel>{order.name}</LLabel>
                                 <SLabel>SIZE : {order.price}</SLabel>
                                 <MLabel >{order.price.toLocaleString('to-KR')}원</MLabel>
-                            </TD>
-                            <TD>
+                            </BodyTD>
+                            <BodyTD>
                                 {order.size}
-                            </TD>
-                            <TD>{order.order_status}</TD>
-                        </TR>
+                            </BodyTD>
+                            <BodyTD>{order.order_status}</BodyTD>
+                        </tr>
                     ))}
             </tbody>
         </OrderTable>

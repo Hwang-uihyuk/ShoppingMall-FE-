@@ -6,11 +6,6 @@ const Table = styled.table`
     margin : 10px 10px 10px 10px;
     border-collapse : collapse;
 `
-const TD = styled.td`
-    width : 300px;
-    padding : 15px;
-    border : 1px solid #aaaaaadf;
-`
 const SizeTD = styled.td`
     width : 70px;
     padding : 15px;
@@ -46,10 +41,40 @@ const Container = styled.div`
     flex-direction: column;
 `
 const Page = styled.div`
+    align-items: center;
+    display: flex;
+    height : 70%;
+    flex-direction: column;
+    background-color: white;
+    position: relative;
+    z-index: 2;
+    font-family: "RalewayBold";
+`
+const SLabel = styled.p`
+    color : #252525;
+    font-weight: 300;
+    font-size: 14px;
+    margin-bottom: 10px;
+`
+const MLabel = styled.p`
+    color : #252525;
+    font-weight: 500;
+    font-size: 17px;
+`
+const LLabel = styled.p`
+    color : #252525;
+    font-weight: 500;
+    font-size: 22px;
+    margin-bottom: 10px;
+`
+const OrderWrapper = styled.div` 
+    margin-top : 20px;
+    width : 70vw;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-content: center;
+    align-items: center;
+    height :flex;
+    position: relative;
 `
 const OrdersHead = ()=>(
         <thead>
@@ -73,26 +98,68 @@ const parseDate = ((dateString)=>{
     const res = `${year}-${month+1}-${day}`;
     return res;
 })
-
+const OrderTable = styled.table`
+    margin : auto;
+    display: flex;
+    flex-direction: column;
+`
 const OrderListLabel = styled.label`
   font-size: 25px;
   color : #252525;
   margin: 15px 10px 30px 10px;
 `
-const OrdersBody = ({order}) => (
-            <tr>
-                <TD>{parseDate(order.order_date)}</TD>
-                <TD>
-                    <ImageContainer>
-                        <Image src={ order.imgKey } />
-                        <Image src={ order.imgKey } />
-                    </ImageContainer>
-                </TD>
-                <TD>{order.name}</TD>
-                <SizeTD>{order.size}</SizeTD>
-                <PriceTD>{order.price}</PriceTD>
-                <StatusTD>{order.order_status}</StatusTD>
-            </tr>
+const TD = styled.td`
+    width : 20vw;
+    padding : 15px;
+    border-top : 2px solid #252525;
+`
+const DateTD = styled.td`
+    width : 14vh;
+    padding : 15px;
+    border-top : 2px solid #252525;
+`
+const TR = styled.tr`
+    border-bottom: none;
+`
+const THead = styled.thead`
+    border-bottom : none
+`
+const OrderListTB = ({orders})=>(
+    <OrderWrapper>
+        <OrderTable>
+            <THead>
+                <TR>
+                    <DateTD>DATE</DateTD>
+                    <TD></TD>
+                    <TD>PRODUCT</TD>
+                    <TD>COUNT</TD>
+                    <TD>STATUES</TD>
+                </TR>
+            </THead>
+            <tbody>
+                {orders&&
+                    orders.map((order)=>(
+                        <TR>
+                            <DateTD>{parseDate(order.order_date)}</DateTD>
+                            <TD>
+                                <ImageContainer>
+                                    <Image src={ order.imgKey } />
+                                </ImageContainer>
+                            </TD>
+                            <TD>
+                                <LLabel>{order.name}</LLabel>
+                                <SLabel>SIZE : {order.price}</SLabel>
+                                <MLabel >{order.price.toLocaleString('to-KR')}원</MLabel>
+                            </TD>
+                            <TD>
+                                {order.size}
+                            </TD>
+                            <TD>{order.order_status}</TD>
+                        </TR>
+                    ))}
+            </tbody>
+        </OrderTable>
+    </OrderWrapper>
 )
 
 const baseURL = process.env.REACT_APP_URL;
@@ -117,17 +184,16 @@ export default function OrderList(){
     return(
         <>
             <Page>
-                <Container>
                     <OrderListLabel>ORDERS</OrderListLabel>
-                    <Table>
+                    <OrderListTB orders={orders}/>
+                    {/* <Table>
                         <OrdersHead />
                         <br />
                         {orders &&
                             orders.map((order, index) => (
                                 <OrdersBody key={index} order={order} />
                             ))}
-                    </Table>
-                </Container>
+                    </Table> */}
             </Page>
         </>
     )

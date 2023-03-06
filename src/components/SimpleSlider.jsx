@@ -47,13 +47,15 @@ const BannerBtn = styled.button`
   text-align: center;
   transform: translate(-50%,-50%);
 `
+const LabelWrapper = styled.div`
+  width : 50%;
+`
 const Carousel = ({link,text})=>(
   <CarouselContainer>
-    <BannerImg src = {link}/>
+    <BannerImg src={link} />
     <Label1>{text}</Label1>
     <BannerBtn>
-    <Link to = "/products">GO SHOP</Link>
-    
+      <Link to="/products">GO SHOP</Link>
     </BannerBtn>
   </CarouselContainer>
 );

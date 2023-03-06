@@ -10,7 +10,7 @@ import { useAxiosAuthContext } from './context/UserStateContext';
 export default function Navbar() {
   const { user, logout } = useAxiosAuthContext();
   return (
-    <header className='text-sm flex justify-between border-b border-none p-4 pt-3 sticky top-0 bg-white z-10 shadow-none'>
+    <header className='text-sm flex justify-between border-b border-none p-4 pt-3 sticky top-0 bg-white z-10 shadow-none opacity-80 absolute'>
       <Link to='/' className='flex items-center text-4xl pl-3'>
         {/* <AiFillShop /> */}
         <h1 className = 'justify-center'>SHOPPY</h1>

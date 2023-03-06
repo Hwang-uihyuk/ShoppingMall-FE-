@@ -105,7 +105,7 @@ console.log(detaildata)
   }
   )
 
-    alert('좋아요 등록됬습니다')})
+    })
 }
  
 //좋아요 해제하기
@@ -188,7 +188,7 @@ console.log(detaildata)
           {/* <Button text='장바구니에 추가' onClick={handleAddCart}/> */}
 
           {selected === "사이즈를 선택하세요." ? 
-          <button className =" text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800" disabled onClick={handleAddCart}>Select the size</button>
+          <button className =" text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800" disabled onClick={handleAddCart}>Select the size(cart)</button>
           :
           <button type="submit"  onClick={handleAddCart} className=" text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
             Add to Cart</button>
@@ -197,7 +197,7 @@ console.log(detaildata)
 
 
           {selected === "사이즈를 선택하세요." ? 
-          <button className=" text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800" disabled>Select the size</button>
+          <button className=" text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800" disabled>Select the size(buy)</button>
           
           :
           !window.localStorage.getItem('Login') ? 

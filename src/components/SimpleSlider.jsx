@@ -5,25 +5,25 @@ import "slick-carousel/slick/slick-theme.css";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
-
 const CarouselContainer= styled.div`
-  width : 100%;
+  width : 80%;
   display: flex;
   align-items: center;
   flex-direction: column;
   position : relative;
+  margin : auto;
 `
 const BannerImg = styled.img`
   width : 100%;
   margin: auto;
-  opacity: 1;
+  opacity: 0.8;
 `
 const Label1 = styled.label`
   width: 100%;
   display: flex;
   z-index: 100;
   color : white;
-  font-size: 6rem;
+  font-size: 90px;
   font-weight: 700;
   margin: auto;
   position: absolute;
@@ -31,11 +31,15 @@ const Label1 = styled.label`
   left : 50%;
   transform: translate(-50%,-50%);
   justify-content: center;
+  @media screen and (max-width: 800px) {
+      font-size:50px;
+  }
 `
 const BannerBtn = styled.button`
+  opacity: 0.8;
   background-color: #252525;
   color : white;
-  width : 15%;
+  width : 20%;
   height : 8%;
   z-index: 100;
   font-size: 1.5rem;
@@ -46,23 +50,31 @@ const BannerBtn = styled.button`
   left : 50%;
   text-align: center;
   transform: translate(-50%,-50%);
+  @media screen and (max-width: 800px) {
+      font-size:1rem;
+  }
+  @media screen and (max-width: 500px) {
+      font-size:0.75rem;
+  }
 `
 const LabelWrapper = styled.div`
-  width : 50%;
+  width : 100%;
 `
 const Carousel = ({link,text})=>(
   <CarouselContainer>
     <BannerImg src={link} />
-    <Label1>{text}</Label1>
-    <BannerBtn>
-      <Link to="/products">GO SHOP</Link>
-    </BannerBtn>
+    <LabelWrapper>
+      <Label1>{text}</Label1>
+        <BannerBtn>
+          <Link to="/products">GO SHOP</Link>
+          </BannerBtn>
+    </LabelWrapper>
   </CarouselContainer>
 );
 export default function SimpleSlider() {
   //https://poew.tistory.com/707
     var settings = {
-      dots:false,
+      dots:true,
       infinite: true,
       autoplay:true,
       autoplaySpeed :3000,
@@ -72,7 +84,7 @@ export default function SimpleSlider() {
     }
     return (
       <>
-        <div className='pt-10'>
+        <div className='pt-10 justify-center' >
           <Slider {...settings}>
             <Carousel link = "/images/carousel_sample_1.jpg" text ="NEW ARRIVAL"/>
             <Carousel link = "/images/carousel_sample_2.jpg" text ="NEW ARRIVAL"/>

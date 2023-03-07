@@ -3,7 +3,7 @@ import {styled} from 'styled-components';
 
 export default function Iframe() {
   return (
-    <div className='w-full h-full flex pointer-events-none'>
+    <div className='w-full h-screen flex pointer-events-none'>
       <div className='w-full h-screen'>
           <iframe
             class="clip-iframe"

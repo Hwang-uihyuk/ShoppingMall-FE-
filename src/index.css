@@ -27,5 +27,5 @@ input {
 }
 .clip-iframe {
   /* clip-path: inset(7% 0 5% 0); */
-  clip : rect(7% 0 5% 0);
+  clip-path : inset(7% 0 7% 0);
 }

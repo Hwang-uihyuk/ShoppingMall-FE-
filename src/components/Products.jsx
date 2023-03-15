@@ -133,6 +133,7 @@ export default function Products() {
             "Content-Type": "application/json",
           }
         }).then((response) => {
+          setIsResult(true);
           setProducts(response.data);
         })
           .catch((error) => {
@@ -197,16 +198,17 @@ export default function Products() {
         {/* {isLoading && <p>Loading...</p>}
         {error && <p>{error}</p>} */}
         <div className='p-10 pt-4'>
-          {isResult&&
+          {isResult?(
             <ul className='grid grid-cols-1 md:grid-cols-4 lg-grid-cols-4 gap-10'>
             {products &&
               products.map((product)=>(
                 <ProductCard key={product.id} product={product} />
               ))
             }
-          </ul>
+          </ul>):(
+            <NoResult/>
+          )
           }
-          {!isResult&&<NoResult></NoResult>}
         </div>
       </>
     );

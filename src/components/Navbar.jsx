@@ -6,7 +6,37 @@ import { BsFillPencilFill } from 'react-icons/bs';
 import User from './User';
 import Button from './ui/Button';
 import { useAxiosAuthContext } from './context/UserStateContext';
+import styled from "styled-components";
 
+const DropBtn = styled.button`
+  display: flex;
+  align-items: center;
+  gap : 10px;
+  background-color: transparent;
+  border : 0;
+  cursor: pointer;
+  font-size : 18px;
+  &:hover{
+    opacity: 0.5;
+  }
+  @media screen and (min-width: 720px) {
+    display: none;
+  }
+`
+const ImageContainer = styled.div`
+  display: flex;
+  align-items: center;
+  height : 60px;
+  width : 60px;
+  padding : 10px;
+`
+const DropImgBtn =()=>(
+  <DropBtn>
+    <ImageContainer>
+      <img src="/images/hamburger.png"></img>
+    </ImageContainer>
+  </DropBtn>
+)
 export default function Navbar() {
   const { user, logout } = useAxiosAuthContext();
   return (
@@ -15,49 +45,47 @@ export default function Navbar() {
         {/* <AiFillShop /> */}
         <h1 className = 'justify-center'>SHOPPY</h1>
       </Link>
+      <div className="hidden md:block">
+        <nav className='flex items-center gap-4 font-semibold pr-6'>
+          <Link to='/products'>PRODUCTS </Link>
 
-      <nav className='flex items-center gap-4 font-semibold pr-6'>
-        <Link to='/products'>PRODUCTS </Link>
-        {window.localStorage.getItem('Login') && (
-          <Link to='/carts'>
-            CART     
-          </Link>
-        )}
-        
-        {user && user.isAdmin && (
-          <Link to='/products/new' className='text-2xl'>
-            <BsFillPencilFill /> 
-          </Link>
-        )}
-        
-         {/* login form */}
-        {/* login form */} 
-          
-        {!window.localStorage.getItem('Login') && (
-          <Link to ='/login'> 
-            LOGIN
+          {/* Logged in */}
+          {window.localStorage.getItem('Login') && (
+            <>
+              <Link to='/carts'>CART</Link>
+              <button onClick={() => {
+                window.localStorage.removeItem('Login')
+                document.location.href = '/'
+              }}>LOGOUT </button>
+              <Link to='mypage'> MYPAGE</Link>
+            </>
+          )}
+
+          {/* admin */}
+          {user && user.isAdmin && (
+            <Link to='/products/new' className='text-2xl'>
+              <BsFillPencilFill />
+              hi
             </Link>
           )}
 
-          {window.localStorage.getItem('Login') && 
-          <button onClick ={()=>{window.localStorage.removeItem('Login')
-          document.location.href = '/'}
-  
-          }> LOGOUT </button>}
-
-          {window.localStorage.getItem('Login') && (
-            <Link to = 'mypage'> MYPAGE</Link>
+          {/* Not logged in    */}
+          {!window.localStorage.getItem('Login') && (
+            <>
+              <Link to='/login'>LOGIN</Link>
+              <Link to='/signup'>SIGNUP </Link>
+            </>
           )}
-          
-
-        {!window.localStorage.getItem('Login') &&<Link to='/signup'>SIGNUP </Link>}  
-
-        {user && <User user={user} />}
-        {/* {!user && <Button text={'Login(axios)'} onClick={login} />} */}
-        {user && <Button text={'Logout'} onClick={logout} />}
-        {user && <Link to="/edituser"> 회원정보수정 </Link>}
-
-      </nav>
+          {user && (
+            <>
+              <User user={user} />
+              <Button text={'Logout'} onClick={logout} />
+              <Link to="/edituser"> 회원정보수정 </Link>
+            </>)
+          }
+        </nav>
+      </div>
+      <DropImgBtn></DropImgBtn>
     </header>
   );
 }

@@ -265,8 +265,7 @@ const handleUpgradeAuth = (e) => {
 
 
   return (
-    <div >
-    
+    <div>
         {/* real side var
         <div class="h-screen flex items-end justify-end px-4 pb-6 mt-4">
   <button class="relative z-30 lg:hidden peer h-14 w-14 rounded-full bg-cyan-500 hover:bg-cyan-600 focus:bg-cyan-600 active:bg-cyan-700 transition">
@@ -334,103 +333,90 @@ const handleUpgradeAuth = (e) => {
 </div> */}
 
 
-<section className="bg-gray-50 dark:bg-gray-900">
-    
-    <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
-        <div className="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white">
-            Mypage</div>
-            <div className="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
-                
-                  <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
-             
+<section className="bg-white dark:bg-gray-900 rid justify-items-center items-center overflow-auto h-full">
+    <div className="flex flex-col h-full mt-10 mb-10 items-center justify-center px-6 py-8 md:h-screen lg:py-0 max-h-full overflow-auto">
+            <div className="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white">
+                Mypage</div>
+            <div className="w-full h-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
+                <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
+                    <form className='space-y-4 md:space-y-6'>
+                        <div className='flex w-full font-bold text-xl border-b-2'>
+                            {userstate.username}
+                            {/* 회원탈퇴 폼 */}
+                            <div className='text-sm border rounded-md hover:bg-slate-100 p-1  ml-2 bg-primary-600 text-white pl-5 pr-5'>
+                                <button onClick={(e)=>{
+                                    e.preventDefault();
+                                    const quickmessage = window.confirm('확인 버튼을 누르면 회원이 탈퇴됩니다.')
+                                    if(quickmessage === true){
+                                        axios.delete(`${baseURL}/user`,{
+                                            headers :{
+                                            'Content-Type' : 'application/json',
+                                            'Authorization' : window.localStorage.getItem('Login')
+                                            }
+                                        }).then(response => {console.log("성공")
+                                            document.location.href = '/'})
+                                        .catch(error => console.log("에러입니당."))   
+                                    }
+                                }}>회원 탈퇴
+                                </button>
+                            </div>
+                        </div>
+                        {/* 비밀번호변경 */}
+                        <div>
+                            <div>비밀번호 : ********</div>
+                            <button className="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
+                                onClick={(e) => {
+                                e.preventDefault();
+                                setHidePw(mode => !mode)
+                            }}> 비밀번호 변경
+                            </button>
+                        </div>
+                        {hidePw && <div className='border p-5 m-3'>
+                        <div>
+                            <label
+                            className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">현재비밀번호 </label>
+                            <input
+                            type= "text"
+                            className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                            placeholder = "현재비밀번호"
+                            onChange ={onPwHandler}/>
+                        </div>
+                        <div>
+                            <label
+                            className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">변경비밀번호 </label>
+                            <input
+                            type='text'
+                            className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                            placeholder = "변경비밀번호"
+                            onChange={onPwChangeHandler}/>
+                        </div>
 
+                        <div>
+                            <label
+                            className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">변경비밀번호확인 </label>
+                            <input
+                            type='text'
+                            className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                            placeholder = "변경비밀번호확인"
+                            onChange={onPwChangeCheckHandler}/>
+                        </div>
 
-             
-            <form className='space-y-4 md:space-y-6'>
-            <div className='flex w-full font-bold text-xl border-b-2'>
-                {userstate.username}
-                 {/* 회원탈퇴 폼 */}
-            <div className='text-sm border rounded-md hover:bg-slate-100 p-1  ml-2 bg-primary-600 text-white pl-5 pr-5'>
-                <button onClick={(e)=>{
-                    e.preventDefault();
-                    
-                    const quickmessage = window.confirm('확인 버튼을 누르면 회원이 탈퇴됩니다.')
-                    
-                    if(quickmessage === true){
-                        axios.delete(`${baseURL}/user`,{
-                            headers :{
-                                'Content-Type' : 'application/json',
-                                'Authorization' : window.localStorage.getItem('Login')
-                            }
-                        }).then(response => {console.log("성공")
-                        document.location.href = '/'})
-                        .catch(error => console.log("에러입니당."))   
-                    }
-                }}>
-                    회원 탈퇴
-                </button>
-            </div>
-             </div>
-
-
-
-{/* 비밀번호변경 */}
-<div>
-    <div>비밀번호 : ********</div>
-        <button 
-        className="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
-         onClick={(e) => {
-            e.preventDefault();
-            setHidePw(mode => !mode)
-        }}> 비밀번호 변경</button>
-        </div>
-
-        {hidePw && <div className='border p-5 m-3'>
-            <div>
-                <label
-                className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">현재비밀번호 </label>
-                <input
-                type= "text"
-                className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                placeholder = "현재비밀번호"
-                onChange ={onPwHandler}/>
-            </div>
-            <div>
-                <label
-                className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">변경비밀번호 </label>
-                <input
-                type='text'
-                className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                placeholder = "변경비밀번호"
-                onChange={onPwChangeHandler}/>
-            </div>
-
-            <div>
-                <label
-                className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">변경비밀번호확인 </label>
-                <input
-                type='text'
-                className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                placeholder = "변경비밀번호확인"
-                onChange={onPwChangeCheckHandler}/>
-            </div>
-
-            <div className="">
-                {pwcheck === pwchange ?
-                <button onClick={onPwChange} 
-                className="border p-2 rounded-xl hover:bg-slate-100 text-gray-900 text-md" >비밀번호변경하기</button>:
-                <div>비밀번호가 다릅니다.</div>}
-                
-            </div>
-            </div>}
-             {/* 닉네임 변경 form */}
-            <div>
-                nickname : {userstate.nickname}
-                <button className="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800" onClick={(e)=>{
-                    e.preventDefault();
-                    setHide1(mode => !mode)
-                }}>닉네임 변경</button> 
-            </div>
+                        <div className="">
+                            {pwcheck === pwchange ?
+                            <button onClick={onPwChange} 
+                            className="border p-2 rounded-xl hover:bg-slate-100 text-gray-900 text-md" >비밀번호변경하기</button>:
+                            <div>비밀번호가 다릅니다.</div>}
+                            
+                        </div>
+                        </div>}
+                        {/* 닉네임 변경 form */}
+                        <div>
+                            nickname : {userstate.nickname}
+                            <button className="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800" onClick={(e)=>{
+                                e.preventDefault();
+                                setHide1(mode => !mode)
+                            }}>닉네임 변경</button> 
+                        </div>
 
             {/* 버튼 클릭하면 이 form이 나타나야함. */}
             {hide1 &&<div className='border p-5 m-3 rounded-xl'>

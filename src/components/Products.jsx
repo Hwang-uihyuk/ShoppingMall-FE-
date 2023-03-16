@@ -153,10 +153,10 @@ export default function Products() {
           console.log(`Sorted : ${sort}\nCategory : ${category}`)
         }).catch((error) => {
           setIsResult(false);
-          console.log(error);
+          // console.log(error);
         })
       }
-    }, [category,sort,isResult])
+    }, [category,sort])
   const onCategoryClick = (props) => {
     setCategory(props);
   }
@@ -180,8 +180,11 @@ export default function Products() {
     }).then((response) => {
       setIsResult(true);
       setProducts(response.data)
+      
     }).catch((error) => {
+      
       setIsResult(false);
+      console.log(isResult)
       console.log(error);
     })
   }

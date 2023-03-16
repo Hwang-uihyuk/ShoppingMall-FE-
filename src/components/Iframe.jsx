@@ -6,7 +6,7 @@ export default function Iframe() {
     <div className='w-full h-screen flex pointer-events-none'>
       <div className='w-full h-screen'>
           <iframe
-            class="clip-iframe"
+            className="clip-iframe"
             frameBorder="0"
             allowFullScreen="1"
             allow="accelerometer; autoplay; loop; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"

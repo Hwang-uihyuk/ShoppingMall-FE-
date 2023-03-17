@@ -94,7 +94,7 @@ const Sort = ({ sortHandler, sorts }) => (
   <SortContainer>
     {sorts && sorts.map((sort, index) => (
       <SortLabel key={index} onClick={() => sortHandler(sort)}>
-        {sort === "hits"
+        {sort ==="hits"
           ? "조회순"
           : sort === "purchase"
           ? "구매순"
@@ -132,41 +132,64 @@ export default function Products() {
     const [keyword,setKeyword] = useState("");
     const [products, setProducts] = useState();
     const [sort,setSort] = useState("hits");
+    const [isSearch, setIsSearch] = useState("false")
     useEffect(() => {
-      if(category==="all"){
+      if(isSearch){
+        console.log(`Search Keyword:${keyword}| sort:${sort}`)
         axios({
           method: "get",
-          url: `${baseURL}/shop?sort=${sort}`,
-          headers: {
-            "Content-Type": "application/json",
-          }
-        }).then((response) => {
-          setIsResult(true);
-          setProducts(response.data);
-        })
-          .catch((error) => {
-            console.log(error);
-          })
-      }else{
-        axios({
-          method: "get",
-          url: `${baseURL}/shop/category/${category}?sort=${sort}`,
+          url: `${baseURL}/shop/search/${keyword}?sort=${sort}`,
           headers: {
             "Content-Type": "application/json"
           }
         }).then((response) => {
-          console.log(response)
           setIsResult(true);
           setProducts(response.data)
-          console.log(`Sorted : ${sort}\nCategory : ${category}`)
+
         }).catch((error) => {
+
           setIsResult(false);
-          // console.log(error);
+          console.log(isResult)
+          console.log(error);
         })
       }
-    }, [category,sort])
+      else{
+        if (category === "all") {
+          axios({
+            method: "get",
+            url: `${baseURL}/shop?sort=${sort}`,
+            headers: {
+              "Content-Type": "application/json",
+            }
+          }).then((response) => {
+            setIsResult(true);
+            setProducts(response.data);
+          })
+            .catch((error) => {
+              console.log(error);
+            })
+        } else {
+          axios({
+            method: "get",
+            url: `${baseURL}/shop/category/${category}?sort=${sort}`,
+            headers: {
+              "Content-Type": "application/json"
+            }
+          }).then((response) => {
+            console.log(response)
+            setIsResult(true);
+            setProducts(response.data)
+            console.log(`Sorted : ${sort}\nCategory : ${category}`)
+          }).catch((error) => {
+            setIsResult(false);
+            // console.log(error);
+          })
+        }
+      }
+    }, [category,sort,isSearch])
   const onCategoryClick = (props) => {
     setCategory(props);
+    setIsSearch(false);
   }
   const onSortClick =(props)=>{
     setSort(props);
@@ -177,6 +200,7 @@ export default function Products() {
   }
   const onSearchHandeler = (event) => {
     event.preventDefault();
+    setIsSearch(true);
     console.log(keyword);
 
     axios({

@@ -212,7 +212,7 @@ export default function Order(){
     const [address,setAddress] = useState("");
     const from= location.state.from;
     const cartproduct = location.state.product;
-    const total = from =="cart"
+    const total = from ==="cart"
         ? cartproduct.reduce((acc, cur) => acc + (cur.price * cur.count), 0)
         : price;
 
@@ -254,17 +254,23 @@ export default function Order(){
 
         time = year + "-" + month + "-" + date + "T" + hours + ":" + minutes + ":" + seconds
 
-            let body = JSON.stringify({
-                "queryOrderProductList":[
-                    {
-                        "product_id": productId,
-                        "count" : count,
-                        "size" : size
-                    }
-                ],
-                "order_status" : orderState,
-                "order_date" : time
-            })
+        let productList = from=="cart"
+        ? cartproduct.map(product=>({
+            "product_id": product.id,
+            "count" : product.count,
+            "size" : product.size
+        }))
+        : [{
+            "product_id": productId,
+            "count" : count,
+            "size" : size
+        }];
+        let body = JSON.stringify({
+            "queryOrderProductList":productList,
+            "order_status" : orderState,
+            "order_date" : time
+        })
+        console.log(body);
             axios
                 .post(`${baseURL}/user/order`,body,{
                     headers : {
@@ -281,55 +287,10 @@ export default function Order(){
                     console.log(error)
                 });
     }
-
-    const onCartSubmitHandler = (event) =>{
-        event.preventDefault();
-
-        let time = ""
-        let today = new Date();
-        let year = today.getFullYear();
-        let month = ('0' + (today.getMonth() + 1)).slice(-2);
-        let date = ('0' + (today.getDate())).slice(-2);
-        let hours = ('0' + (today.getHours())).slice(-2);
-        let minutes = ('0' + (today.getMinutes())).slice(-2);
-        let seconds = ('0' + (today.getSeconds())).slice(-2);
-
-        time = year + "-" + month + "-" + date + "T" + hours + ":" + minutes + ":" + seconds
-
-        cartproduct.forEach((product)=>{
-            let body = JSON.stringify({
-                "queryOrderProductList":[
-                    {
-                        "product_id": product.id,
-                        "count" : product.count,
-                        "size" : product.size
-                    }
-                ],
-                "order_status" : orderState,
-                "order_date" : time
-            })
-            axios
-                .post(`${baseURL}/user/order`,body,{
-                    headers : {
-                        'Content-Type': 'application/json',
-                        'Authorization' : window.localStorage.getItem('Login')
-                    }
-                })
-                .then((response)=>{
-                    console.log(response);
-                    console.log(`${product.name} 주문 완료!`)
-
-                })
-                .catch((error) => {
-                    console.log(error)
-                });
-        })
-
-        document.location.href = '/'
-    }
     return (
         <OrderForm>
             <AddressInfo label ="ADDRESS" value ={address}/>
+
             {(from==='details')&&
                 <>
                     <OrderInfo
@@ -341,8 +302,6 @@ export default function Order(){
                         size={size}
                         />
                     <OrderBtn onClick ={onSubmitHandler}>{price.toLocaleString('to-KR')}원 결제</OrderBtn>
-
-                    
                 </>
             }
             {(from==='cart')&&
@@ -350,7 +309,7 @@ export default function Order(){
                     <OrderCart
                     products = {cartproduct}
                     total = {total}></OrderCart>
-                    <OrderBtn onClick ={onCartSubmitHandler}>{total.toLocaleString('to-KR')}원 결제</OrderBtn>
+                    <OrderBtn onClick ={onSubmitHandler}>{total.toLocaleString('to-KR')}원 결제</OrderBtn>
                 </>
             }
             

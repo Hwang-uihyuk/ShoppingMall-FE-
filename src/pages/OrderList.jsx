@@ -137,7 +137,7 @@ const OrderListTB = ({orders})=>(
             </thead>
             <tbody>
                 {orders&&
-                    orders.map((order)=>(
+                    orders.map((order,index)=>(
                         <tr>
                             <BodyDateTD>
                                 {parseDate(order.order_date)}
@@ -149,7 +149,7 @@ const OrderListTB = ({orders})=>(
                             <BodyTD>
                                 <LLabel>{order.name}</LLabel>
                                 <SLabel>SIZE : {order.size}</SLabel>
-                                <MLabel >{order.price.toLocaleString('to-KR')}원</MLabel>
+                                <MLabel >{order.price}원</MLabel>
                             </BodyTD>
                             <BodyTD>
                                 {order.count}

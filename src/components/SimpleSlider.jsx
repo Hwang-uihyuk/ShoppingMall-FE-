@@ -65,9 +65,11 @@ const Carousel = ({link,text})=>(
     <BannerImg src={link} />
     <LabelWrapper>
       <Label1>{text}</Label1>
-        <BannerBtn>
-          <Link to="/products">GO SHOP</Link>
+        <Link to="/products">
+          <BannerBtn>
+            GO SHOP
           </BannerBtn>
+        </Link>
     </LabelWrapper>
   </CarouselContainer>
 );

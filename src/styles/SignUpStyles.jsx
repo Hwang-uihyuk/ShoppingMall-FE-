@@ -11,7 +11,7 @@ export const RegisterForm = styled.form`
     grid-template-rows: 60px 60px 60px 60px;
     align-self: center;
     align-items: center;
-    margin : 10px;
+    margin-top : 30px;
     padding : 40px;
     display: flex;
     height : 1000px;
@@ -30,7 +30,7 @@ export const Wrapper =  styled.div`
     background-color: white;
     width : 600px;
     align-items: center;
-    margin-bottom : 20px;
+    margin-bottom : 10px;
 `
 export const InputWrapper = styled.div`
   display : flex;
@@ -67,7 +67,7 @@ export const SignUpLabel = styled.label`
 export const CheckButton = styled.button`
     width: 20%;
     margin-left : 10px;
-    background-color: #38B2AC;
+    background-color: #3f3f3f;
     color: #FFFFFF;
     font-size: 0.875rem;
     font-weight: 500;
@@ -76,7 +76,7 @@ export const CheckButton = styled.button`
     /* margin-top: 1.25rem; */
     transition: background-color 0.2s ease-in-out;
     &:hover {
-        background-color: #374151;
+        background-color: #686868;
     }
     &:focus {
         outline: none;
@@ -86,7 +86,7 @@ export const CheckButton = styled.button`
 export const JoinButton = styled.button`
     width: 20%;
     margin-left : 10px;
-    background-color: #38B2AC;
+    background-color: #3f3f3f;
     color: #FFFFFF;
     font-size: 0.875rem;
     font-weight: 500;
@@ -95,7 +95,7 @@ export const JoinButton = styled.button`
     /* margin-top: 1.25rem; */
     transition: background-color 0.2s ease-in-out;
     &:hover {
-        background-color: #374151;
+        background-color: #686868;
     }
     &:focus {
         outline: none;
@@ -110,7 +110,7 @@ export const CloseBtn = styled.button`
   z-index: 101;
   justify-content: center;
   border-radius: 0.375rem;
-  background-color: #38B2AC;
+  background-color: #3f3f3f;
   color : white;
   top : -360px;
 `

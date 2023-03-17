@@ -76,7 +76,7 @@ const SearchBtn = styled.button`
     }
 `
 const SortLabel = styled.label`
-  font-size : 15px;
+  font-size : 12px;
   font-family: "RalewayBold";
   margin-right: 20px;
   align-content: flex-end;
@@ -94,7 +94,15 @@ const Sort = ({ sortHandler, sorts }) => (
   <SortContainer>
     {sorts && sorts.map((sort, index) => (
       <SortLabel key={index} onClick={() => sortHandler(sort)}>
-        {sort.toUpperCase()}
+        {sort === "hits"
+          ? "조회순"
+          : sort === "purchase"
+          ? "구매순"
+          : sort === "date"
+          ? "최신순"
+          : sort ==="favorite"
+          ? "좋아요순"
+          :sort}
       </SortLabel>
     ))}
   </SortContainer>

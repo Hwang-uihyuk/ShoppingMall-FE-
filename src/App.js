@@ -8,24 +8,11 @@ import Footer from './components/Footer';
 const queryClient = new QueryClient();
 function App() {
   return (
-<<<<<<< Updated upstream
-    
     <QueryClientProvider client={queryClient}>      
-    
-        <Navbar />
-                
-        <Outlet />
-        <Footer/>
-     
-=======
-    <QueryClientProvider client={queryClient}>
-          <Navbar />
-          <Outlet />
-          <Footer />
->>>>>>> Stashed changes
+      <Navbar />        
+      <Outlet />
+      <Footer/>  
     </QueryClientProvider>
-    
   );
 }
-
 export default App;

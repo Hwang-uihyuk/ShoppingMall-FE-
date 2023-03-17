@@ -148,11 +148,11 @@ const OrderListTB = ({orders})=>(
                             </BodyImageTD>
                             <BodyTD>
                                 <LLabel>{order.name}</LLabel>
-                                <SLabel>SIZE : {order.price}</SLabel>
+                                <SLabel>SIZE : {order.size}</SLabel>
                                 <MLabel >{order.price.toLocaleString('to-KR')}원</MLabel>
                             </BodyTD>
                             <BodyTD>
-                                {order.size}
+                                {order.count}
                             </BodyTD>
                             <BodyTD>{order.order_status}</BodyTD>
                         </tr>

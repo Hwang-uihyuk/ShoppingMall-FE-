@@ -1,9 +1,11 @@
-import React, { Component } from "react";
+import React, { Component, useEffect } from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import axios from 'axios';
+import { useState } from "react";
 
 const CarouselContainer= styled.div`
   width : 80%;
@@ -73,6 +75,9 @@ const Carousel = ({link,text})=>(
     </LabelWrapper>
   </CarouselContainer>
 );
+
+const baseURL = process.env.REACT_APP_URL;
+
 export default function SimpleSlider() {
   //https://poew.tistory.com/707
     var settings = {
@@ -84,14 +89,30 @@ export default function SimpleSlider() {
       slidesToShow: 1,
       slidesToScroll: 1
     }
+
+
+    const [banner,setBanner] = useState('')
+    
+
+    useEffect(()=> {
+        axios.get(baseURL,{
+        headers : {
+          "Content-Type" : "application/json"
+        }
+      }).then((response) => 
+      { console.log(response.data[1])
+        setBanner(response.data[1])
+      }
+      )},[])  
+      console.log(banner[0].imgKey)
     return (
       <>
         <div className='pt-10 justify-center' >
           <Slider {...settings}>
-            <Carousel link = "/images/carousel_sample_1.jpg" text ="NEW ARRIVAL"/>
-            <Carousel link = "/images/carousel_sample_2.jpg" text ="NEW ARRIVAL"/>
-            <Carousel link = "/images/carousel_sample_3.jpg" text ="NEW ARRIVAL"/>
-            <Carousel link = "/images/carousel_sample_4.jpg" text ="NEW ARRIVAL"/>
+            <Carousel link = {banner[0].imgKey} text ="NEW ARRIVAL"/>
+            <Carousel link = {banner[1].imgKey} text ="NEW ARRIVAL"/>
+            <Carousel link = {banner[2].imgKey} text ="NEW ARRIVAL"/>
+            <Carousel link = {banner[3].imgKey} text ="NEW ARRIVAL"/>
               {/* <section className='h-96 bg-yellow-900 relative'>
                 <div className='w-full h-full bg-cover bg-banner opacity-70' />
                   <div className='absolute w-full h-full top-32 text-center text-gray-50 drop-shadow-2xl'>

@@ -12,10 +12,12 @@ export default function MainProducts() {
         headers : {
           "Content-Type" : "application/json"
         }
-      }).then((response) => setMainData(response.data[0])
+      }).then((response) => 
+      { console.log(response.data)
+        setMainData(response.data[0])
+      }
       )},[])    
-   console.log(maindata)
-  
+      
   return (
     <div className='p-20'>
       <ul className='grid grid-cols-1 md:grid-cols-4 lg-grid-cols-4 gap-10'>

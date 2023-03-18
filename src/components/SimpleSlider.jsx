@@ -78,7 +78,7 @@ const Carousel = ({link,text})=>(
 
 const baseURL = process.env.REACT_APP_URL;
 
-export default function SimpleSlider() {
+export default function SimpleSlider({banner}) {
   //https://poew.tistory.com/707
     var settings = {
       dots:true,
@@ -90,29 +90,29 @@ export default function SimpleSlider() {
       slidesToScroll: 1
     }
 
-
-    const [banner,setBanner] = useState('')
+console.log(banner)
+    // const [banner,setBanner] = useState('')
     
 
-    useEffect(()=> {
-        axios.get(baseURL,{
-        headers : {
-          "Content-Type" : "application/json"
-        }
-      }).then((response) => 
-      { console.log(response.data[1])
-        setBanner(response.data[1])
-      }
-      )},[])  
-      console.log(banner[0].imgKey)
+    // useEffect(()=> {
+    //     axios.get(baseURL,{
+    //     headers : {
+    //       "Content-Type" : "application/json"
+    //     }
+    //   }).then((response) => 
+    //   { console.log(response.data[1])
+    //     setBanner(response.data[1])
+    //   }
+    //   )},[])  
+      
     return (
       <>
         <div className='pt-10 justify-center' >
           <Slider {...settings}>
-            <Carousel link = {banner[0].imgKey} text ="NEW ARRIVAL"/>
-            <Carousel link = {banner[1].imgKey} text ="NEW ARRIVAL"/>
-            <Carousel link = {banner[2].imgKey} text ="NEW ARRIVAL"/>
-            <Carousel link = {banner[3].imgKey} text ="NEW ARRIVAL"/>
+            {banner && <Carousel link = {banner[0].imgKey} text ="NEW ARRIVAL"/>}
+            {banner &&<Carousel link = {banner[1].imgKey} text ="NEW ARRIVAL"/>}
+            {banner &&<Carousel link = {banner[2].imgKey} text ="NEW ARRIVAL"/>}
+            {banner &&<Carousel link = {banner[3].imgKey} text ="NEW ARRIVAL"/>}
               {/* <section className='h-96 bg-yellow-900 relative'>
                 <div className='w-full h-full bg-cover bg-banner opacity-70' />
                   <div className='absolute w-full h-full top-32 text-center text-gray-50 drop-shadow-2xl'>

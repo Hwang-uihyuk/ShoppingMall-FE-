@@ -29,6 +29,9 @@ export default function EditProductDetail() {
         imgkey : false
     })
 
+    
+    const [changeform, setChangeForm] = useState({})
+
     const id = location.state.product.id;
     // const onchangeinput = (e) => {
     //     setdata(e.currentTarget.value)
@@ -46,7 +49,7 @@ export default function EditProductDetail() {
             console.log("수정할 데이터 값을 가져왔습니다.");
             
             setEditForm(response.data)
-    
+            setChangeForm(response.data)
          })
          .catch((error) => console.log(error))
     },[] )
@@ -80,11 +83,27 @@ export default function EditProductDetail() {
     }
     // 상품 이름 변경
   const EditName = (e) => {
-      setEditForm(data => {return{...data, name : e.target.value}})
+    //   setEditForm(data => {return{...data, name : e.target.value}})
+    setChangeForm(data => {return{...data, name : e.target.value}})
   }
   const EditNameBtn = (e) =>{
-      
-      PostEditProduct(editform)
+      const data = JSON.stringify({
+        "name" : changeform.name,
+        "price" : editform.price,
+        "category" : editform.category,
+        "description" : editform.description,
+        "size" : editform.size,
+        "imgKey" : editform.imgKey
+      })
+      axios.put(`${baseURL}/register/product/${id}`,data,
+      {
+        headers: {
+            'Content-Type' : 'application/json',
+            "Authorization" : window.localStorage.getItem('Login')
+        }
+      }).then(res => {})
+     
+      setEditForm(changeform)
       console.log(data.name)
       alert('상품이 수정되었습니다.')
       setHide(prev =>!prev)
@@ -92,30 +111,76 @@ export default function EditProductDetail() {
 
   //상품 가격 변경
   const EditPrice = (e) => {
-      setEditForm(data => {return {...data, price : e.target.value}})
+    setChangeForm(data => {return {...data, price : e.target.value}})
   }
   const EditPriceBtn = (e) => {
-      PostEditProduct(editform)
+    const data = JSON.stringify({
+        "name" : editform.name,
+        "price" : changeform.price,
+        "category" : editform.category,
+        "description" : editform.description,
+        "size" : editform.size,
+        "imgKey" : editform.imgKey
+      })
+      axios.put(`${baseURL}/register/product/${id}`,data,
+      {
+        headers: {
+            'Content-Type' : 'application/json',
+            "Authorization" : window.localStorage.getItem('Login')
+        }
+      }).then(res => {})
+
+        setEditForm(changeform)
       console.log(editform)
       alert('상품이 수정되었습니다.')
       setHide(prev =>!prev)
   }
   //상품 카테고리 변경
   const EditCategory = (e) => {
-    setEditForm(data => {return {...data,  category : e.target.value}})
+    setChangeForm(data => {return {...data,  category : e.target.value}})
 }
 const EditCategoryBtn = (e) => {
-    PostEditProduct(editform)
+    const data = JSON.stringify({
+        "name" : editform.name,
+        "price" : editform.price,
+        "category" : changeform.category,
+        "description" : editform.description,
+        "size" : editform.size,
+        "imgKey" : editform.imgKey
+      })
+      axios.put(`${baseURL}/register/product/${id}`,data,
+      {
+        headers: {
+            'Content-Type' : 'application/json',
+            "Authorization" : window.localStorage.getItem('Login')
+        }
+      }).then(res => {})
+    setEditForm(changeform)
     alert('상품이 수정되었습니다.')    
     setHide(prev =>!prev)
 }
 
   //상품 설명 변경
   const EditDescription = (e) => {
-    setEditForm(data => {return {...data,  description : e.target.value}})
+    setChangeForm(data => {return {...data,  description : e.target.value}})
 }
 const EditDescriptionBtn = (e) => {
-    PostEditProduct(editform)
+    const data = JSON.stringify({
+        "name" : editform.name,
+        "price" : editform.price,
+        "category" : editform.category,
+        "description" : changeform.description,
+        "size" : editform.size,
+        "imgKey" : editform.imgKey
+      })
+      axios.put(`${baseURL}/register/product/${id}`,data,
+      {
+        headers: {
+            'Content-Type' : 'application/json',
+            "Authorization" : window.localStorage.getItem('Login')
+        }
+      }).then(res => {})
+    setEditForm(changeform)
     console.log(data.description)
     alert('상품이 수정되었습니다.')      
     setHide(prev =>!prev)
@@ -123,10 +188,25 @@ const EditDescriptionBtn = (e) => {
   
   //상품 사이즈 변경
   const EditSize = (e) => {
-    setEditForm(data => {return {...data,  size : e.target.value}})
+    setChangeForm(data => {return {...data,  size : e.target.value}})
 }
 const EditSizeBtn = (e) => {
-    PostEditProduct(editform)
+    const data = JSON.stringify({
+        "name" : editform.name,
+        "price" : editform.price,
+        "category" : editform.category,
+        "description" : editform.description,
+        "size" : changeform.size,
+        "imgKey" : editform.imgKey
+      })
+      axios.put(`${baseURL}/register/product/${id}`,data,
+      {
+        headers: {
+            'Content-Type' : 'application/json',
+            "Authorization" : window.localStorage.getItem('Login')
+        }
+      }).then(res => {})
+    setEditForm(changeform)
     alert('상품이 수정되었습니다.')      
     setHide(prev =>!prev)
 }

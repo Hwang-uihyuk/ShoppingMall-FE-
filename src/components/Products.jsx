@@ -8,7 +8,7 @@ import axios from 'axios'
 
 
 const baseURL = process.env.REACT_APP_URL
-const categories = ["all", "shirts", "outer", "pants", "shoes"];
+const categories = ["all", "top", "outer", "pants"];
 const sorts = ["hits", "date", "favorite", "purchase"];
 
 const Container = styled.div`

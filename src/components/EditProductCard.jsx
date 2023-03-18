@@ -19,7 +19,7 @@ export default function EditProductCard(
 
   const navigate = useNavigate();
 
-
+  console.log(imgKey)
   //상품 삭제
   const DeleteProduct = () => {
     console.log(sellrig)

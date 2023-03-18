@@ -68,9 +68,9 @@ export default function CartItem(
       console.log("장바구니 상품 추가 완료")
       console.log(response.data)
       setCartProduct(response.data)
-      
+    })    
   .catch(error => alert("올바른 사이즈를 입력하세요.") ) 
-  })
+  
   }
 
 

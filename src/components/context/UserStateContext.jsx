@@ -5,7 +5,7 @@ const UserStateContext = createContext();
 
 export function UserStateProvider({ children }) {
     const [user, setUser] = useState();
-
+    console.log('asdf')
     return <UserStateContext.Provider value={{ user,setuser : setUser,login : PostLogin, logout:LogOut}}>
         {children}
     </UserStateContext.Provider>

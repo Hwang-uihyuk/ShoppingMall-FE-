@@ -83,7 +83,11 @@ export default function EditProductDetail() {
       setEditForm(data => {return{...data, name : e.target.value}})
   }
   const EditNameBtn = (e) =>{
+      
       PostEditProduct(editform)
+      console.log(data.name)
+      alert('상품이 수정되었습니다.')
+      setHide(prev =>!prev)
   }
 
   //상품 가격 변경
@@ -92,6 +96,9 @@ export default function EditProductDetail() {
   }
   const EditPriceBtn = (e) => {
       PostEditProduct(editform)
+      console.log(editform)
+      alert('상품이 수정되었습니다.')
+      setHide(prev =>!prev)
   }
   //상품 카테고리 변경
   const EditCategory = (e) => {
@@ -99,6 +106,8 @@ export default function EditProductDetail() {
 }
 const EditCategoryBtn = (e) => {
     PostEditProduct(editform)
+    alert('상품이 수정되었습니다.')    
+    setHide(prev =>!prev)
 }
 
   //상품 설명 변경
@@ -107,6 +116,9 @@ const EditCategoryBtn = (e) => {
 }
 const EditDescriptionBtn = (e) => {
     PostEditProduct(editform)
+    console.log(data.description)
+    alert('상품이 수정되었습니다.')      
+    setHide(prev =>!prev)
 }
   
   //상품 사이즈 변경
@@ -115,6 +127,8 @@ const EditDescriptionBtn = (e) => {
 }
 const EditSizeBtn = (e) => {
     PostEditProduct(editform)
+    alert('상품이 수정되었습니다.')      
+    setHide(prev =>!prev)
 }
   //상품 이미지 변경
   

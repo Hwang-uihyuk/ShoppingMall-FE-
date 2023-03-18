@@ -43,7 +43,7 @@ console.log(detaildata)
 
   //이거 사이즈 쓰려면 이렇게 바꿔줘서 써야함 ㅇㅇ
   
-  const optiondata = String(detaildata.size).split('').filter(v => v!==',')
+  const optiondata = String(detaildata.size).split(',')
 
 
 
@@ -162,7 +162,6 @@ console.log(detaildata)
               <div className='pt-1.5'>{detaildata.favorite}</div>
             </div>
           </div>
-          <div className='pt-1.5'>{detaildata.favorite}</div>
           <p className='py-4 text-lg opacity-50'>{detaildata.description}</p>
 
           {/* 상품 재고  */}

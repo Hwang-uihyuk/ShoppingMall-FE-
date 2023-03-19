@@ -16,6 +16,12 @@ export default function MyPage() {
     const [hide3, setHide3] = useState(false)
     const [hide4, setHide4] = useState(false)
 
+        // 비밀번호 변경하기
+    const [pw, setPw] = useState('')
+    const [pwchange, setPwChange] = useState('')
+    const [pwcheck, setPwCheck] = useState('')
+    const [hidePw, setHidePw] = useState(false)
+
     const [isPhone, setIsPhone] = useState(false);
     const [isEmail, setIsEmail] = useState(false);
     const [isNickName,setIsNickName] = useState(false);
@@ -44,7 +50,39 @@ useEffect(() => {
 }, [])
 
 
-
+const showOnlyOne = (hide) =>{
+    if (hide === "setHide1") {
+        setHide1(mode=>!mode);
+            if (hide2) setHide2(false);
+            if (hide3) setHide3(false);
+            if (hide4) setHide4(false);
+            if (hidePw) setHidePw(false);
+    } else if (hide === "setHide2") {
+            setHide2(mode=>!mode);
+                if (hide1) setHide1(false);
+                if (hide3) setHide3(false);
+                if (hide4) setHide2(false);
+                if (hidePw) setHidePw(false);
+    } else if (hide === "setHide3") {
+            setHide3(mode=>!mode);
+                if (hide1) setHide1(false);
+                if (hide2) setHide2(false);
+                if (hide4) setHide4(false);
+                if (hidePw) setHidePw(false);
+    } else if (hide === "setHide4") {
+            setHide4(mode=>!mode);
+                if (hide1) setHide1(false);
+                if (hide2) setHide2(false);
+                if (hide3) setHide3(false);
+                if (hidePw) setHidePw(false);
+    } else if (hide === "setHidePw") {
+        setHidePw(mode=>!mode);
+            if (hide1) setHide1(false);
+            if (hide2) setHide2(false);
+            if (hide3) setHide3(false);
+            if (hide4) setHide4(false);
+    }
+}
 
 
 //모든 유저 정보 담고있는 data
@@ -208,11 +246,7 @@ const onAddressChangeHandler = (e) =>{
 
 
 
-// 비밀번호 변경하기
-const [pw, setPw] = useState('')
-const [pwchange, setPwChange] = useState('')
-const [pwcheck, setPwCheck] = useState('')
-const [hidePw, setHidePw] = useState(false)
+
 
 const PwData = JSON.stringify({
     "origin_password" : pw,
@@ -266,11 +300,11 @@ const handleUpgradeAuth = (e) => {
 
   return (
     <div>
-        <section className="bg-white dark:bg-gray-900 grid justify-items-center items-center overflow-auto h-full ">
-            <div className="flex flex-col h-full mt-10 mb-10 items-center justify-center px-6 py-8 md:h-screen lg:py-0 max-h-full overflow-auto">
+        <section className="bg-white dark:bg-gray-900 grid justify-items-center items-center h-full ">
+            <div className="flex flex-col w-full h-full mt-10 mb-10 items-center justify-center px-6 py-8 md:h-screen lg:py-0 max-h-full">
                     <div className="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white">
                         Mypage</div>
-                    <div className="w-full h-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
+                    <div className="w-full max-w-2xl h-full bg-white rounded-lg shadow dark:border md:mt-0 2xl:p-0 dark:bg-gray-800 dark:border-gray-700">
                         <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
                             <form className='space-y-4 md:space-y-6'>
                                 <div className='flex w-full font-bold text-xl border-b-2'>
@@ -295,65 +329,66 @@ const handleUpgradeAuth = (e) => {
                                     </div>
                                 </div>
                                 {/* 비밀번호변경 */}
-                                <div className='flex flex-between'>
+                                <div className='flex place-content-between'>
                                     <div>비밀번호 : ********</div>
-                                    <button className="w-2/5 text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
+                                    <button className="w-md min-w-sm text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
                                         onClick={(e) => {
                                         e.preventDefault();
-                                        setHidePw(mode => !mode)
+                                        showOnlyOne("setHidePw")
                                     }}> 비밀번호 변경
                                     </button>
                                 </div>
-                                {hidePw && <div className='border p-5 m-3 absolute'>
-                                <div>
-                                    <label
-                                    className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">현재비밀번호 </label>
-                                    <input
-                                    type= "text"
-                                    className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                    placeholder = "현재비밀번호"
-                                    onChange ={onPwHandler}/>
-                                </div>
-                                <div>
-                                    <label
-                                    className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">변경비밀번호 </label>
-                                    <input
-                                    type='text'
-                                    className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                    placeholder = "변경비밀번호"
-                                    onChange={onPwChangeHandler}/>
-                                </div>
+                                {hidePw &&
+                                    <div className='bg-white border w-full p-5 m-3'>
+                                        <div className='mb-4'>
+                                            <label
+                                            className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">현재 비밀번호 </label>
+                                            <input
+                                            type= "text"
+                                            className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                            placeholder = "현재비밀번호"
+                                            onChange ={onPwHandler}/>
+                                        </div>
+                                        <div className='mb-4'>
+                                            <label
+                                            className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">변경 비밀번호 </label>
+                                            <input
+                                            type='text'
+                                            className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                            placeholder = "변경비밀번호"
+                                            onChange={onPwChangeHandler}/>
+                                        </div>
 
-                                <div>
-                                    <label
-                                    className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">변경비밀번호확인 </label>
-                                    <input
-                                    type='text'
-                                    className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                    placeholder = "변경비밀번호확인"
-                                    onChange={onPwChangeCheckHandler}/>
-                                </div>
+                                        <div className='mb-4'>
+                                            <label
+                                            className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">변경 비밀번호 확인 </label>
+                                            <input
+                                            type='text'
+                                            className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                            placeholder = "변경비밀번호확인"
+                                            onChange={onPwChangeCheckHandler}/>
+                                        </div>
 
-                                <div className="">
-                                    {pwcheck === pwchange ?
-                                    <button onClick={onPwChange} 
-                                    className="border p-2 rounded-xl hover:bg-slate-100 text-gray-900 text-md" >비밀번호변경하기</button>:
-                                    <div>비밀번호가 다릅니다.</div>}
-                                    
-                                </div>
-                                </div>}
+                                        <div className='flex justify-center'>
+                                            {pwcheck === pwchange ?
+                                            <button onClick={onPwChange} 
+                                            className="text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800" >비밀번호 변경하기</button>:
+                                            <div>비밀번호가 다릅니다.</div>}
+                                        </div>
+                                    </div>}
+                                
                                 {/* 닉네임 변경 form */}
-                                <div>
-                                    nickname : {userstate.nickname}
-                                    <button className="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800" onClick={(e)=>{
+                                <div className='flex place-content-between'>
+                                    <div>닉네임 : {userstate.nickname}</div>
+                                    <button className="w-md min-w-sm text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800" onClick={(e)=>{
                                         e.preventDefault();
-                                        setHide1(mode => !mode)
+                                        showOnlyOne("setHide1")
                                     }}>닉네임 변경</button> 
                                 </div>
 
                                 {/* 버튼 클릭하면 이 form이 나타나야함. */}
                                 {hide1 &&<div className='border p-5 m-3 rounded-xl'>
-                                <div>
+                                <div className='mt-3'>
                                     <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">닉네임 변경하기</label>
                                     <input 
                                     className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
@@ -362,23 +397,22 @@ const handleUpgradeAuth = (e) => {
                                     onChange={onNickNameHandler}></input>
                                 </div>
 
-                                <div>
-                                
-                                <button 
-                                className="border p-2 rounded-xl hover:bg-slate-100"
-                                onClick={onNickNameChangeHandler}
-                                > 확인 </button>
-                                <button className="border p-2 rounded-xl hover:bg-slate-100"> 취소 </button>
+                                <div className='flex justify-end gap-3 mt-3'>
+                                    <button 
+                                    className="text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-4 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
+                                    onClick={onNickNameChangeHandler}
+                                    > 확인 </button>
+                                    <button className="text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-4 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"> 취소 </button>
                                 </div>
                             </div>}
 
                             {/* telephone 변경 form */}
-                            <div>
-                                telephone : {userstate.telephone}
-                                <button className="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
+                            <div className='flex place-content-between'>
+                                <div>전화번호 : {userstate.telephone}</div>
+                                <button className="w-md min-w-sm text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
                                 onClick={(e)=>{
                                     e.preventDefault();
-                                    setHide2(mode =>!mode)
+                                    showOnlyOne("setHide2")
                                 }}> 전화번호 변경 </button>
                             </div>
                             {hide2 &&<div className='border p-5 m-3 rounded-xl'>
@@ -392,23 +426,26 @@ const handleUpgradeAuth = (e) => {
                                 onChange={onTelePhoneHandler}></input>
                             </div>
 
-                            <div>
+                            <div className='flex justify-end gap-3 mt-3'>
                             
                             <button 
-                            className="border p-2 rounded-xl hover:bg-slate-100"
+                            className="text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
+
                             onClick={onTelePhoneChangeHandler}
                             > 확인 </button>
-                            <button  className="border p-2 rounded-xl hover:bg-slate-100"> 취소 </button>
+                            <button 
+                            className="text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
+                            > 취소 </button>
                             </div>
                         </div>}
 
                         {/* email 변경 form */}
-                        <div className='flex flex-between'>
-                            <label>email : {userstate.email}</label>
-                            <button className="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
+                        <div className='flex place-content-between'>
+                            <label>Email : {userstate.email}</label>
+                            <button className="w-md min-w-sm text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
                             onClick={(e)=>{
                                 e.preventDefault();
-                                setHide3(mode => !mode)
+                                showOnlyOne("setHide3")
                             }}> 이메일 변경 </button>
                         </div>
                         {/* 버튼 클릭시 email 변경 form */}
@@ -422,28 +459,28 @@ const handleUpgradeAuth = (e) => {
                                 onChange={onEmailHandler}></input>
                             </div>
 
-                            <div>
+                            <div className='flex justify-end gap-3 mt-3'>
                                 <button 
-                                className="border p-2 rounded-xl hover:bg-slate-100"
+                                className="text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
                                 onClick={onEmailChangeHandler}
                                 > 확인 </button>
                                 <button
-                                className="border p-2 rounded-xl hover:bg-slate-100" > 취소 </button>
+                                className="text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800" > 취소 </button>
                             </div>
                         </div>}
 
                         {/* address 변경 form */}
-                        <div>
-                            address : {userstate.address}
-                            <button className="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
+                        <div className='flex place-content-between'>
+                            주소 : {userstate.address}
+                            <button className="w-md min-w-sm text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
                             onClick={(e)=>{
                                 e.preventDefault();
-                                setHide4(mode => !mode)
+                                showOnlyOne("setHide4")
                             }}> 주소 변경 </button>
                         </div>
                             
                         {/* 버튼 클릭시 address 변경 form */}
-                        {hide4 &&<div className='border p-5 m-3 rounded-xl bg-white absolute'>
+                        {hide4 &&<div className='border p-5 m-3 rounded-xl'>
                             <div>
                                 <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">주소 변경하기 : </label>
                                 <input 
@@ -453,17 +490,17 @@ const handleUpgradeAuth = (e) => {
                                 onChange={onAddressHandler}></input>
                             </div>
 
-                            <div>
+                            <div className='flex justify-end gap-3 mt-3'>
                         
                             <button 
-                            className="border p-2 rounded-xl hover:bg-slate-100"
+                            className="text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
                             onClick={onAddressChangeHandler}
                             > 확인 </button>
                             <button
-                            className='border rounded-xl p-2 hover:bg-slate-100'> 취소 </button>
+                            className="text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"> 취소 </button>
                             </div>
                         </div>}
-
+                        <div className='h-1'></div>
                         {/* 상품 등록 폼 */}
                         <div className="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800" > 
                             <Link to ="/products/new">상품등록</Link>

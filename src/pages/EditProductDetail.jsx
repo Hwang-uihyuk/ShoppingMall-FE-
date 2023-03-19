@@ -9,7 +9,7 @@ const baseURL = process.env.REACT_APP_URL;
 export default function EditProductDetail() {
     const location = useLocation();
     const [editform, setEditForm] = useState({})
-    
+    const [addStock, setAddStock] = useState(0)
     // console.log(editform);
     const [data, setData] = useState(({
         name : editform.name,
@@ -56,11 +56,12 @@ export default function EditProductDetail() {
     
     //상품 재고 갯수 변경하기
     const ChangeStock = () =>{
-
-        const stock = prompt("재고 현황을 변경하시겠습니까?")
+        var stock = 0
+         stock = prompt("재고를 몇개 추가하시겠습니까?")
         setEditForm((prevState)=>{
-            return { ...prevState, stock : stock}
+            return { ...prevState, stock : editform.stock + parseInt(stock)}
         })
+        setAddStock(stock)
         // console.log(editform)
     
         //처음에 데이터 값을 가져오고 
@@ -72,15 +73,17 @@ export default function EditProductDetail() {
             "product_id" : editform.id,
             "stock" : stock
         })
-
         axios.put(`${baseURL}/register/product/add_stock`,data
         ,{
             headers: {
                 'Content-Type' : 'application/json',
                 "Authorization" : window.localStorage.getItem('Login')
             }
-        }).then(res => {})
+        }).then(res => {
+        })
     }
+
+    
     // 상품 이름 변경
   const EditName = (e) => {
     //   setEditForm(data => {return{...data, name : e.target.value}})
@@ -230,7 +233,7 @@ const EditSizeBtn = (e) => {
         {/* <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"> Id</label> */}
         <li>상품 아이디는 : "{editform.id}"</li>
         <li>제고 현황 : {editform.stock}</li>
-        <button className="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800" onClick={ChangeStock}> 상품 재고 변경하기</button>
+        <button className="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800" onClick={ChangeStock}> 상품 재고 추가하기</button>
 
           <div className='font-bold text-xl'>상품 정보 </div>  
           <div>상품 이미지 <img width="150"src = {editform.imgKey}/></div>

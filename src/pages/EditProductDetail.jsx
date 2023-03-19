@@ -58,6 +58,10 @@ export default function EditProductDetail() {
     const ChangeStock = () =>{
         var stock = 0
          stock = prompt("재고를 몇개 추가하시겠습니까?")
+        if(!stock){
+          alert("추가하실 상품의 갯수를 정확히 입력하세요.")
+        }
+        else {
         setEditForm((prevState)=>{
             return { ...prevState, stock : editform.stock + parseInt(stock)}
         })
@@ -79,8 +83,9 @@ export default function EditProductDetail() {
                 'Content-Type' : 'application/json',
                 "Authorization" : window.localStorage.getItem('Login')
             }
-        }).then(res => {
+        }).then(res => { alert('상품 재고가 변경되었습니다.')
         })
+      }
     }
 
     

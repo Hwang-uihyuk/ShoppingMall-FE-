@@ -260,7 +260,9 @@ const EditSizeBtn = (e) => {
             <Input onChange={EditName}/>
             {/* <input className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" type="text"  
             onChange={EditName}></input>     */}
+            <div className='mb-3'>
             <Button text='변경' onClick={EditNameBtn}/>
+            </div>
             <Button text="취소 " onClick={() => {
             hide.name === false ? setHide(data => { return {...data, name : true }})
             : setHide(data => {return {...data,name :false}})
@@ -272,7 +274,7 @@ const EditSizeBtn = (e) => {
 
       {/* 상품 가격 form */}
       <div>  상품 가격은 : "{editform.price}"
-      <Button text ="변경" onClick={() => {
+      <Button text ="변경"  onClick={() => {
             hide.price === false ? setHide(data => { return {...data, price : true }})
             : setHide(data => {return {...data,price :false}})
         }}></Button>
@@ -282,7 +284,9 @@ const EditSizeBtn = (e) => {
         <div>
             <div className='font-bold'>상품 가격 변경</div>
             <Input onChange={EditPrice}/>   
+            <div className='mb-3'>
             <Button text="변경"  onClick={EditPriceBtn}/>
+            </div>
             <Button text="취소" onClick={() => {
             hide.price === false ? setHide(data => { return {...data, price : true }})
             : setHide(data => {return {...data,price :false}})
@@ -302,7 +306,9 @@ const EditSizeBtn = (e) => {
         <div>
             <div className='font-bold'>상품 카테고리 변경</div>
             <Input onChange={EditCategory}/>   
+            <div className='mb-3'>
             <Button text ="변경" onClick={EditCategoryBtn}/>
+            </div>
             <Button text="취소" onClick={() => {
             hide.category === false ? setHide(data => { return {...data, category : true }})
             : setHide(data => {return {...data,category :false}})
@@ -322,8 +328,10 @@ const EditSizeBtn = (e) => {
         {hide.description && 
         <div>
             <div className='font-bold'>상품 설명 변경</div>
-            <Input onChange={EditDescription}/>    
+            <Input onChange={EditDescription}/>   
+            <div className='mb-3'> 
             <Button text="변경"  onClick={EditDescriptionBtn}></Button>
+            </div>
             <Button text="취소" onClick={() => {
             hide.description === false ? setHide(data => { return {...data, description : true }})
             : setHide(data => {return {...data,description :false}})
@@ -343,7 +351,9 @@ const EditSizeBtn = (e) => {
         <div>
             <div className='font-bold'>사이즈 변경</div>
             <Input onChange={EditSize}/>
+            <div className='mb-3'>
             <Button text ="변경" onClick={EditSizeBtn}></Button>    
+            </div>
             <Button text="취소" onClick={() => {
             hide.size === false ? setHide(data => { return {...data, size : true }})
             : setHide(data => {return {...data,size :false}})

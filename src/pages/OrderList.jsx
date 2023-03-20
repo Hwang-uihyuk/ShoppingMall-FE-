@@ -185,15 +185,11 @@ export default function OrderList(){
         <>
             <Page>
                     <OrderListLabel>ORDERS</OrderListLabel>
-                    <OrderListTB orders={orders}/>
-                    {/* <Table>
-                        <OrdersHead />
-                        <br />
-                        {orders &&
-                            orders.map((order, index) => (
-                                <OrdersBody key={index} order={order} />
-                            ))}
-                    </Table> */}
+                    {orders&&
+                        orders.map((order,index)=>{
+                            console.log(order);
+                            <OrderListTB key = {index} orders={order} />
+                        })}
             </Page>
         </>
     )

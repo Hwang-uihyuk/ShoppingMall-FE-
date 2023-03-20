@@ -3,11 +3,10 @@ import React from 'react'
 export default function Footer() {
   return (
     
-    <div className="">
+    <div className='relative'>
         {/* divider */}
         <div className =" h-3 bg-slate-50 border border-solid border-slate-100
-        border-1-0 shadow-xl"
-         ></div>
+        border-1-0 shadow-xl"></div>
     <footer className="  py-3 my-4 bg-slate-100 opacity-20">
         <div className=" flex justify-center">
             <ul className="flex border-l pb-3 mb-3">
@@ -24,7 +23,7 @@ export default function Footer() {
         <p className="text-center text-muted">© 2023 Company, Inc</p>
     </footer>
 
-</div>
+    </div>
   )
 }
 

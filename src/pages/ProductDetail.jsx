@@ -3,7 +3,11 @@ import { useLocation, Link, Navigate, useNavigate } from 'react-router-dom';
 import axios, { AxiosError } from 'axios';
 import { useEffect } from 'react';
 import {AiFillHeart,AiOutlineHeart } from 'react-icons/ai';
+<<<<<<< Updated upstream
 import Button from '../components/ui/Button';
+=======
+import { GetProductDetail } from '../api/api';
+>>>>>>> Stashed changes
 
 const baseURL = process.env.REACT_APP_URL;
 
@@ -18,21 +22,14 @@ export default function ProductDetail() {
   // console.log(addOrUpdateItem)
 
     //처음에 데이터 조회하기 
-  const [detaildata, setDetailData] = useState("")
-  
-  useEffect(()=>{
-    axios.get(`${baseURL}/shop/detail/${id}`,{
-    "headers" : {
-      "Content-type" : "application/json",
-      'Authorization' : window.localStorage.getItem('Login')
-
-  }
-  }).then( (response) => {
-  setDetailData(response.data)
-  // console.log(response.data)
-  }
-  )},[])
-console.log(detaildata)
+    const [detaildata, setDetailData] = useState("")
+    
+    useEffect(()=>{
+      GetProductDetail(id).then((data) => {
+        setDetailData(data);
+    });
+    },[])
+    console.log(detaildata)
 
   //황의혁 상세페이지 작성 
 
@@ -45,8 +42,6 @@ console.log(detaildata)
   //이거 사이즈 쓰려면 이렇게 바꿔줘서 써야함 ㅇㅇ
   
   const optiondata = String(detaildata.size).split(',')
-
-
 
   //장바구니 추가 
    

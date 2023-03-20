@@ -299,14 +299,15 @@ const handleUpgradeAuth = (e) => {
 
 
   return (
-    <div>
-        <section className="bg-white dark:bg-gray-900 grid justify-items-center items-center h-full ">
-            <div className="flex flex-col w-full h-full mt-10 mb-10 items-center justify-center px-6 py-8 md:h-screen lg:py-0 max-h-full">
-                    <div className="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white">
-                        Mypage</div>
-                    <div className="w-full max-w-2xl h-full bg-white rounded-lg shadow dark:border md:mt-0 2xl:p-0 dark:bg-gray-800 dark:border-gray-700">
-                        <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
-                            <form className='space-y-4 md:space-y-6'>
+    <div> 
+          <section className="bg-white dark:bg-gray-900 items-center justify-center">
+            <div className="flex flex-col w-full mt-5 mb-10 items-center justify-item-start px-6 py-8 lg:py-0">
+                  <div className="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white">
+                      Mypage</div>
+                    <div className="flex flex-col w-full max-w-2xl bg-white rounded-lg shadow dark:border md:mt-0 2xl:p-0 dark:bg-gray-800 dark:border-gray-700">
+
+                        <div className="flex flex-col h-auto p-6 space-y-4">
+                            <div className='space-y-4'>
                                 <div className='flex w-full font-bold text-xl border-b-2'>
                                     {userstate.username}
                                     {/* 회원탈퇴 폼 */}
@@ -502,27 +503,29 @@ const handleUpgradeAuth = (e) => {
                         </div>}
                         <div className='h-1'></div>
                         {/* 상품 등록 폼 */}
-                        <div className="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800" > 
-                            <Link to ="/products/new">상품등록</Link>
+                        <div className='flex flex-col gap-4'>
+                            <div className="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800" > 
+                                <Link to ="/products/new">상품등록</Link>
+                            </div>
+
+                            <div className="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
+                                <Link to ="/products/edit">상품수정하기</Link>
+                            </div>
+
+                            <div className="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
+                                <Link to ="/mypage/favorite">좋아요한상품</Link>
+                            </div>
+
+                            <div className="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
+                                <Link to ="/mypage/orderlist">주문목록</Link>
+                            </div>
+                            {window.localStorage.getItem('ID') === 'hwang' ?
+                            <button 
+                            className="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
+                            onClick={handleUpgradeAuth}>권한 업그레이드</button> : ""}
                         </div>
 
-                        <div className="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
-                            <Link to ="/products/edit">상품수정하기</Link>
-                        </div>
-
-                        <div className="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
-                            <Link to ="/mypage/favorite">좋아요한상품</Link>
-                        </div>
-
-                        <div className="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
-                            <Link to ="/mypage/orderlist">주문목록</Link>
-                        </div>
-                        {window.localStorage.getItem('ID') === 'hwang' ?
-                        <button 
-                        className="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
-                        onClick={handleUpgradeAuth}>권한 업그레이드</button> : ""}
-
-                    </form>
+                    </div>
                 </div>
                 </div>
             </div>

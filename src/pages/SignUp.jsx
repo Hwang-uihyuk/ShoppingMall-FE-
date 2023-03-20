@@ -54,6 +54,7 @@ function SignUp() {
   const [isAddress,setIsAddress] = useState(false);
   const [popup, setPopup] = useState(false);
 
+  console.log("Page Rendered");
   const onUserNameHandler = (event) => {
     const currentId = event.currentTarget.value;
     setUserName(currentId);

@@ -3,11 +3,8 @@ import { useLocation, Link, Navigate, useNavigate } from 'react-router-dom';
 import axios, { AxiosError } from 'axios';
 import { useEffect } from 'react';
 import {AiFillHeart,AiOutlineHeart } from 'react-icons/ai';
-<<<<<<< Updated upstream
 import Button from '../components/ui/Button';
-=======
 import { GetProductDetail } from '../api/api';
->>>>>>> Stashed changes
 
 const baseURL = process.env.REACT_APP_URL;
 

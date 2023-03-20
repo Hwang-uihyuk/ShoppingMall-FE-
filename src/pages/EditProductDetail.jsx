@@ -3,6 +3,8 @@ import React, { useEffect } from 'react'
 import { useLocation } from 'react-router-dom';
 import { useState } from 'react';
 import { PostEditProduct } from '../api/api';
+import Button from '../components/ui/Button';
+import Input from '../components/ui/Input';
 
 const baseURL = process.env.REACT_APP_URL;
 
@@ -220,44 +222,49 @@ const EditSizeBtn = (e) => {
 }
   //상품 이미지 변경
   
+  // const HideHandler = (value, res) => {
+  //     // let res = value.replace('hide.','')
+  //     value === false ? setHide(data => { return {...data, res : true}})
+  //     : setHide(data => {return {...data, res : false}})
+  // }
 
-
-  
   return (              
     <section className="bg-gray-50 dark:bg-gray-900">
         <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
         <a href="#" className="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white">
-          {/* <img className="w-8 h-8 mr-2" src="" alt="logo"/> */}
+          
             Shoppy      </a>
       <div className="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
           <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
               <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
                   Fix Your Produts
               </h1>
-        {/* <form className="space-y-4 md:space-y-6"> */}
-        {/* <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"> Id</label> */}
+        
         <li>상품 아이디는 : "{editform.id}"</li>
         <li>제고 현황 : {editform.stock}</li>
-        <button className="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800" onClick={ChangeStock}> 상품 재고 추가하기</button>
-
+          <Button text="상품 재고 추가하기" onClick={ChangeStock}/>
           <div className='font-bold text-xl'>상품 정보 </div>  
           <div>상품 이미지 <img width="150"src = {editform.imgKey}/></div>
 
         {/* 상품 이름 form */}
         <div>  상품 이름은 : "{editform.name}"
-        <button className="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800" onClick={() => {
+        <Button text="변경" onClick={() => {
             hide.name === false ? setHide(data => { return {...data, name : true }})
             : setHide(data => {return {...data,name :false}})
-        }}>변경</button>
+        }}/>
+        
+
         {hide.name && 
         <div>
             <div className='font-bold'>상품 이름 변경</div>
-            <input className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" type="text"  onChange={EditName}></input>    
-            <button className=" mb-3 w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800" onClick={EditNameBtn}>변경</button > 
-            <button className="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800" onClick={() => {
+            <Input onChange={EditName}/>
+            {/* <input className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" type="text"  
+            onChange={EditName}></input>     */}
+            <Button text='변경' onClick={EditNameBtn}/>
+            <Button text="취소 " onClick={() => {
             hide.name === false ? setHide(data => { return {...data, name : true }})
             : setHide(data => {return {...data,name :false}})
-        }}>취소</button>
+        }}></Button>
         </div>}
         
         </div>
@@ -265,79 +272,84 @@ const EditSizeBtn = (e) => {
 
       {/* 상품 가격 form */}
       <div>  상품 가격은 : "{editform.price}"
-        <button className="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800" onClick={() => {
+      <Button text ="변경" onClick={() => {
             hide.price === false ? setHide(data => { return {...data, price : true }})
             : setHide(data => {return {...data,price :false}})
-        }}>변경</button>
+        }}></Button>
+
+        
         {hide.price && 
         <div>
             <div className='font-bold'>상품 가격 변경</div>
-            <input className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" type="text"  onChange={EditPrice}></input>    
-            <button className="mb-3 w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"  onClick={EditPriceBtn}>변경</button > 
-            <button className="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800" onClick={() => {
+            <Input onChange={EditPrice}/>   
+            <Button text="변경"  onClick={EditPriceBtn}/>
+            <Button text="취소" onClick={() => {
             hide.price === false ? setHide(data => { return {...data, price : true }})
             : setHide(data => {return {...data,price :false}})
-        }}>취소</button>
+        }}/>
+            
         </div>}
         </div>
 
         {/* 상품 카테고리 form */}
       <div>  상품 카테고리는 : "{editform.category}"
-        <button className="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800" onClick={() => {
+        <Button text="변경" onClick={() => {
             hide.category === false ? setHide(data => { return {...data, category : true }})
             : setHide(data => {return {...data,category :false}})
-        }}>변경</button>
+        }}/>
+       
         {hide.category && 
         <div>
             <div className='font-bold'>상품 카테고리 변경</div>
-            <input className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" type="text"  onChange={EditCategory}></input>    
-            <button className="mb-3 w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"  onClick={EditCategoryBtn}>변경</button > 
-            <button className="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800" onClick={() => {
+            <Input onChange={EditCategory}/>   
+            <Button text ="변경" onClick={EditCategoryBtn}/>
+            <Button text="취소" onClick={() => {
             hide.category === false ? setHide(data => { return {...data, category : true }})
             : setHide(data => {return {...data,category :false}})
-        }}>취소</button>
+        }}/>
+            
         </div>}
         </div>
 
 
 {/* 상품 설명 form */}
 <div>  상품 설명은 : "{editform.description}"
-        <button className="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800" onClick={() => {
+        <Button text ="변경" onClick={() => {
             hide.description === false ? setHide(data => { return {...data, description : true }})
             : setHide(data => {return {...data,description :false}})
-        }}>변경</button>
+        }}/>
+        
         {hide.description && 
         <div>
             <div className='font-bold'>상품 설명 변경</div>
-            <input className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" type="text"  onChange={EditDescription}></input>    
-            <button className="mb-3 w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"  onClick={EditDescriptionBtn}>변경</button > 
-            <button className="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800" onClick={() => {
+            <Input onChange={EditDescription}/>    
+            <Button text="변경"  onClick={EditDescriptionBtn}></Button>
+            <Button text="취소" onClick={() => {
             hide.description === false ? setHide(data => { return {...data, description : true }})
             : setHide(data => {return {...data,description :false}})
-        }}>취소</button>
+        }}/>
+            
         </div>}
         </div>
 
 {/* 상품 사이즈 form */}
 <div>  상품 사이즈은 : "{editform.size}"
-        <button className="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800" onClick={() => {
+        <Button text= "변경" onClick={() => {
             hide.size === false ? setHide(data => { return {...data, size : true }})
             : setHide(data => {return {...data,size :false}})
-        }}>변경</button>
+        }}/>
+        
         {hide.size && 
         <div>
             <div className='font-bold'>사이즈 변경</div>
-            <input className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" type="text"  onChange={EditSize}></input>    
-            <button className="mb-3 w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"  onClick={EditSizeBtn}>변경</button > 
-            <button className="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800" onClick={() => {
+            <Input onChange={EditSize}/>
+            <Button text ="변경" onClick={EditSizeBtn}></Button>    
+            <Button text="취소" onClick={() => {
             hide.size === false ? setHide(data => { return {...data, size : true }})
             : setHide(data => {return {...data,size :false}})
-        }}>취소</button>
+        }}/>      
         </div>}
 </div>
-        
-        
-        
         {/* </form> */}
         </div>
         </div>

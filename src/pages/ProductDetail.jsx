@@ -3,6 +3,7 @@ import { useLocation, Link, Navigate, useNavigate } from 'react-router-dom';
 import axios, { AxiosError } from 'axios';
 import { useEffect } from 'react';
 import {AiFillHeart,AiOutlineHeart } from 'react-icons/ai';
+import Button from '../components/ui/Button';
 
 const baseURL = process.env.REACT_APP_URL;
 
@@ -199,13 +200,15 @@ console.log(detaildata)
             {/* <Button text='장바구니에 추가' onClick={handleAddCart}/> */}
           
             {selected === "사이즈를 선택하세요." ? 
+              // <Button text ="Select the size" />
               <button className=" text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800" disabled>Select the size</button>
             :
             !window.localStorage.getItem('Login') ? 
             navigate('/login')
             :
             <>
-              <button type="submit"  onClick={handleAddCart} className="text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800 mr-3">ADD TO CART</button>
+              <Button text="ADD TO CART"onClick={handleAddCart}/>
+              {/* <button type="submit"  onClick={handleAddCart} className="text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800 mr-3">ADD TO CART</button> */}
               <Link to ='/order' state = {{product : detaildata, from : 'details', size :selected,}}>
                 <button className=" text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">BUY</button>
               </Link>

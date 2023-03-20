@@ -22,11 +22,10 @@ export default function ProductDetail() {
     const [detaildata, setDetailData] = useState("")
     
     useEffect(()=>{
-      GetProductDetail(id).then((data) => {
-        setDetailData(data);
+      GetProductDetail(id).then((response) => {
+        setDetailData(response.data);
     });
     },[])
-    console.log(detaildata)
 
   //황의혁 상세페이지 작성 
 

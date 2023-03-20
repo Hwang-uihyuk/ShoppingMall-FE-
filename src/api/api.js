@@ -94,8 +94,8 @@ export function LoadProductsAll(){
         });
 }
 
-export async function GetProductDetail(id){
-    return await axios.get(`${baseURL}/shop/detail/${id}`, {
+export function GetProductDetail(id){
+    return axios.get(`${baseURL}/shop/detail/${id}`, {
         "headers": {
             "Content-type": "application/json",
             'Authorization': window.localStorage.getItem('Login')

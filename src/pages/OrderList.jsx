@@ -137,13 +137,13 @@ const OrderListTB = ({orders})=>(
             </thead>
             <tbody>
                 {orders&&
-                    orders.map((order,index)=>(
+                    orders.map((order)=>(
                         <tr>
                             <BodyDateTD>
                                 {parseDate(order.order_date)}
                             </BodyDateTD>
                             <BodyImageTD>
-                                    <Image src={ order.imgKey } />
+                                <Image src={order.imgKey} />
 
                             </BodyImageTD>
                             <BodyTD>
@@ -165,6 +165,7 @@ const OrderListTB = ({orders})=>(
 const baseURL = process.env.REACT_APP_URL;
 export default function OrderList(){
     const [orders,setOrders] = useState();
+    let tmp;
     useEffect(()=>{
         axios({
             method :"get",
@@ -175,21 +176,16 @@ export default function OrderList(){
             }
         }).then((response)=>{
             console.log("주문목록을 가져옵니다")
-            console.log(response.data)
-            setOrders(response.data)
-            
+            tmp = (response.data).flat()
+            setOrders(tmp)
         }).catch((error) => console.log(error))
     },[])
 
     return(
         <>
             <Page>
-                    <OrderListLabel>ORDERS</OrderListLabel>
-                    {orders&&
-                        orders.map((order,index)=>{
-                            console.log(order);
-                            <OrderListTB key = {index} orders={order} />
-                        })}
+                <OrderListLabel>ORDERS</OrderListLabel>
+                <OrderListTB orders={orders} />
             </Page>
         </>
     )

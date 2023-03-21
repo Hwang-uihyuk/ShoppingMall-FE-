@@ -25,6 +25,7 @@ export default function NewProduct() {
   const [selectedFile, setSelectedFile] = useState(null);
   const [showAlert, setShowAlert] = useState(false);
   const [key, setKey] = useState("")
+  const [disabled, setDisabled] = useState(true)
   AWS.config.update({
       accessKeyId: ACCESS_KEY,
       secretAccessKey: SECRET_ACCESS_KEY
@@ -79,6 +80,7 @@ export default function NewProduct() {
         setKey(params.Key)
         //업로드 true값으로
         setCheckUpload(prev => !prev)
+        setDisabled(false)
         alert("success")
       })
       .send((err) => {
@@ -148,10 +150,9 @@ export default function NewProduct() {
         "Authorization": window.localStorage.getItem('Login')
       }
     }).then((response) => {
-     
+      
       console.log("suceess")
       console.log(data)
-      
       alert('상품이 등록되었습니다.')
       document.location.href = '/products'
     }).catch((error) => alert('형식에 맞는 입력 값을 넣어주세요.'))
@@ -171,7 +172,7 @@ export default function NewProduct() {
       <div className="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
       {/* aws */}
       
-      <form className='flex flex-col px-12 space-y-2.5' onSubmit={handleSubmit}>
+      <div className='flex flex-col px-12 space-y-2.5' onSubmit={handleSubmit}>
 
       <div className="App-body">
        
@@ -187,22 +188,26 @@ export default function NewProduct() {
        <button className="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800" color="primary" onClick={() => uploadFile(selectedFile)}> Upload to S3</button>
      ) : null}
    </div>
-
+      
       <label for="Id" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Product name</label>
         <input
           type="text"
           name="name"
           placeholder='상품명'
           required
+          disabled={disabled}
           className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"  
           onChange={handleChangeProductName}
         />
+        
+        
         <label for="Id" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Price</label>
         <input
           type="text"
           name="price"
           placeholder='가격'
           required
+          disabled={disabled}
           className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"  
           onChange={handleChangePrice}
         />
@@ -212,6 +217,7 @@ export default function NewProduct() {
           name="category"
           placeholder='카테고리'
           required
+          disabled={disabled}
           className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"  
           onChange={handleChangeCategory}
         />
@@ -221,6 +227,7 @@ export default function NewProduct() {
           name="description"
           placeholder='설명'
           required
+          disabled={disabled}
           className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"  
           onChange={handleChangeDescription}
         />
@@ -230,13 +237,14 @@ export default function NewProduct() {
           name='size'
           placeholder='옵션들(콤마(,)로 구분)'
           required
+          disabled={disabled}
           className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"  
           onChange={handleChangeSize}
         />
         {checkupload ? (productname&&price&&category&&description&&size ?<button className="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800" onClick={handleSubmit}>등록하기</button> : <div className="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">모든 정보를 입력해주세요.</div>)
         : <div className="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"> upload를 먼저 해주세요.</div>}
         
-      </form>
+      </div>
       </div>
       </div>
     </section>

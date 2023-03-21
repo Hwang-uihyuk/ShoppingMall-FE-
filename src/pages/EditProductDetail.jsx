@@ -341,7 +341,7 @@ const EditSizeBtn = (e) => {
         </div>
 
 {/* 상품 사이즈 form */}
-<div>  상품 사이즈은 : "{editform.size}"
+<div>  상품 사이즈 : "{editform.size}"
         <Button text= "변경" onClick={() => {
             hide.size === false ? setHide(data => { return {...data, size : true }})
             : setHide(data => {return {...data,size :false}})

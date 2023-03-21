@@ -6,8 +6,6 @@ import { LoadRegisteredProductDetail, AddProductStock, EditProductInfo } from '.
 import Button from '../components/ui/Button';
 import Input from '../components/ui/Input';
 
-const baseURL = process.env.REACT_APP_URL;
-
 export default function EditProductDetail() {
     const location = useLocation();
     const [editform, setEditForm] = useState({})

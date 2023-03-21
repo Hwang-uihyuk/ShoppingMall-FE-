@@ -1,21 +1,14 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import ProductCard from '../components/ProductCard'
-
-const baseURL = process.env.REACT_APP_URL;
+import { LoadLikeProducts } from '../api/api';
 
 export default function Favoriteproducts() {
 
 
-  //좋아요 상품목록 불러오기
   const [favorite,setFavorite] = useState('')
   useEffect(()=>{
-    axios.get(`${baseURL}/user/favorite`,{
-      headers: {
-          'Content-Type' : 'application/json',
-          'Authorization' : window.localStorage.getItem('Login')
-      }
-  }).then((response) => {
+    LoadLikeProducts.then((response) => {
       console.log('success');
       console.log(response.data)
       setFavorite(response.data)

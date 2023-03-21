@@ -13,30 +13,19 @@ const TokenHeaderConfig = {"headers":{
 export function PostLogin(id,password){
     const data = JSON.stringify({
         "username": id,
-        "password": password,
-    });
+        "password": password,});
     axios.post(baseURL+"/login", data, HeaderConfig
     ).then(response => {
-            console.log(response.headers.get("Authorization"))
-            // const { accessToken } = response.data;
-            //localStorage에 
-            window.localStorage.setItem("Login", response.headers.get("Authorization"))
-            window.localStorage.setItem("ID",id)
-            //getItem => 변수 가져오기 
-            console.log("=======로그인 성공=========")
-            const val = response.headers.get("Authorization")
-            // setUser((mode)=>!mode)
-            // API 요청하는 콜마다 헤더에 accessToken 담아 보내도록 설정
-            // axios.defaults.headers.common['Authorization'] = val;
-            // accessToken을 localStorage, cookie 등에 저장하지 않는다!      
-            //main
-            document.location.href = '/'
-        }).catch(error => {
-            // ... 에러 처리
-            console.log("에러")
-            console.log(error)
-            alert("아이디나 비밀번호를 다시 확인하세요.")
-        });
+        console.log(response.headers.get("Authorization"))
+        window.localStorage.setItem("Login", response.headers.get("Authorization"))
+        window.localStorage.setItem("ID",id)
+        document.location.href = '/'
+    }).catch(error => {
+        // ... 에러 처리
+        console.log("에러")
+        console.log(error)
+        alert("아이디나 비밀번호를 다시 확인하세요.")
+    });
 }
 // Post : 회원가입
 export function PostSignUp(body){
@@ -121,18 +110,19 @@ export function LoadRegisteredProducts(){
     return axios.get(`${baseURL}/register/product/`,TokenHeaderConfig)}
 
 /* EditProductDetail.jsx : 판매등록 상품 세부정보 / 변경 */
+
 /* 세부정보 Load */
 export function LoadRegisteredProductDetail(productID){
     return axios.get(`${baseURL}/register/product/${productID}/`,TokenHeaderConfig)}
 
-/* 1. 재고 변경 */
+/* 재고 변경 */
 export function AddProductStock(data){
     return axios.get(`${baseURL}/register/add_stock/${data}/`,TokenHeaderConfig)}
-/* 2. 이름 변경 */
+
+/* 이름,가격,카테고리,설명,사이즈 변경 */
 export function EditProductInfo(data){
     return axios.get(`${baseURL}/register/product/${data}/`,TokenHeaderConfig)}
-    
-/* 3. 가격 변경 */
-/* 4. 카테고리 변경 */
-/* 5. 설명 변경 */
-/* 6. 사이즈 변경 */
+
+/* 좋아요 상품 불러오기 */
+export function LoadLikeProducts(){
+    return axios.get(`${baseURL}/user/favorite`,TokenHeaderConfig)}

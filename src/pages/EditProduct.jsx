@@ -4,7 +4,6 @@ import React from 'react'
 import { useEffect,useState } from 'react';
 import { LoadRegisteredProducts } from '../api/api';
 import EditProductCard from '../components/EditProductCard';
-const baseURL = process.env.REACT_APP_URL;
 
 export default function EditProduct() {
     //처음 상품의 정보 가져오기    

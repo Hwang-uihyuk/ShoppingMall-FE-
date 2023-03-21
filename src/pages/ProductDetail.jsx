@@ -24,8 +24,7 @@ export default function ProductDetail() {
     useEffect(()=>{
       GetProductDetail(id).then((response) => {
         setDetailData(response.data);
-    });
-    },[])
+      }); },[])
 
   //황의혁 상세페이지 작성 
 

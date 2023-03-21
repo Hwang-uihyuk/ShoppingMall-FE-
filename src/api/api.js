@@ -1,12 +1,13 @@
+import { Token } from 'aws-sdk';
 import axios from 'axios'
 const baseURL = process.env.REACT_APP_URL
 
-const HeaderConfig ={'Content-Type': 'application/json'}
-const TokenHeaderConfig = {
-    "Content-Type": "application/json",
-    "Authorization" : window.localStorage.getItem('Login')
-}
-
+const HeaderConfig ={"headers" :{
+    'Content-Type': 'application/json'}}
+const TokenHeaderConfig = {"headers":{
+    'Content-Type': 'application/json',
+    'Authorization' : window.localStorage.getItem('Login')
+}}
 
 // Post : 로그인
 export function PostLogin(id,password){
@@ -14,9 +15,8 @@ export function PostLogin(id,password){
         "username": id,
         "password": password,
     });
-    axios.post(baseURL+"/login", data, {
-        headers: HeaderConfig
-    }).then(response => {
+    axios.post(baseURL+"/login", data, HeaderConfig
+    ).then(response => {
             console.log(response.headers.get("Authorization"))
             // const { accessToken } = response.data;
             //localStorage에 
@@ -40,12 +40,9 @@ export function PostLogin(id,password){
 }
 // Post : 회원가입
 export function PostSignUp(body){
-    const joinConfig = {
-        headers: HeaderConfig
-    };
     console.log(body);
     axios
-        .post(baseURL + "/join", body, joinConfig)
+        .post(baseURL + "/join", body, HeaderConfig)
         .then((response) => {
             console.log(response.data);
             alert("회원가입이 완료되었습니다")
@@ -68,9 +65,8 @@ export function PostEditProduct(editform){
 		size : editform.size,
 		imgKey : editform.imgKey
       })
-    axios.put(`${baseURL}/register/product/${editform.id}`,data,{
-        headers: TokenHeaderConfig
-    }).then(res => console.log('success'))
+    axios.put(`${baseURL}/register/product/${editform.id}`,data,TokenHeaderConfig)
+    .then(res => console.log('success'))
 }
 
 export function LogOut(){
@@ -91,15 +87,31 @@ export function LoadProductsAll(){
         });
 }
 
+//Productdetail.jsx : 상품 정보 GET
 export function GetProductDetail(id){
-    return axios.get(`${baseURL}/shop/detail/${id}`, {
-        "headers": TokenHeaderConfig
-    });
+    return axios.get(`${baseURL}/shop/detail/${id}`, TokenHeaderConfig);
 }
 
+//Mypage.jsx : 유저 정보 GET
 export function GetUserInfo(){
-    return axios.get(`${baseURL}/user`,{
-        "headers" : TokenHeaderConfig
-    })
+    return axios.get(`${baseURL}/user`,TokenHeaderConfig)
 }
-;
+
+export function EditUserInfo(userstate){
+    const userdata = JSON.stringify({
+        "username" : userstate.username,
+        "nickname" : userstate.nickname,
+        "telephone" : userstate.telephone,
+        "email" : userstate.email,
+        "address" :  userstate.address
+    });
+    return axios.put(`${baseURL}/user`,userdata,TokenHeaderConfig)
+}
+
+export function EditPassword(data){
+    return axios.post(`${baseURL}/user/pwd_change`,data,TokenHeaderConfig)
+}
+
+export function DuplicateCheck(info,data){
+    return axios.get(`${baseURL}/check_${info}/${data}`,HeaderConfig)
+}

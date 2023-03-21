@@ -116,6 +116,23 @@ export function EditPassword(data){
 export function DuplicateCheck(info,data){
     return axios.get(`${baseURL}/check_${info}/${data}`,HeaderConfig)}
 
-//EditProduct.jsx : 판매등록한 상품 조회 GET 요청
+/* EditProduct.jsx : 판매등록한 상품 조회 GET 요청 */
 export function LoadRegisteredProducts(){
     return axios.get(`${baseURL}/register/product/`,TokenHeaderConfig)}
+
+/* EditProductDetail.jsx : 판매등록 상품 세부정보 / 변경 */
+/* 세부정보 Load */
+export function LoadRegisteredProductDetail(productID){
+    return axios.get(`${baseURL}/register/product/${productID}/`,TokenHeaderConfig)}
+
+/* 1. 재고 변경 */
+export function AddProductStock(data){
+    return axios.get(`${baseURL}/register/add_stock/${data}/`,TokenHeaderConfig)}
+/* 2. 이름 변경 */
+export function EditProductInfo(data){
+    return axios.get(`${baseURL}/register/product/${data}/`,TokenHeaderConfig)}
+    
+/* 3. 가격 변경 */
+/* 4. 카테고리 변경 */
+/* 5. 설명 변경 */
+/* 6. 사이즈 변경 */

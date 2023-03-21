@@ -2,7 +2,7 @@ import axios from 'axios';
 import React, { useEffect } from 'react'
 import { useLocation } from 'react-router-dom';
 import { useState } from 'react';
-import { PostEditProduct } from '../api/api';
+import { LoadRegisteredProductDetail, AddProductStock, EditProductInfo } from '../api/api';
 import Button from '../components/ui/Button';
 import Input from '../components/ui/Input';
 
@@ -40,16 +40,8 @@ export default function EditProductDetail() {
     // }
 
     useEffect(()=>{
-        axios({
-            method: "get",
-            url : `${baseURL}/register/product/${id}`, //url이 안먹히는듯
-            headers: {  
-             "Content-Type": "application/json",
-              "Authorization" : window.localStorage.getItem('Login')
-            }
-        }).then((response) => {
+      LoadRegisteredProductDetail(id).then((response) => {
             console.log("수정할 데이터 값을 가져왔습니다.");
-            
             setEditForm(response.data)
             setChangeForm(response.data)
          })
@@ -79,13 +71,7 @@ export default function EditProductDetail() {
             "product_id" : editform.id,
             "stock" : stock
         })
-        axios.put(`${baseURL}/register/product/add_stock`,data
-        ,{
-            headers: {
-                'Content-Type' : 'application/json',
-                "Authorization" : window.localStorage.getItem('Login')
-            }
-        }).then(res => { alert('상품 재고가 변경되었습니다.')
+        AddProductStock(data).then(res => { alert('상품 재고가 변경되었습니다.')
         })
       }
     }
@@ -105,13 +91,7 @@ export default function EditProductDetail() {
         "size" : editform.size,
         "imgKey" : editform.imgKey
       })
-      axios.put(`${baseURL}/register/product/${id}`,data,
-      {
-        headers: {
-            'Content-Type' : 'application/json',
-            "Authorization" : window.localStorage.getItem('Login')
-        }
-      }).then(res => {})
+      EditProductInfo(data).then(res => {})
      
       setEditForm(changeform)
       console.log(data.name)
@@ -132,15 +112,9 @@ export default function EditProductDetail() {
         "size" : editform.size,
         "imgKey" : editform.imgKey
       })
-      axios.put(`${baseURL}/register/product/${id}`,data,
-      {
-        headers: {
-            'Content-Type' : 'application/json',
-            "Authorization" : window.localStorage.getItem('Login')
-        }
-      }).then(res => {})
+      EditProductInfo(data).then(res => {})
 
-        setEditForm(changeform)
+      setEditForm(changeform)
       console.log(editform)
       alert('상품이 수정되었습니다.')
       setHide(prev =>!prev)
@@ -158,13 +132,7 @@ const EditCategoryBtn = (e) => {
         "size" : editform.size,
         "imgKey" : editform.imgKey
       })
-      axios.put(`${baseURL}/register/product/${id}`,data,
-      {
-        headers: {
-            'Content-Type' : 'application/json',
-            "Authorization" : window.localStorage.getItem('Login')
-        }
-      }).then(res => {})
+      EditProductInfo(data).then(res => {})
     setEditForm(changeform)
     alert('상품이 수정되었습니다.')    
     setHide(prev =>!prev)
@@ -183,13 +151,7 @@ const EditDescriptionBtn = (e) => {
         "size" : editform.size,
         "imgKey" : editform.imgKey
       })
-      axios.put(`${baseURL}/register/product/${id}`,data,
-      {
-        headers: {
-            'Content-Type' : 'application/json',
-            "Authorization" : window.localStorage.getItem('Login')
-        }
-      }).then(res => {})
+      EditProductInfo(data).then(res => {})
     setEditForm(changeform)
     console.log(data.description)
     alert('상품이 수정되었습니다.')      
@@ -209,13 +171,7 @@ const EditSizeBtn = (e) => {
         "size" : changeform.size,
         "imgKey" : editform.imgKey
       })
-      axios.put(`${baseURL}/register/product/${id}`,data,
-      {
-        headers: {
-            'Content-Type' : 'application/json',
-            "Authorization" : window.localStorage.getItem('Login')
-        }
-      }).then(res => {})
+      EditProductInfo(data).then(res => {})
     setEditForm(changeform)
     alert('상품이 수정되었습니다.')      
     setHide(prev =>!prev)

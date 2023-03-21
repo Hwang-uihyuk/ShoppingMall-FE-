@@ -200,27 +200,30 @@ export default function Products() {
   }
   const onSearchHandeler = (event) => {
     event.preventDefault();
-    setIsSearch(true);
-    console.log(keyword);
-
-    axios({
-      method: "get",
-      url: `${baseURL}/shop/search/${keyword}?sort=${sort}`,
-      headers: {
-        "Content-Type": "application/json"
-      }
-    }).then((response) => {
-      setIsResult(true);
-      setProducts(response.data)
-      
-    }).catch((error) => {
-      
-      setIsResult(false);
-      console.log(isResult)
-      console.log(error);
+    if(keyword.length===0){
+      alert("검색어를 입력해주세요.")
+    }else{
+      setIsSearch(true);
+      axios({
+        method: "get",
+        url: `${baseURL}/shop/search/${keyword}?sort=${sort}`,
+        headers: {
+          "Content-Type": "application/json"
+        }
+      }).then((response) => {
+        setIsResult(true);
+        setProducts(response.data)
+        
+      }).catch((error) => {
+        
+        setIsResult(false);
+        console.log(isResult)
+        console.log(error);
     })
+    }
+    
   }
-  
+
     return (
       <>
         <Container>

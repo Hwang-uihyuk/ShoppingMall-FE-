@@ -1,20 +1,22 @@
 import axios from 'axios'
 const baseURL = process.env.REACT_APP_URL
 
-// Post : 로그인
+const HeaderConfig ={'Content-Type': 'application/json'}
+const TokenHeaderConfig = {
+    "Content-Type": "application/json",
+    "Authorization" : window.localStorage.getItem('Login')
+}
 
+
+// Post : 로그인
 export function PostLogin(id,password){
     const data = JSON.stringify({
         "username": id,
         "password": password,
     });
-
     axios.post(baseURL+"/login", data, {
-        headers: {
-            'Content-Type': 'application/json'
-        }
-    })
-        .then(response => {
+        headers: HeaderConfig
+    }).then(response => {
             console.log(response.headers.get("Authorization"))
             // const { accessToken } = response.data;
             //localStorage에 
@@ -39,9 +41,7 @@ export function PostLogin(id,password){
 // Post : 회원가입
 export function PostSignUp(body){
     const joinConfig = {
-        headers: {
-            "Content-Type": "application/json"
-        }
+        headers: HeaderConfig
     };
     console.log(body);
     axios
@@ -69,10 +69,7 @@ export function PostEditProduct(editform){
 		imgKey : editform.imgKey
       })
     axios.put(`${baseURL}/register/product/${editform.id}`,data,{
-        headers: {  
-            "Content-Type": "application/json",
-            "Authorization" : window.localStorage.getItem('Login')
-           }
+        headers: TokenHeaderConfig
     }).then(res => console.log('success'))
 }
 
@@ -90,15 +87,19 @@ export function LoadProductsAll(){
             return response.data;
         })
         .catch((error) => {
-            console.log("error!")
+            console.log(error)
         });
 }
 
 export function GetProductDetail(id){
     return axios.get(`${baseURL}/shop/detail/${id}`, {
-        "headers": {
-            "Content-type": "application/json",
-            'Authorization': window.localStorage.getItem('Login')
-        }
+        "headers": TokenHeaderConfig
     });
 }
+
+export function GetUserInfo(){
+    return axios.get(`${baseURL}/user`,{
+        "headers" : TokenHeaderConfig
+    })
+}
+;

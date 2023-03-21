@@ -92,11 +92,13 @@ export function GetProductDetail(id){
     return axios.get(`${baseURL}/shop/detail/${id}`, TokenHeaderConfig);
 }
 
-//Mypage.jsx : 유저 정보 GET
-export function GetUserInfo(){
-    return axios.get(`${baseURL}/user`,TokenHeaderConfig)
-}
+/* Mypage.jsx */
 
+/* 유저 정보 조회 */
+export function GetUserInfo(){
+    return axios.get(`${baseURL}/user`,TokenHeaderConfig)}
+
+/* 유저 정보변경 */
 export function EditUserInfo(userstate){
     const userdata = JSON.stringify({
         "username" : userstate.username,
@@ -105,13 +107,15 @@ export function EditUserInfo(userstate){
         "email" : userstate.email,
         "address" :  userstate.address
     });
-    return axios.put(`${baseURL}/user`,userdata,TokenHeaderConfig)
-}
-
+    return axios.put(`${baseURL}/user`,userdata,TokenHeaderConfig)}
+/* 비밀번호 변경 */
 export function EditPassword(data){
-    return axios.post(`${baseURL}/user/pwd_change`,data,TokenHeaderConfig)
-}
+    return axios.post(`${baseURL}/user/pwd_change`,data,TokenHeaderConfig)}
 
+/* 중복검사 */
 export function DuplicateCheck(info,data){
-    return axios.get(`${baseURL}/check_${info}/${data}`,HeaderConfig)
-}
+    return axios.get(`${baseURL}/check_${info}/${data}`,HeaderConfig)}
+
+//EditProduct.jsx : 판매등록한 상품 조회 GET 요청
+export function LoadRegisteredProducts(){
+    return axios.get(`${baseURL}/register/product/`,TokenHeaderConfig)}

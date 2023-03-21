@@ -14,7 +14,6 @@ export default function MyPage() {
         telephone : "",
         username : ""
     });
-
     const [initUserState, setInitUserState ] = useState({
         address : "",
         authority : "",
@@ -23,17 +22,11 @@ export default function MyPage() {
         telephone : "",
         username : ""
     });
-
-    const nickname = userstate.nickname
-    const telephone = userstate.telephone
-    const email= userstate.email
-    const address = userstate.address
     const [hide1, setHide1] = useState(false)
     const [hide2, setHide2] = useState(false)
     const [hide3, setHide3] = useState(false)
     const [hide4, setHide4] = useState(false)
 
-        // 비밀번호 변경하기
     const [pw, setPw] = useState('')
     const [pwchange, setPwChange] = useState('')
     const [pwcheck, setPwCheck] = useState('')
@@ -46,7 +39,6 @@ export default function MyPage() {
     const [phoneChecked, setPhoneChecked] = useState(false);
     const [mailChecked, setMailChecked] = useState(false);
 
-    //처음 사용자 정보 가져오기
     useEffect(() => {
         GetUserInfo().then((response)=>{
             setUserState(response.data)

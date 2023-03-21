@@ -2,6 +2,8 @@ import React, {useEffect,useState} from 'react'
 import axios from 'axios'
 import { Link } from 'react-router-dom';
 import { BsFillPlusCircleFill } from 'react-icons/bs';
+import Button from '../components/ui/Button';
+import Input from '../components/ui/Input';
 const baseURL = process.env.REACT_APP_URL;
 
 export default function MyPage() {
@@ -299,19 +301,20 @@ const handleUpgradeAuth = (e) => {
 
 
   return (
-    <div> 
-          <section className="bg-white dark:bg-gray-900 items-center justify-center">
-            <div className="flex flex-col w-full mt-5 mb-10 items-center justify-item-start px-6 py-8 lg:py-0">
-                  <div className="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white">
-                      Mypage</div>
-                    <div className="flex flex-col w-full max-w-2xl bg-white rounded-lg shadow dark:border md:mt-0 2xl:p-0 dark:bg-gray-800 dark:border-gray-700">
-
-                        <div className="flex flex-col h-auto p-6 space-y-4">
-                            <div className='space-y-4'>
+    <div>
+        <section className="bg-white dark:bg-gray-900 grid justify-items-center items-center h-full ">
+            <div className="flex flex-col w-full h-full mt-10 mb-10 items-center justify-center px-6 py-8 md:h-screen lg:py-0 max-h-full">
+                    <div className="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white">
+                        Mypage</div>
+                    <div className="w-full max-w-2xl h-full bg-white rounded-lg shadow dark:border md:mt-0 2xl:p-0 dark:bg-gray-800 dark:border-gray-700">
+                        <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
+                            <form className='space-y-4 md:space-y-6'>
                                 <div className='flex w-full font-bold text-xl border-b-2'>
                                     {userstate.username}
                                     {/* 회원탈퇴 폼 */}
                                     <div className='text-sm border rounded-md hover:bg-slate-100 p-1  ml-2 bg-primary-600 text-white pl-5 pr-5'>
+                                        
+                                        
                                         <button onClick={(e)=>{
                                             e.preventDefault();
                                             const quickmessage = window.confirm('확인 버튼을 누르면 회원이 탈퇴됩니다.')
@@ -344,30 +347,18 @@ const handleUpgradeAuth = (e) => {
                                         <div className='mb-4'>
                                             <label
                                             className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">현재 비밀번호 </label>
-                                            <input
-                                            type= "text"
-                                            className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                            placeholder = "현재비밀번호"
-                                            onChange ={onPwHandler}/>
+                                            <Input placeholder="현재비밀번호" onChange={onPwHandler}/>
                                         </div>
                                         <div className='mb-4'>
                                             <label
                                             className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">변경 비밀번호 </label>
-                                            <input
-                                            type='text'
-                                            className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                            placeholder = "변경비밀번호"
-                                            onChange={onPwChangeHandler}/>
+                                            <Input placeholder="변경비밀번호" onChange={onPwChangeHandler}/>
                                         </div>
 
                                         <div className='mb-4'>
                                             <label
                                             className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">변경 비밀번호 확인 </label>
-                                            <input
-                                            type='text'
-                                            className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                            placeholder = "변경비밀번호확인"
-                                            onChange={onPwChangeCheckHandler}/>
+                                            <Input placeholder="변경비밀번호확인" onChange={onPwChangeCheckHandler}/>                                            
                                         </div>
 
                                         <div className='flex justify-center'>
@@ -391,11 +382,12 @@ const handleUpgradeAuth = (e) => {
                                 {hide1 &&<div className='border p-5 m-3 rounded-xl'>
                                 <div className='mt-3'>
                                     <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">닉네임 변경하기</label>
-                                    <input 
+                                    <Input placeholder="닉네임을 입력하세요." onChange={onNickNameHandler}/>
+                                    {/* <input 
                                     className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
                                     type ="text" 
                                     placeholder ="닉네임을 입력하세요."
-                                    onChange={onNickNameHandler}></input>
+                                    onChange={onNickNameHandler}></input> */}
                                 </div>
 
                                 <div className='flex justify-end gap-3 mt-3'>
@@ -420,11 +412,12 @@ const handleUpgradeAuth = (e) => {
                         
                             <div>
                                 <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">전화번호 변경하기</label>
-                                <input 
+                                <Input placeholder="전화번호를 입력하세요." onChange={onTelePhoneHandler} />
+                                {/* <input 
                                 className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
                                 type ="text" 
                                 placeholder ="전화번호를 입력하세요."
-                                onChange={onTelePhoneHandler}></input>
+                                onChange={onTelePhoneHandler}></input> */}
                             </div>
 
                             <div className='flex justify-end gap-3 mt-3'>
@@ -453,11 +446,12 @@ const handleUpgradeAuth = (e) => {
                         {hide3 &&<div className='border p-5 m-3 rounded-xl'>
                             <div>
                                 <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">이메일 변경하기</label>
-                                <input 
+                                <Input placeholder="이메일을 입력하세요." onChange={onEmailHandler}/>
+                                {/* <input 
                                 className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
                                 type ="text" 
                                 placeholder ="이메일을 입력하세요."
-                                onChange={onEmailHandler}></input>
+                                onChange={onEmailHandler}></input> */}
                             </div>
 
                             <div className='flex justify-end gap-3 mt-3'>
@@ -484,11 +478,12 @@ const handleUpgradeAuth = (e) => {
                         {hide4 &&<div className='border p-5 m-3 rounded-xl'>
                             <div>
                                 <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">주소 변경하기 : </label>
-                                <input 
+                                <Input placeholder="주소를 입력 하세요."  onChange={onAddressHandler} />
+                                {/* <input 
                                 className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
                                 type ="text" 
                                 placeholder ="주소를 입력 하세요."
-                                onChange={onAddressHandler}></input>
+                                onChange={onAddressHandler}></input> */}
                             </div>
 
                             <div className='flex justify-end gap-3 mt-3'>
@@ -503,29 +498,27 @@ const handleUpgradeAuth = (e) => {
                         </div>}
                         <div className='h-1'></div>
                         {/* 상품 등록 폼 */}
-                        <div className='flex flex-col gap-4'>
-                            <div className="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800" > 
-                                <Link to ="/products/new">상품등록</Link>
-                            </div>
-
-                            <div className="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
-                                <Link to ="/products/edit">상품수정하기</Link>
-                            </div>
-
-                            <div className="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
-                                <Link to ="/mypage/favorite">좋아요한상품</Link>
-                            </div>
-
-                            <div className="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
-                                <Link to ="/mypage/orderlist">주문목록</Link>
-                            </div>
-                            {window.localStorage.getItem('ID') === 'hwang' ?
-                            <button 
-                            className="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
-                            onClick={handleUpgradeAuth}>권한 업그레이드</button> : ""}
+                        <div className="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800" > 
+                            <Link to ="/products/new">상품등록</Link>
                         </div>
 
-                    </div>
+                        <div className="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
+                            <Link to ="/products/edit">상품수정하기</Link>
+                        </div>
+
+                        <div className="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
+                            <Link to ="/mypage/favorite">좋아요한상품</Link>
+                        </div>
+
+                        <div className="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
+                            <Link to ="/mypage/orderlist">주문목록</Link>
+                        </div>
+                        {window.localStorage.getItem('ID') === 'hwang' ?
+                        <button 
+                        className="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
+                        onClick={handleUpgradeAuth}>권한 업그레이드</button> : ""}
+
+                    </form>
                 </div>
                 </div>
             </div>
@@ -541,13 +534,11 @@ const handleUpgradeAuth = (e) => {
       </svg>
     </span>
   </button>
-
   <div class="z-20 fixed top-19.5 -left-96 lg:left-0 h-screen w-9/12 lg:w-72 bg-white shadow-2xl peer-focus:left-0 peer:transition ease-out delay-150 duration-200">
     <nav role="navigation" class="p-6">
         <div class="flex items-center gap-4 pb-4">
           <img class="w-32" src="https://raw.githubusercontent.com/Meschacirung/Tailus-website/f59a4b3ecc1ad9f6a2b0ad9e3fca6f957140cc4d/public/images/logo.svg" alt="tailus-logo"/>
         </div>
-
         <div class="relative">
           <form action="" class="text-gray-500 focus-within:text-cyan-400 focus-within:bg-white focus-within:shadow rounded search transition duration-300">
             <div class="relative w-full">
@@ -560,7 +551,6 @@ const handleUpgradeAuth = (e) => {
             </div>
           </form>
         </div>
-
         <div class="mt-4 -mx-4 relative overflow-y-auto overflow-x-hidden h-[85vh]">
           <span class="uppercase px-4 text-gray-500">Docs</span>
           <ul class="space-y-4 mb-12 px-4 mt-8">
@@ -594,7 +584,6 @@ const handleUpgradeAuth = (e) => {
         </div>
       </nav>
   </div>
-
   <div class="z-10 lg:hidden fixed top-0 left-0 w-screen h-screen bg-gray-900 bg-opacity-30 opacity-0 peer-focus:opacity-100 peer:transition duration-200"></div>
 </div> */}
     

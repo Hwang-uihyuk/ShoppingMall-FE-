@@ -26,6 +26,8 @@ export default function NewProduct() {
   const [showAlert, setShowAlert] = useState(false);
   const [key, setKey] = useState("")
   const [disabled, setDisabled] = useState(true)
+
+
   AWS.config.update({
       accessKeyId: ACCESS_KEY,
       secretAccessKey: SECRET_ACCESS_KEY
@@ -185,7 +187,8 @@ export default function NewProduct() {
      
      
      {selectedFile ? (
-       <button className="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800" color="primary" onClick={() => uploadFile(selectedFile)}> Upload to S3</button>
+      //  <button className="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800" color="primary" onClick={() => uploadFile(selectedFile)}> Upload to S3</button>
+       <Button text="Upload" onClick={() => uploadFile(selectedFile)}/>
      ) : null}
    </div>
       
@@ -241,7 +244,12 @@ export default function NewProduct() {
           className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"  
           onChange={handleChangeSize}
         />
-        {checkupload ? (productname&&price&&category&&description&&size ?<button className="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800" onClick={handleSubmit}>등록하기</button> : <div className="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">모든 정보를 입력해주세요.</div>)
+        {checkupload ? (productname&&price&&category&&description&&size 
+        ?
+        <Button text="등록하기" onClick={handleSubmit}/>
+        // <button className="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800" onClick={handleSubmit}>등록하기</button> 
+        : <div className="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">모든 정보를 입력해주세요.</div>
+        )
         : <div className="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"> upload를 먼저 해주세요.</div>}
         
       </div>

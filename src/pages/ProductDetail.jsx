@@ -192,7 +192,8 @@ export default function ProductDetail() {
           
             {selected === "사이즈를 선택하세요." ? 
               // <Button text ="Select the size" />
-              <button className=" text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800" disabled>Select the size</button>
+              <Button text = "Select the size" disabled={true}></Button>
+              // <button className=" text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800" disabled>Select the size</button>
             :
             !window.localStorage.getItem('Login') ? 
             navigate('/login')
@@ -201,7 +202,8 @@ export default function ProductDetail() {
               <Button text="ADD TO CART"onClick={handleAddCart}/>
               {/* <button type="submit"  onClick={handleAddCart} className="text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800 mr-3">ADD TO CART</button> */}
               <Link to ='/order' state = {{product : detaildata, from : 'details', size :selected,}}>
-                <button className=" text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">BUY</button>
+                <Button text="BUY"/>
+                {/* <button className=" text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">BUY</button> */}
               </Link>
             </>
 }

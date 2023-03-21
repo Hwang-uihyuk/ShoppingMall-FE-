@@ -4,6 +4,7 @@ import axios from 'axios'
 import { useAxiosAuthContext } from '../components/context/UserStateContext';
 import { PostLogin } from '../api/api';
 import Button from '../components/ui/Button';
+import Input from '../components/ui/Input';
 
 export default function Login() {
   const { user, login, logout } = useAxiosAuthContext();
@@ -41,11 +42,27 @@ Shoppy      </div>
               <form className="space-y-4 md:space-y-6" onChange={onSubmitHandler} action="#">
                   <div>
                       <label for="Id" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your Id</label>
-                      <input type="Id" value={Id} onChange={onIdHandler} name="Id" id="Id" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="enter your Id" required=""/>
+                      <Input placeholder ="enter your Id" onChange={onIdHandler}/>
+                      {/* <input 
+                      type="Id" 
+                      value={Id}
+                       onChange={onIdHandler} 
+                       name="Id"
+                        id="Id"
+                         className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
+                         placeholder="enter your Id" required= ""/> */}
                   </div>
                   <div>
                       <label for="password" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password</label>
-                      <input type="password" value={Password} onChange={onPasswordHandler} id="password" placeholder="••••••••" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required=""/>
+                      {/* <Input placeholder="••••••••" onChange={onPasswordHandler} type="password"/> */}
+                      <input 
+                      type="password" 
+                      value={Password} 
+                      onChange={onPasswordHandler} 
+                      id="password" 
+                      placeholder="••••••••" 
+                      className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
+                      required=""/>
                   </div>
                   <Button onClick={onLogin} text="Sign in"></Button>
                   {/* <button type="submit" onClick={onLogin} className="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Sign in</button> */}

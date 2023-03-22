@@ -5,128 +5,44 @@ import { useEffect } from 'react';
 import {AiFillHeart,AiOutlineHeart } from 'react-icons/ai';
 import Button from '../components/ui/Button';
 import { GetProductDetail } from '../api/api';
+import { AddToCart, Like, Dislike } from '../api/api';
 
 const baseURL = process.env.REACT_APP_URL;
 
 export default function ProductDetail() {
   const navigate = useNavigate();
-  const {
-    state: {
-      product: { id, image, title, description, category, price, options },
-    },
-  } = useLocation();
-
-  // console.log(addOrUpdateItem)
-
-    //처음에 데이터 조회하기 
-    const [detaildata, setDetailData] = useState("")
-    
-    useEffect(()=>{
-      GetProductDetail(id).then((response) => {
-        setDetailData(response.data);
-      }); },[])
-
-  //황의혁 상세페이지 작성 
-
-
+  const [detaildata, setDetailData] = useState("")
   const [success, setSuccess] = useState();
   const [selected, setSelected] = useState("사이즈를 선택하세요.");
-  // options && detaildata.size[0]
-  const handleSelect = (e) => setSelected(e.target.value);
-
-  //이거 사이즈 쓰려면 이렇게 바꿔줘서 써야함 ㅇㅇ
-  
+  const [like,setLike] = useState(false);
+  const {
+    state: { product: { id, image, title, description, category, price, options }, },
+  } = useLocation();
+    
+  useEffect(()=>{
+    GetProductDetail(id).then((response) => {
+      setDetailData(response.data);});
+    },[like])
+    console.log("rendered")
+  const handleSelect = (e) => setSelected(e.target.value);  
   const optiondata = String(detaildata.size).split(',')
-
-  //장바구니 추가 
    
   const handleAddCart = () => {
-    
-    const data = JSON.stringify({
-      "size" : selected
-    })
-    !window.localStorage.getItem('Login') ? 
-    navigate('/login')
-    
-    
-    :
-    axios.post(`${baseURL}/user/cart/${detaildata.id}`,data, {
-      headers : {
-          'Content-Type' : 'application/json',
-          'Authorization' : window.localStorage.getItem('Login')
-      }
-  })
-  .then(response => {
-      console.log("장바구니 상품 추가 완료")
-      console.log(response.data)
-      alert("상품이 장바구니에 추가되었습니다.")
+    const sizedata = JSON.stringify({"size":selected})
+    !window.localStorage.getItem('Login') ? navigate('/login'):
+      AddToCart(detaildata.id, sizedata)
+      .then(()=>alert("상품이 장바구니에 추가되었습니다."))
+      .catch(()=>alert("올바른 사이즈를 입력하세요."))}
 
-  })
-  .catch(error => alert("올바른 사이즈를 입력하세요.") ) }
-
-
-  //좋아요 버튼클릭됬을때, 아닐때
-
-  //좋아요등록하기
   const handleAddLike = (e) => { 
     e.preventDefault();
-    !window.localStorage.getItem('Login') ? 
-    navigate('/login')
-    
-    
-    :
-    axios.post(`${baseURL}/user/favorite/${detaildata.id}`,{},{
-    headers : {
-      'Content-Type' : 'application/json',
-      'Authorization' : window.localStorage.getItem('Login')
-  }
-  }).then((response) => {
-    console.log(detaildata.check_favorite)
-    
-    axios.get(`${baseURL}/shop/detail/${id}`,{
-    "headers" : {
-      "Content-type" : "application/json",
-      'Authorization' : window.localStorage.getItem('Login')
-
-  }
-  }).then( (response) => {
-  setDetailData(response.data)
-  console.log(detaildata.check_favorite)
-  // console.log(response.data)
-  }
-  )
-
-    })
-}
+    !window.localStorage.getItem('Login') ? navigate('/login'):
+    Like(detaildata.id).then(() => {setLike(mode => !mode)})}
  
-//좋아요 해제하기
-
-
   const handleDeleteLike = () => {
-    axios.delete(`${baseURL}/user/favorite/${detaildata.id}`,{
-      headers : {
-        'Content-Type' : 'application/json',
-        'Authorization' : window.localStorage.getItem('Login')
-      }
-    }).then((response) => {
-
-      axios.get(`${baseURL}/shop/detail/${id}`,{
-    "headers" : {
-      "Content-type" : "application/json",
-      'Authorization' : window.localStorage.getItem('Login')
-
-  }
-  }).then( (response) => {
-  setDetailData(response.data)
-  console.log(detaildata.check_favorite)
-  // console.log(response.data)
-  }
-  )
-    })
-  }
+    Dislike(detaildata.id).then(() => {setLike(mode=>!mode)})}
   return (
     <>
-      
       <section className='flex flex-col md:flex-row p-4'>
         
         {/* <img className='w-full px-4 basis-7/12' src={detaildata.imgkey} alt={title} /> */}

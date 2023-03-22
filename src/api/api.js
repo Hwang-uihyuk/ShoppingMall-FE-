@@ -136,3 +136,13 @@ export function OrderProducts(body){
 
 export function GetOrderList(){
     return axios.get(`${baseURL}/user/order`,TokenHeaderConfig)}
+
+export function AddToCart(productId,data){
+    return axios.post(`${baseURL}/user/cart/${productId}`,data,TokenHeaderConfig)}
+
+export function Like(productId) {
+    return axios.post(`${baseURL}/user/favorite/${productId}`,{}, TokenHeaderConfig)}
+
+export function Dislike(productId){
+    return axios.delete(`${baseURL}/user/favorite/${productId}`, TokenHeaderConfig)}
+

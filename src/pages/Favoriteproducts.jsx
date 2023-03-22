@@ -1,19 +1,21 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
+import { LoadLikeProducts } from '../api/api'
 import ProductCard from '../components/ProductCard'
-import { LoadLikeProducts } from '../api/api';
+
 
 export default function Favoriteproducts() {
 
 
   const [favorite,setFavorite] = useState('')
-  useEffect(()=>{
-    LoadLikeProducts.then((response) => {
+
+  useEffect(() => {
+    LoadLikeProducts().then((response) => {
       console.log('success');
       console.log(response.data)
-      setFavorite(response.data)
-  }) 
+      setFavorite(response.data)}) 
   },[])
+
   
   return (
      <div className='p-10 pt-4'>

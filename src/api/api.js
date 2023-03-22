@@ -160,3 +160,7 @@ export function CountDownCartItem(productId,size){
 
 export function DeleteAddedProducts(productId){
     return axios.delete(`${baseURL}/register/product/${productId}}`, TokenHeaderConfig)}
+
+export function UpgradeAuth(upgradeId){
+    return axios.patch(`${baseURL}/admin/upgradeAuth/${upgradeId}`, "", TokenHeaderConfig)
+}

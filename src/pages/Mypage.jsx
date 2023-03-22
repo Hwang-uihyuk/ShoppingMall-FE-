@@ -2,7 +2,7 @@ import React, {useEffect,useState, useRef} from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import Input from '../components/ui/Input';
-import { EditPassword, GetUserInfo, EditUserInfo, DuplicateCheck} from '../api/api';
+import { EditPassword, GetUserInfo, EditUserInfo, DuplicateCheck, UpgradeAuth} from '../api/api';
 const baseURL = process.env.REACT_APP_URL;
 
 export default function MyPage() {
@@ -162,16 +162,9 @@ export default function MyPage() {
 const handleUpgradeAuth = (e) => {
     e.preventDefault();
     const upgradeId = prompt('업그레이드 할 아이디는 무엇입니까?')
-    console.log(upgradeId)
-    axios.patch(`${baseURL}/admin/upgradeAuth/${upgradeId}`,"",{
-        headers : {
-            'Content-Type' : 'application/json',
-            'Authorization' : window.localStorage.getItem('Login')
-        }
-    }).then(() => alert('권한이 업그레이드 됬습니다.'))
-    .catch((error) => {
-        console.log(error)
-        alert("이미 충분한 권한을 가지고 있습니다.")
+    UpgradeAuth(upgradeId)
+    .then(() => alert('권한이 업그레이드 됬습니다.'))
+    .catch((error) => {alert("이미 충분한 권한을 가지고 있거나, 존재하지 않는 아이디입니다.")
         
     }
     )

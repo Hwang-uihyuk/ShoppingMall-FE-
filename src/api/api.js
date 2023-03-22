@@ -126,3 +126,6 @@ export function EditProductInfo(data){
 /* 좋아요 상품 불러오기 */
 export function LoadLikeProducts(){
     return axios.get(`${baseURL}/user/favorite`,TokenHeaderConfig)}
+
+export function LoadCartProducts(){
+    return axios.get(`${baseURL}/user/cart`,TokenHeaderConfig)}

@@ -10,13 +10,13 @@ export default function CartItem({
   setCartProduct,
   product,
   product: { id, image, name, size, count, price },
-  uid,})
-{
+  uid,}){
+  // const [init,setInit] = useState(product.count)
   const uuid = uuidv4();
   //상품 삭제하기 
 
   const handleDelete = () => {
-      DeleteCartItem(product.id,{size : `${product.size}`})
+      DeleteCartItem(product.id,product.size)
       .then(() => {
         setCartProduct(prev => prev.filter((val) => 
         (val.id !== product.id || val.size !== product.size)))})
@@ -33,16 +33,12 @@ export default function CartItem({
     const data = JSON.stringify({
       "size" : product.size})
     CountUpCartItem(product.id,data)
-    .then(() => {})    
+    .then(() =>{} )    
     .catch(() => alert("올바른 사이즈를 입력하세요."))}
 
   const deleteCount = () =>{
-    const data = JSON.stringify({
-      "size" : product.size})
-    CountDownCartItem(product,id,data)
+    CountDownCartItem(product.id,product.size)
     .then((res) => setCartProduct(res.data))}
-
-
   // setCartProduct(prev => 
   //   prev.map(values => 
   //   values.id === product.id && values.size === product.size ? )

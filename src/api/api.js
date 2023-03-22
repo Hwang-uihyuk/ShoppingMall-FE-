@@ -1,4 +1,3 @@
-import { Token } from 'aws-sdk';
 import axios from 'axios'
 const baseURL = process.env.REACT_APP_URL
 
@@ -6,8 +5,7 @@ const HeaderConfig ={"headers" :{
     'Content-Type': 'application/json'}}
 const TokenHeaderConfig = {"headers":{
     'Content-Type': 'application/json',
-    'Authorization' : window.localStorage.getItem('Login')
-}}
+    'Authorization' : window.localStorage.getItem('Login')}}
 
 export function LoadMainProducts(){
     return axios.get(`${baseURL}`,HeaderConfig)}
@@ -151,14 +149,14 @@ export function Dislike(productId){
 export function AddProducts(data) {
     return axios.post(`${baseURL}/register/product}`,data, TokenHeaderConfig)}
 
-export function DeleteCartItem(productId,data){
-    return axios.delete(`${baseURL}/user/cart/all/${productId}}`,data, TokenHeaderConfig)}
+export function DeleteCartItem(productId,size){
+    return axios.delete(`${baseURL}/user/cart/all/${productId}?size=${size}`, TokenHeaderConfig)}
 
 export function CountUpCartItem(productId,data){
     return axios.post(`${baseURL}/user/cart/${productId}`,data,TokenHeaderConfig)}
 
-export function CountDownCartItem(productId,data){
-    return axios.post(`${baseURL}/user/cart/${productId}`,data,TokenHeaderConfig)}
+export function CountDownCartItem(productId,size){
+    return axios.delete(`${baseURL}/user/cart/${productId}?size=${size}`,TokenHeaderConfig)}
 
 export function DeleteAddedProducts(productId){
     return axios.delete(`${baseURL}/register/product/${productId}}`, TokenHeaderConfig)}

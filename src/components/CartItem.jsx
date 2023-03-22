@@ -32,8 +32,8 @@ export default function CartItem({
   const addCount = () => {
     const data = JSON.stringify({
       "size" : product.size})
-    CountUpCartItem(product.id,data)
-    .then(() =>{} )    
+    CountUpCartItem(product.id,product.size)
+    .then((res) => setCartProduct(res.data) )    
     .catch(() => alert("올바른 사이즈를 입력하세요."))}
 
   const deleteCount = () =>{

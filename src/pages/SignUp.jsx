@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { PostSignUp } from "../api/api";
 import PostPopUp from "../components/PostPopUp";
 import * as S from '../styles/SignUpStyles';
-const baseURL = process.env.REACT_APP_URL;
+import { DuplicateCheck } from "../api/api";
 
 const LabelledInput = ({label,msg,handler,isValidated,...rest}) =>(
   <S.Wrapper>
@@ -23,8 +23,8 @@ const LabelledInput = ({label,msg,handler,isValidated,...rest}) =>(
 const PopUpContainer = styled.div`
   display: flex;
   justify-content: center;
-
 `
+
 function SignUp() {
   const [idChecked,setIdChecked] = useState(false);
   const [phoneChecked,setPhoneChecked] = useState(false);
@@ -141,88 +141,65 @@ function SignUp() {
   //중복체크
   const onCheckIdHandler = async (event) => {
     event.preventDefault();
-    axios
-      .get(`${baseURL}/check_id/${username}`)
+    DuplicateCheck("id",username)
       .then((response) => {
         setIdChecked(true);
         setIsId(true);
         setIdMsg("사용 가능한 아이디입니다")
-        console.log(response.data)
-      })
+        console.log(response.data)})
       .catch((error) => {
         console.log("error!")
         console.log(error)
         setIdChecked(false)
-        alert("이미 사용중인 아이디입니다")
-      });
-  }
+        alert("이미 사용중인 아이디입니다")});}
 
   const onCheckPhoneHandler = async (event) => {
     event.preventDefault();
-    axios
-      .get(`${baseURL}/check_telephone/${telephone}`)
+    DuplicateCheck("telephone",telephone)
       .then((response) => {
         setPhoneChecked(true);
         setIsPhone(true);
         setPhoneMsg("사용 가능한 번호입니다.")
-        console.log(response.data)
-      })
+        console.log(response.data)})
       .catch((error) => {
         console.log("error!")
         console.log(error)
         setPhoneChecked(false);
         setIsPhone(false);
-        alert("사용중인 번호입니다.")
-      });
-  }
+        alert("사용중인 번호입니다.")});}
 
   const onCheckEmailHandler = async (event) => {
     event.preventDefault();
-    axios
-      .get(`${baseURL}/check_email/${email}`)
+    DuplicateCheck("email",email)
       .then((response) => {
         setEmailChecked(true);
         setIsEmail(true);
         setEmailMsg("사용 가능한 메일입니다.")
-        console.log(response.data)
-      })
+        console.log(response.data)})
       .catch((error) => {
         console.log(error)
         setEmailChecked(false);
         setIsEmail(false);
-        setEmailMsg("사용 중인 메일입니다.")
-      });
-  }
+        setEmailMsg("사용 중인 메일입니다.")});}
+
   const onSubmitHandler = async (event) => {
     event.preventDefault();
     console.log(isId, isPw, isPhone,isNickname,isAddress,isEmail,idChecked)
     if(isId&&isPw&&isPhone&&isNickname&&isAddress&&isEmail&&idChecked){
-      let body = JSON.stringify(
-        {
+      let body = JSON.stringify({
           'username': username,
           'nickname': nickname,
           'password': password,
           'telephone': telephone,
           'email': email,
-          'address': address
-        }
-      )
-      PostSignUp(body);
-    }
+          'address': address})
+      PostSignUp(body);}
     else{
-      if(!idChecked){
-        alert("아이디 중복확인을 해주세요")
-      }else{
-        alert("정보가 올바르게 입력되지 않았습니다.")
-      }
-
-    }
-  }
+    (!idChecked) ? alert("아이디 중복확인을 해주세요"): alert("정보가 올바르게 입력되지 않았습니다.")}}
 
   const PopUpToggle = (e) =>{
     e.preventDefault();
-    setPopup(!popup);
-  }
+    setPopup(!popup)}
 
   return (
     <>

@@ -1,16 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import Button from '../components/ui/Button';
-//aws
-import AWS from 'aws-sdk';
-import axios from 'axios';
+
 import { v1, v3, v4, v5 } from 'uuid'
-import { mockComponent } from 'react-dom/test-utils';
-import moment from 'moment';
 import { useNavigate } from 'react-router-dom';
-import { checkSpecKeys } from 'react-slick/lib/utils/innerSliderUtils';
+import { AddProducts } from '../api/api';
 
-
-const baseURL = process.env.REACT_APP_URL;
 const ACCESS_KEY = process.env.REACT_APP_ACCESS_KEY;
 const SECRET_ACCESS_KEY = process.env.REACT_APP_SECRET_ACCESS_KEY;
 const REGION = process.env.REACT_APP_REGION
@@ -43,12 +37,10 @@ export default function NewProduct() {
   
   useEffect(() => {
     return() => {
-      setCheckUpload(false)
-      }
+      setCheckUpload(false)}
   }, [navigate])
   /// 다른 페이지 이동하면 이렇게 된다 .
 
-  
   //파일선택시
   const handleFileInput = (e) => {
     const file = e.target.files[0];
@@ -96,20 +88,19 @@ export default function NewProduct() {
   const [size, setSize] = useState('')
 
   const handleChangeProductName = (e) => {
-    setProductName(e.currentTarget.value)
-  }
+    setProductName(e.currentTarget.value)}
+
   const handleChangePrice = (e) => {
-    setPrice(e.currentTarget.value)
-  }
+    setPrice(e.currentTarget.value)}
+
   const handleChangeCategory = (e) => {
-    setCategory(e.currentTarget.value)
-  }
+    setCategory(e.currentTarget.value)}
+
   const handleChangeDescription = (e) => {
-    setDescription(e.currentTarget.value)
-  }
+    setDescription(e.currentTarget.value)}
+
   const handleChangeSize = (e) => {
-    setSize(e.currentTarget.value)
-  }
+    setSize(e.currentTarget.value)}
 
 
   // let month = (today.getMonth()+1)<10? '0':'' + today.getMonth()+ 1;
@@ -122,9 +113,8 @@ export default function NewProduct() {
   const handleSubmit = (e) => {
     
     e.preventDefault();
-
-    let time = ""
     
+    let time = ""
     let today = new Date();
     let year = today.getFullYear();
     let month = ('0' + (today.getMonth() + 1)).slice(-2);
@@ -146,15 +136,7 @@ export default function NewProduct() {
       "date": time
     })
     
-    axios.post(`${baseURL}/register/product`, data, {
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": window.localStorage.getItem('Login')
-      }
-    }).then((response) => {
-      
-      console.log("suceess")
-      console.log(data)
+    AddProducts(data).then(() => {
       alert('상품이 등록되었습니다.')
       document.location.href = '/products'
     }).catch((error) => alert('형식에 맞는 입력 값을 넣어주세요.'))

@@ -146,3 +146,5 @@ export function Like(productId) {
 export function Dislike(productId){
     return axios.delete(`${baseURL}/user/favorite/${productId}`, TokenHeaderConfig)}
 
+export function AddProducts(data) {
+    return axios.post(`${baseURL}/register/product}`,data, TokenHeaderConfig)}

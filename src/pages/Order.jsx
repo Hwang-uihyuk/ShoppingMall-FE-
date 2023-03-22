@@ -217,7 +217,7 @@ export default function Order(){
     console.log(from,'에서 왔습니다.');
     console.log(cartproduct);
     useEffect(() => {
-       GetUserInfo.then((response) => {
+       GetUserInfo().then((response) => {
         setAddress(response.data.address)})
      .catch((error) => console.log(error))},[])
 

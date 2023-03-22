@@ -132,4 +132,7 @@ export function LoadCartProducts(){
     return axios.get(`${baseURL}/user/cart`,TokenHeaderConfig)}
 
 export function OrderProducts(body){
-    return axios.get(`${baseURL}/user/order`,body,TokenHeaderConfig)}
+    return axios.post(`${baseURL}/user/order`,body,TokenHeaderConfig)}
+
+export function GetOrderList(){
+    return axios.get(`${baseURL}/user/order`,TokenHeaderConfig)}

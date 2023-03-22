@@ -1,7 +1,7 @@
 import React,{useEffect,useState} from 'react'
 import axios from 'axios'
 import styled from 'styled-components'
-
+import { GetOrderList } from '../api/api'
 const Table = styled.table`
     margin : 10px 10px 10px 10px;
     border-collapse : collapse;
@@ -162,20 +162,11 @@ const OrderListTB = ({orders})=>(
     </OrderWrapper>
 )
 
-const baseURL = process.env.REACT_APP_URL;
 export default function OrderList(){
     const [orders,setOrders] = useState();
     let tmp;
     useEffect(()=>{
-        axios({
-            method :"get",
-            url : `${baseURL}/user/order`,
-            headers:{
-                "Content-Type" :"application/json",
-                "Authorization" :window.localStorage.getItem('Login')
-            }
-        }).then((response)=>{
-            console.log("주문목록을 가져옵니다")
+        GetOrderList().then((response)=>{
             tmp = (response.data).flat()
             setOrders(tmp)
         }).catch((error) => console.log(error))

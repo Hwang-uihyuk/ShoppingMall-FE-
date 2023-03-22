@@ -148,3 +148,12 @@ export function Dislike(productId){
 
 export function AddProducts(data) {
     return axios.post(`${baseURL}/register/product}`,data, TokenHeaderConfig)}
+
+export function DeleteCartItem(productId,data){
+    return axios.delete(`${baseURL}/user/cart/all/${productId}}`,data, TokenHeaderConfig)}
+
+export function CountUpCartItem(productId,data){
+    return axios.post(`${baseURL}/user/cart/${productId}`,data,TokenHeaderConfig)}
+
+export function CountDownCartItem(productId,data){
+    return axios.post(`${baseURL}/user/cart/${productId}`,data,TokenHeaderConfig)}

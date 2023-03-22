@@ -9,6 +9,8 @@ const TokenHeaderConfig = {"headers":{
     'Authorization' : window.localStorage.getItem('Login')
 }}
 
+export function LoadMainProducts(){
+    return axios.get(`${baseURL}`,HeaderConfig)}
 // Post : 로그인
 export function PostLogin(id,password){
     const data = JSON.stringify({

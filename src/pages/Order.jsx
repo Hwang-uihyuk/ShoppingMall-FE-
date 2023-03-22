@@ -2,9 +2,7 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { useLocation } from 'react-router-dom';
 import styled from "styled-components";
-import PostPopUp from "../components/PostPopUp";
-
-const baseURL = process.env.REACT_APP_URL;
+import { OrderProducts, GetUserInfo } from '../api/api';
 
 const InputForm = styled.input`
     border-style: 1px dotted;
@@ -219,30 +217,18 @@ export default function Order(){
     console.log(from,'에서 왔습니다.');
     console.log(cartproduct);
     useEffect(() => {
-        axios({
-        method: "get",
-        url : `${baseURL}/user`,
-        headers: {  
-            "Content-Type": "application/json",
-            "Authorization" : window.localStorage.getItem('Login')
-        }
-    }).then((response) => {
-        console.log(response.data)
-        setAddress(response.data.address)
-     })
-     .catch((error) => console.log(error))
-    }, [])
+       GetUserInfo.then((response) => {
+        setAddress(response.data.address)})
+     .catch((error) => console.log(error))},[])
 
     const onAddressChangeHandler = (e)=>{
         e.preventDefault();
         const currentAddress = e.currentTarget.value
-        setAddress(currentAddress);
-    }
-    // submit order
+        setAddress(currentAddress);}
 
     const onSubmitHandler = (event) =>{
         event.preventDefault();
-
+        
         let time = ""
         let today = new Date();
         let year = today.getFullYear();
@@ -271,26 +257,14 @@ export default function Order(){
             "order_date" : time
         })
         console.log(body);
-            axios
-                .post(`${baseURL}/user/order`,body,{
-                    headers : {
-                        'Content-Type': 'application/json',
-                        'Authorization' : window.localStorage.getItem('Login')
-                    }
-                })
-                .then((response)=>{
-                    console.log(response);
-                    alert("주문완료")
-                    document.location.href = '/'
-                })
-                .catch((error) => {
-                    console.log(error)
-                });
+        OrderProducts(body).then((response)=>{
+                alert("주문완료")
+                document.location.href = '/'
+            }).catch((error) => {console.log(error)});
     }
     return (
         <OrderForm>
             <AddressInfo label ="ADDRESS" value ={address}/>
-
             {(from==='details')&&
                 <>
                     <OrderInfo

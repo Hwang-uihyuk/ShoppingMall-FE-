@@ -127,5 +127,9 @@ export function EditProductInfo(data){
 export function LoadLikeProducts(){
     return axios.get(`${baseURL}/user/favorite`,TokenHeaderConfig)}
 
+/* 장바구니 상품 불러오기*/
 export function LoadCartProducts(){
     return axios.get(`${baseURL}/user/cart`,TokenHeaderConfig)}
+
+export function OrderProducts(body){
+    return axios.get(`${baseURL}/user/order`,body,TokenHeaderConfig)}

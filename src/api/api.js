@@ -157,3 +157,6 @@ export function CountUpCartItem(productId,data){
 
 export function CountDownCartItem(productId,data){
     return axios.post(`${baseURL}/user/cart/${productId}`,data,TokenHeaderConfig)}
+
+export function DeleteAddedProducts(productId){
+    return axios.delete(`${baseURL}/register/product/${productId}}`, TokenHeaderConfig)}

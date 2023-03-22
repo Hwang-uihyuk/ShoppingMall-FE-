@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React from 'react'
 import { useNavigate } from 'react-router-dom';
+import { DeleteAddedProducts } from '../api/api';
 import EditProductDetail from '../pages/EditProductDetail';
 
 const baseURL = process.env.REACT_APP_URL
@@ -26,21 +27,9 @@ export default function EditProductCard(
     console.log(product.id)
     const message = window.confirm('정말로 상품을 삭제하시겠습니까?')
     if(message === true){
-      axios.delete(`${baseURL}/register/product/${product.id}`,{
-        headers :{
-          'Content-Type' : 'aplication/json',
-          'Authorization' : window.localStorage.getItem('Login')
-      }
-      }).then(response => {
-        setSellRig(prev => prev.filter(val=> val.id !== product.id))
-        console.log('성공')
-         }
-      ).catch('에러입니다.')
-    }
-  }
-
-
-  
+      DeleteAddedProducts(product.id)
+      .then(setSellRig(prev => prev.filter(val=> val.id !== product.id)))
+      .catch('에러입니다.')}}
   return (
     <div>
     <li 

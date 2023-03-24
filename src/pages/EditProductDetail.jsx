@@ -8,6 +8,10 @@ import Input from '../components/ui/Input';
 
 export default function EditProductDetail() {
     const location = useLocation();
+
+    console.log(location.state)
+    
+
     const [editform, setEditForm] = useState({})
     const [addStock, setAddStock] = useState(0)
     // console.log(editform);
@@ -32,7 +36,15 @@ export default function EditProductDetail() {
     
     const [changeform, setChangeForm] = useState({})
 
-    const id = location.state.product.id;
+    let id;
+    if(location.state.product) {
+       id = location.state.product.id 
+    }
+    else id = location.state[location.state.length-1].id
+    
+    
+     // const id = location.state.product.id 
+  
     // const onchangeinput = (e) => {
     //     setdata(e.currentTarget.value)
     // }

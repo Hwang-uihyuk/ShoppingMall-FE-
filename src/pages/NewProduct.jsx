@@ -3,7 +3,7 @@ import Button from '../components/ui/Button';
 
 import { v1, v3, v4, v5 } from 'uuid'
 import { useNavigate } from 'react-router-dom';
-import { AddProducts } from '../api/api';
+import { AddProducts, LoadRegisteredProducts } from '../api/api';
 
 const ACCESS_KEY = process.env.REACT_APP_ACCESS_KEY;
 const SECRET_ACCESS_KEY = process.env.REACT_APP_SECRET_ACCESS_KEY;
@@ -13,7 +13,6 @@ const IMG_KEY = process.env.REACT_APP_IMG_KEY
 
 export default function NewProduct() {
   const navigate = useNavigate();
-
   const AWS = require('aws-sdk');
   const [progress, setProgress] = useState(0);
   const [selectedFile, setSelectedFile] = useState(null);
@@ -21,7 +20,7 @@ export default function NewProduct() {
   const [key, setKey] = useState("")
   const [disabled, setDisabled] = useState(true)
 
-
+  const [val, setVal] = useState("")
   AWS.config.update({
       accessKeyId: ACCESS_KEY,
       secretAccessKey: SECRET_ACCESS_KEY
@@ -132,17 +131,36 @@ export default function NewProduct() {
       "category": category,
       "description": description,
       "size": size,
-      "imgKey": `${IMG_KEY}/${key}`,
+      "imgKey":`${IMG_KEY}/${key}`,
       "date": time
     })
-    
-    AddProducts(data).then(() => {
-      alert('상품이 등록되었습니다.')
-      document.location.href = '/products'
-    }).catch((error) => alert('형식에 맞는 입력 값을 넣어주세요.'))
+    console.log(`${IMG_KEY}/${key}`)
+    console.log(data)
 
     
+    AddProducts(data)
+    .then(() => {
+      LoadRegisteredProducts()
+      .then((res)=>{
+        setVal(res.data)
+      })
+      alert('상품등록완료! 재고를 추가하여 주세요.')  
+      // if(val) navigate(`/products/edit/products/edit/products/products/edit/products/${val[val.length-1].id}`, {state : val})
+    }).catch((error) => {
+      console.log(error)
+      alert('형식에 맞는 입력 값을 넣어주세요.')})
+      
   }
+  if(val) {
+    console.log(val[val.length-1].id)
+    if(val) {
+      
+      navigate(`/products/edit/products/edit/products/products/edit/products/${val[val.length-1].name}`, {state : val})}
+      
+          
+
+  }
+  
   
   return (
     <section className="bg-gray-50 dark:bg-gray-900">
@@ -160,7 +178,7 @@ export default function NewProduct() {
 
       <div className="App-body">
        
-       <label for="Id" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">File upload</label>
+       <label htmlor="Id" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">File upload</label>
      <input color="primary" 
      type="file"
     onChange={handleFileInput}
@@ -174,7 +192,7 @@ export default function NewProduct() {
      ) : null}
    </div>
       
-      <label for="Id" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Product name</label>
+      <label htmlFor="Id" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Product name</label>
         <input
           type="text"
           name="name"
@@ -186,7 +204,7 @@ export default function NewProduct() {
         />
         
         
-        <label for="Id" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Price</label>
+        <label htmlFor="Id" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Price</label>
         <input
           type="text"
           name="price"
@@ -196,7 +214,7 @@ export default function NewProduct() {
           className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"  
           onChange={handleChangePrice}
         />
-        <label for="Id" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Category</label>
+        <label htmlFor="Id" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Category</label>
         <input
           type="text"
           name="category"
@@ -206,7 +224,7 @@ export default function NewProduct() {
           className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"  
           onChange={handleChangeCategory}
         />
-        <label for="Id" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Description</label>
+        <label htmlFor="Id" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Description</label>
         <input
           type="text"
           name="description"
@@ -216,7 +234,7 @@ export default function NewProduct() {
           className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"  
           onChange={handleChangeDescription}
         />
-        <label for="Id" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Options</label>
+        <label htmlFor="Id" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Options</label>
         <input
           type='text'
           name='size'

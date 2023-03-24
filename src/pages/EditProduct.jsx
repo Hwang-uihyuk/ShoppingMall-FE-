@@ -16,7 +16,9 @@ export default function EditProduct() {
      })
      .catch((error) => console.log(error))
     }, [])
-    console.log(sellrig)
+    // console.log(...sellrig[0].id)
+    
+    
   return (
     <div>
       <ul className='grid grid-cols-1 md:grid-cols-3 lg-grid-cols-4 gap-4 p-4'>

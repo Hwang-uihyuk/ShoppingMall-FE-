@@ -20,7 +20,7 @@ export default function EditProductCard(
 
   const navigate = useNavigate();
 
-  console.log(imgKey)
+  
   //상품 삭제
   const DeleteProduct = () => {
     console.log(sellrig)
@@ -30,11 +30,13 @@ export default function EditProductCard(
       DeleteAddedProducts(product.id)
       .then(setSellRig(prev => prev.filter(val=> val.id !== product.id)))
       .catch('에러입니다.')}}
+      console.log(product)
   return (
     <div>
     <li 
         onClick={() => {
             console.log(id)
+            console.log(name,'name')
             navigate(`products/edit/products/products/edit/products/${name}` , {state : { product }});
         }}
         className='w-70 rounded-lg shadow-md overflow-hidden cursor-pointer transition-all'

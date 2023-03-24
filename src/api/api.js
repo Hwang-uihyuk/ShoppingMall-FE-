@@ -59,10 +59,7 @@ export function PostEditProduct(editform){
 }
 
 export function LogOut(){
-    // const { setUser } = useAxiosAuthContext();
-    // setUser((mode) => !mode)
-    // localStorage에서 token, username 삭제
-    // user => false
+   
 }
 export function LoadProductsAll(){
     axios
@@ -147,7 +144,7 @@ export function Dislike(productId){
     return axios.delete(`${baseURL}/user/favorite/${productId}`, TokenHeaderConfig)}
 
 export function AddProducts(data) {
-    return axios.post(`${baseURL}/register/product}`,data, TokenHeaderConfig)}
+    return axios.post(`${baseURL}/register/product`,data, TokenHeaderConfig)}
 
 export function DeleteCartItem(productId,size){
     return axios.delete(`${baseURL}/user/cart/all/${productId}?size=${size}`, TokenHeaderConfig)}

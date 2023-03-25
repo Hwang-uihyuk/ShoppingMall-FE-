@@ -8,23 +8,28 @@ const Container = styled.div`
     align-items: center;
     flex-direction: column;
 `
-const NoResultMessage = styled.label`
+const LMessage = styled.label`
     font-size : 40px;
     font-family : "RalewayBold";
 `
-const SmallMessage = styled.label`
+const SMessage = styled.label`
     font-size : 13.7px;
     font-family : "RalewayBold";
 `
 const Emoji = styled.label`
     font-size : 50px;
 `
-export default function NoResult() {
+export default function NoResult(props){
+    const {keyword} = props;
   return (
     <Container>
         <Emoji>😥</Emoji>
-        <NoResultMessage>No Search Result</NoResultMessage>
-        <SmallMessage>검색어를 다시 확인해주세요</SmallMessage>
+          {(keyword === "search") && <>
+            <LMessage>No Search Result</LMessage>
+            <SMessage>검색어를 다시 확인해주세요</SMessage></>}
+          {(keyword === "cart") && <>
+            <LMessage>No Products</LMessage>
+            <SMessage>장바구니가 비어있습니다</SMessage></>}
     </Container>
   )
 }

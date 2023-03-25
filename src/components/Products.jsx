@@ -240,13 +240,8 @@ export default function Products() {
             <ul className='grid grid-cols-1 md:grid-cols-4 lg-grid-cols-4 gap-10'>
             {products &&
               products.map((product)=>(
-                <ProductCard key={product.id} product={product} />
-              ))
-            }
-          </ul>):(
-            <NoResult/>
-          )
-          }
+                <ProductCard key={product.id} product={product} />))}
+          </ul>):(<NoResult keyword ="search"/>)}
         </div>
       </>
     );

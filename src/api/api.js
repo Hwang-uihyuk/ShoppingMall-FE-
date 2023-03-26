@@ -1,6 +1,5 @@
 import axios from 'axios'
 const baseURL = process.env.REACT_APP_URL
-
 const HeaderConfig ={"headers" :{
     'Content-Type': 'application/json'}}
 const TokenHeaderConfig = {"headers":{
@@ -14,35 +13,30 @@ export function PostLogin(id,password){
     const data = JSON.stringify({
         "username": id,
         "password": password,});
-    axios.post(baseURL+"/login", data, HeaderConfig
-    ).then(response => {
-        console.log(response.headers.get("Authorization"))
-        window.localStorage.setItem("Login", response.headers.get("Authorization"))
+    axios.post(baseURL+"/login", data, HeaderConfig)
+    .then(res => {
+        console.log(res.headers.get("Authorization"))
+        window.localStorage.setItem("Login", res.headers.get("Authorization"))
         window.localStorage.setItem("ID",id)
-        document.location.href = '/'
-    }).catch(error => {
-        // ... 에러 처리
-        console.log("에러")
-        console.log(error)
-        alert("아이디나 비밀번호를 다시 확인하세요.")
-    });
-}
+        document.location.href = '/'})
+    .catch(err => {
+        console.log(err)
+        alert("아이디나 비밀번호를 다시 확인하세요.")});}
+
 // Post : 회원가입
 export function PostSignUp(body){
     console.log(body);
     axios
         .post(baseURL + "/join", body, HeaderConfig)
-        .then((response) => {
-            console.log(response.data);
+        .then((res) => {
+            console.log(res.data);
             alert("회원가입이 완료되었습니다")
             document.location.href = '/login'
         })
         .catch((error) => {
             console.log(error)
             alert("이메일 혹은 전화번호 혹은 배송지가 중복됩니다")
-        });
-}
-
+        });}
 
 //상품 정보 수정하기
 export function PostEditProduct(editform){
@@ -52,11 +46,9 @@ export function PostEditProduct(editform){
 		category : editform.category,
 		description : editform.description,
 		size : editform.size,
-		imgKey : editform.imgKey
-      })
+		imgKey : editform.imgKey})
     axios.put(`${baseURL}/register/product/${editform.id}`,data,TokenHeaderConfig)
-    .then(res => console.log('success'))
-}
+    .then(console.log('success'))}
 
 export function LogOut(){
    
@@ -75,8 +67,7 @@ export function LoadProductsAll(){
 
 //Productdetail.jsx : 상품 정보 GET
 export function GetProductDetail(id){
-    return axios.get(`${baseURL}/shop/detail/${id}`, TokenHeaderConfig);
-}
+    return axios.get(`${baseURL}/shop/detail/${id}`, TokenHeaderConfig);}
 
 /* Mypage.jsx */
 
@@ -128,36 +119,58 @@ export function LoadLikeProducts(){
 export function LoadCartProducts(){
     return axios.get(`${baseURL}/user/cart`,TokenHeaderConfig)}
 
+/* 상품 주문 POST */
 export function OrderProducts(body){
     return axios.post(`${baseURL}/user/order`,body,TokenHeaderConfig)}
 
+/* 주문 목록 GET */
 export function GetOrderList(){
     return axios.get(`${baseURL}/user/order`,TokenHeaderConfig)}
 
+/* 장바구니 추가 POST*/
 export function AddToCart(productId,data){
     return axios.post(`${baseURL}/user/cart/${productId}`,data,TokenHeaderConfig)}
 
+/* 좋아요 추가 POST*/
 export function Like(productId) {
     return axios.post(`${baseURL}/user/favorite/${productId}`,{}, TokenHeaderConfig)}
 
+/* 좋아요 해제 DELETE*/
 export function Dislike(productId){
     return axios.delete(`${baseURL}/user/favorite/${productId}`, TokenHeaderConfig)}
 
+/* 상품 등록 POST*/
 export function AddProducts(data) {
     return axios.post(`${baseURL}/register/product`,data, TokenHeaderConfig)}
 
+/* 장바구니 리스트 제거 DELETE*/
 export function DeleteCartItem(productId,size){
     return axios.delete(`${baseURL}/user/cart/all/${productId}?size=${size}`, TokenHeaderConfig)}
 
+/* 장바구니 상품 단품 추가 POST*/
 export function CountUpCartItem(productId,data){
     return axios.post(`${baseURL}/user/cart/${productId}`,data,TokenHeaderConfig)}
 
+/* 장바구니 상품 단품 제거*/
 export function CountDownCartItem(productId,size){
     return axios.delete(`${baseURL}/user/cart/${productId}?size=${size}`,TokenHeaderConfig)}
 
+/* 등록 상품 제거 */
 export function DeleteAddedProducts(productId){
     return axios.delete(`${baseURL}/register/product/${productId}}`, TokenHeaderConfig)}
 
+/* 권한 업그레이드 */
 export function UpgradeAuth(upgradeId){
-    return axios.patch(`${baseURL}/admin/upgradeAuth/${upgradeId}`, "", TokenHeaderConfig)
-}
+    return axios.patch(`${baseURL}/admin/upgradeAuth/${upgradeId}`, "", TokenHeaderConfig)}
+
+/* 상품 불러오기 POST (keyword, sort) */
+export function LoadSearchProducts(keyword,sort){
+    return axios.get(`${baseURL}/shop/search/${keyword}?sort=${sort}`,HeaderConfig)}
+
+/* 상품 불러오기 POST (sort) */
+export function LoadSortProducts(sort) {
+    return axios.get(`${baseURL}/shop?sort=${sort}`, HeaderConfig)}
+
+/* 상품 불러오기 POST (category, sort) */
+export function LoadCategoryProducts(category, sort) {
+    return axios.get(`${baseURL}/shop/category/${category}?sort=${sort}`, HeaderConfig)}

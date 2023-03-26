@@ -3,10 +3,8 @@ import React,{useState,useEffect} from 'react';
 import ProductCard from './ProductCard';
 import NoResult from '../pages/NoResult';
 import styled from "styled-components";
-import { LoadProductsAll } from '../api/api';
 import axios from 'axios'
-
-
+import { LoadSearchProducts,LoadSortProducts,LoadCategoryProducts } from '../api/api';
 const baseURL = process.env.REACT_APP_URL
 const categories = ["all", "top", "outer", "pants"];
 const sorts = ["hits", "date", "favorite", "purchase"];
@@ -15,7 +13,6 @@ const Container = styled.div`
   display: flex;
   padding : 10px 20px 5px 30px;
 `
-
 const CategoriesContainer = styled.div`
     height : 80px;
     width : 100%;
@@ -122,10 +119,6 @@ const Search = ({keywordHandler,searchHandler}) =>(
     <SearchBtn onClick = {searchHandler}>SEARCH</SearchBtn>
   </SearchContainer>
 )
-// const categoryClickHandler = (event) => {
-//   setUserAddress(event.currentTarget.value);
-// }
-
 export default function Products() {
     const [isResult,setIsResult] = useState(true);
     const [category,setCategory] = useState("all");
@@ -133,96 +126,43 @@ export default function Products() {
     const [products, setProducts] = useState();
     const [sort,setSort] = useState("hits");
     const [isSearch, setIsSearch] = useState(false)
-    useEffect(() => {
-      if(isSearch){
-        console.log(`Search Keyword:${keyword}| sort:${sort}`)
-        axios({
-          method: "get",
-          url: `${baseURL}/shop/search/${keyword}?sort=${sort}`,
-          headers: {
-            "Content-Type": "application/json"
-          }
-        }).then((response) => {
+    
+    useEffect(() =>{
+        isSearch?(
+        LoadSearchProducts(keyword,sort)
+        .then((response) => {
           setIsResult(true);
-          setProducts(response.data)
-
-        }).catch((error) => {
-
+          setProducts(response.data)})
+        .catch((error) => {
           setIsResult(false);
-          console.log(isResult)
-          console.log(error);
-        })
-      }
-      else{
-        if (category === "all") {
-          axios({
-            method: "get",
-            url: `${baseURL}/shop?sort=${sort}`,
-            headers: {
-              "Content-Type": "application/json",
-            }
-          }).then((response) => {
-            setIsResult(true);
-            setProducts(response.data);
-          })
-            .catch((error) => {
-              console.log(error);
-            })
-        } else {
-          axios({
-            method: "get",
-            url: `${baseURL}/shop/category/${category}?sort=${sort}`,
-            headers: {
-              "Content-Type": "application/json"
-            }
-          }).then((response) => {
-            console.log(response)
-            setIsResult(true);
-            setProducts(response.data)
-            console.log(`Sorted : ${sort}\nCategory : ${category}`)
-          }).catch((error) => {
-            setIsResult(false);
-            // console.log(error);
-          })
-        }
-      }
-    }, [category,sort,isSearch])
+          console.log(error);}))
+        :((category === "all")?
+            (LoadSortProducts(sort)
+              .then((response) => {
+              setIsResult(true);
+              setProducts(response.data);})
+              .catch((error) => { console.log(error); }))
+            :(LoadCategoryProducts(category, sort)
+              .then((response) => {
+                setIsResult(true);
+                setProducts(response.data)})
+              .catch(setIsResult(false))))
+      },[category,sort,isSearch])
+    
   const onCategoryClick = (props) => {
     setCategory(props);
-    setIsSearch(false);
-  }
+    setIsSearch(false);}
+
   const onSortClick =(props)=>{
-    setSort(props);
-  }
+    setSort(props);}
+
   const onKeywordChangeHandeler = (event) => {
     const currentKeyword = event.currentTarget.value;
-    setKeyword(currentKeyword);
-  }
+    setKeyword(currentKeyword);}
+
   const onSearchHandeler = (event) => {
     event.preventDefault();
-    if(keyword.length===0){
-      alert("검색어를 입력해주세요.")
-    }else{
-      setIsSearch(true);
-      axios({
-        method: "get",
-        url: `${baseURL}/shop/search/${keyword}?sort=${sort}`,
-        headers: {
-          "Content-Type": "application/json"
-        }
-      }).then((response) => {
-        setIsResult(true);
-        setProducts(response.data)
-        
-      }).catch((error) => {
-        
-        setIsResult(false);
-        console.log(isResult)
-        console.log(error);
-    })
-    }
-    
-  }
+    setIsSearch(true);}
 
     return (
       <>

@@ -163,14 +163,14 @@ export function DeleteAddedProducts(productId){
 export function UpgradeAuth(upgradeId){
     return axios.patch(`${baseURL}/admin/upgradeAuth/${upgradeId}`, "", TokenHeaderConfig)}
 
-/* 상품 불러오기 POST (keyword, sort) */
+/* 상품 불러오기 GET (keyword, sort) */
 export function LoadSearchProducts(keyword,sort){
     return axios.get(`${baseURL}/shop/search/${keyword}?sort=${sort}`,HeaderConfig)}
 
-/* 상품 불러오기 POST (sort) */
+/* 상품 불러오기 GET (sort) */
 export function LoadSortProducts(sort) {
     return axios.get(`${baseURL}/shop?sort=${sort}`, HeaderConfig)}
 
-/* 상품 불러오기 POST (category, sort) */
+/* 상품 불러오기 GET (category, sort) */
 export function LoadCategoryProducts(category, sort) {
     return axios.get(`${baseURL}/shop/category/${category}?sort=${sort}`, HeaderConfig)}

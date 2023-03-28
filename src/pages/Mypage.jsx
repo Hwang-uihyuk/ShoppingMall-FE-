@@ -172,11 +172,11 @@ const handleUpgradeAuth = (e) => {
 
   return (
     <div>
-        <section className="bg-white dark:bg-gray-900 grid justify-items-center items-center h-full ">
-            <div className="flex flex-col w-full h-full mt-10 mb-10 items-center justify-center px-6 py-8 md:h-screen lg:py-0 max-h-full">
+        <section className="bg-white dark:bg-gray-900 justify-items-center items-center md:h-full">
+            <div className="flex flex-col w-full h-full mt-10 mb-10 items-center justify-center px-6 py-8 md:h-full lg:py-0 max-h-full">
                     <div className="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white">
                         Mypage</div>
-                    <div className="w-full max-w-2xl h-full bg-white rounded-lg shadow dark:border md:mt-0 2xl:p-0 dark:bg-gray-800 dark:border-gray-700">
+                    <div className="w-full max-w-2xl h-full bg-white rounded-lg shadow dark:border md:h-full 2xl:p-0 dark:bg-gray-800 dark:border-gray-700">
                         <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
                             <form className='space-y-4 md:space-y-6'>
                                 <div className='flex w-full font-bold text-xl border-b-2'>

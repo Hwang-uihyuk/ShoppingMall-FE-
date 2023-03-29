@@ -20,58 +20,83 @@ const CategoriesContainer = styled.div`
     position : relative;
     display: flex;
     align-items: center;
-`
-const Category = styled.h2`
-    color : black;
-    float: left;
-    font-size: 20px;
-    margin-right: 30px;
-    transition : font-size 3s ease out 100ms;
+    justify-content: center;
     &:hover{
-        color : #666666e0;
         cursor : pointer;
-        font-size: 20.1px;
     }
 `
-const SearchContainer = styled.div`
-  width : 30%;
-  height : 80px;
-  margin-left: auto;
-  margin-right : 20px;
+const Category = styled.h2`
+  border-radius: 20px;
+  text-align: center;
+  width : 20%;
+  height : 100%;
+  color : black;
+  float: left;
+  font-size: 20px;
+  transition : font-size 3s ease out 100ms;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  &:hover{
+      font-size: 20.1px;
+      background-color: #ebebeb;
+  }
+`
+const ImageContainer = styled.div`
+  border-radius: 30px;
+  border : none;
   display: flex;
   align-items: center;
+  height : 40px;
+  width : 40px;
+  padding : 10px;
+`
+const SearchContainer = styled.div`
+  margin : 5px 10px 0 0 ;
+  padding-left: 10px;
+  border-radius: 25px;
+  background-color: #f1f1f1;
+  width : 15%;
+  height : 40px;
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 `
 const SearchInput = styled.input`
-  width : 70%;
+  width : 100%;
   height : 40%;
-  margin-right: 5px;
   border-radius: 0.375rem;
   padding: 0.625rem;
-  border : 1px solid;
-  border-color: rgb(209 213 219);
+  border : none;
   align-self: right;
-  background-color: rgb(248 250 252);
+  background-color: #f1f1f1;
   `
 const SearchBtn = styled.button`
-  margin-left : 2%;
-  width : 30%;
-  height : 40%;
-  font-size: 90%;
+  border: none;
+  padding-right : 5px;
   font-weight: 500;
-  border-radius: 0.375rem;
-  background-color : #252525;
+  border-radius: 3.75rem;
   color : white;
   align-self: center;
   font-family: "RalewayBold";
   transition: background-color 0.2s ease-in-out;
-    &:hover {
-        background-color: #374151;
-    }
     &:focus {
         outline: none;
-        box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.3);
     }
 `
+const Search = ({keywordHandler,searchHandler}) =>(
+  <SortContainer>
+    <SearchContainer>
+    <SearchInput onChange={keywordHandler}></SearchInput>
+    <SearchBtn onClick = {searchHandler}>
+      <ImageContainer>
+      <img src="/images/searchcon.png"></img>
+      </ImageContainer>
+    </SearchBtn>
+  </SearchContainer>
+  </SortContainer>
+)
 const SortLabel = styled.label`
   font-size : 12px;
   font-family: "RalewayBold";
@@ -83,6 +108,7 @@ const SortLabel = styled.label`
   }
 `
 const SortContainer = styled.div`
+  width: 100%;
   padding : 0px 20px 10px 50px;
   display: flex;
   justify-content: right;
@@ -113,12 +139,7 @@ const Categories = ({ categoryHandler, categories }) => (
     ))}
   </CategoriesContainer>
 )
-const Search = ({keywordHandler,searchHandler}) =>(
-  <SearchContainer>
-    <SearchInput onChange={keywordHandler}></SearchInput>
-    <SearchBtn onClick = {searchHandler}>SEARCH</SearchBtn>
-  </SearchContainer>
-)
+
 export default function Products() {
     const [isResult,setIsResult] = useState(true);
     const [category,setCategory] = useState("all");
@@ -168,11 +189,11 @@ export default function Products() {
       <>
         <Container>
           <Categories categoryHandler={onCategoryClick} categories={categories} />
-          <Search
-            keywordHandler={onKeywordChangeHandeler}
-            searchHandler={onSearchHandeler} />
         </Container>
         <Sort sortHandler={onSortClick} sorts={sorts} />
+        <Search
+            keywordHandler={onKeywordChangeHandeler}
+            searchHandler={onSearchHandeler} />
         {/* {isLoading && <p>Loading...</p>}
         {error && <p>{error}</p>} */}
         <div className='p-10 pt-4'>

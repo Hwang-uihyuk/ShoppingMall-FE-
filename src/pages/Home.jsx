@@ -10,7 +10,7 @@ import SimpleSlider from '../components/SimpleSlider';
 export default function Home() {
   return (
     <>
-      <Iframe/>
+      {/* <Iframe/> */}
       <SimpleSlider/>
       {/* <Banner/> */}
       <MainProducts/>

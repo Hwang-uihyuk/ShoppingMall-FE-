@@ -1,13 +1,12 @@
-import React from 'react';
+import React,{useState} from 'react';
 import { Link } from 'react-router-dom';
-import { FiShoppingBag } from 'react-icons/fi';
-import { AiFillShop } from 'react-icons/ai'
 import { BsFillPencilFill } from 'react-icons/bs';
 import User from './User';
 import Button from './ui/Button';
 import { useAxiosAuthContext } from './context/UserStateContext';
 import styled from "styled-components";
 import { NavLink } from 'react-router-dom';
+import { GetUserInfo } from '../api/api';
 
 const DropBtn = styled.button`
   display: flex;
@@ -29,11 +28,23 @@ const ImageContainer = styled.div`
   border : none;
   display: flex;
   align-items: center;
-  height : 50px;
-  width : 50px;
+  height : 40px;
+  width : 40px;
   padding : 10px;
   &:hover{
     background-color: #b0b0b0;
+  }
+`
+const AccountContainer = styled.div`
+  border-radius : 30px;
+  display : flex;
+  width : 100%;
+  align-items: center;
+  font-size: 15px;
+  padding-right :10px;
+  &:hover{
+    background-color: #b0b0b0;
+    cursor : pointer;
   }
 `
 const DropImgBtn =()=>(
@@ -46,9 +57,12 @@ const DropImgBtn =()=>(
 
 export default function Navbar() {
   const { user, logout } = useAxiosAuthContext();
+  const [nickname, setNickname] = useState("");
+
+  if(window.localStorage.getItem('Login')) GetUserInfo().then((res)=>{setNickname(res.data.nickname)})
+
   return (
     <header className='text-sm flex justify-between border-b border-none p-4 pt-3 sticky top-0 bg-white z-10 shadow-none opacity-80 absolute'>
-
       {/* SHOPPY */}
       <NavLink to='/' className='flex items-center text-4xl pl-3'
         onClick={(e) => {
@@ -74,6 +88,20 @@ export default function Navbar() {
           {/* Logged in */}
           {window.localStorage.getItem('Login')&&(
             <>
+             <NavLink to={window.localStorage.getItem('Login') ? "/mypage" : "/login"}
+                onClick={(e) => {
+                  if (window.location.pathname === '/mypage') {
+                    e.preventDefault();
+                    window.location.reload();
+                  }
+                }}>
+                <AccountContainer>
+                  <ImageContainer>
+                    <img src="/images/account_nav.png" />
+                  </ImageContainer>
+                  Welcome {nickname}!
+                </AccountContainer>
+              </NavLink>
               <NavLink to={window.localStorage.getItem('Login') ? "/carts" : "/login"}
                 onClick={(e) => {
                   window.localStorage.getItem('Login')
@@ -94,17 +122,7 @@ export default function Navbar() {
                   <img src="/images/logout_nav.png" />
                 </ImageContainer>
               </NavLink>
-              <NavLink to={window.localStorage.getItem('Login') ? "/mypage" : "/login"}
-                onClick={(e) => {
-                  if (window.location.pathname === '/mypage') {
-                    e.preventDefault();
-                    window.location.reload();
-                  }
-                }}>
-                <ImageContainer>
-                  <img src="/images/account_nav.png" />
-                </ImageContainer>
-              </NavLink>
+             
             </>
           )}
 
@@ -122,6 +140,18 @@ export default function Navbar() {
           {/* Not logged in*/}
           {!window.localStorage.getItem('Login') && (
             <>
+              <NavLink to='/login'
+                onClick={(e) => {
+                  if (window.location.pathname === '/login') {
+                    e.preventDefault();
+                    window.location.reload();}
+                }}>
+                  <AccountContainer>
+                  <ImageContainer>
+                  <img src = "/images/account_nav.png"></img>
+                  </ImageContainer>Login or Signup
+                  </AccountContainer>
+              </NavLink>
               <NavLink to={window.localStorage.getItem('Login') ? "/carts" : "/login"}
                 onClick={(e) => {
                   window.localStorage.getItem('Login')
@@ -134,16 +164,7 @@ export default function Navbar() {
                   <img src="/images/cart_nav.png" />
                 </ImageContainer>
               </NavLink>
-            <ImageContainer>
-              <NavLink to='/login'
-                onClick={(e) => {
-                  if (window.location.pathname === '/login') {
-                    e.preventDefault();
-                    window.location.reload();}
-                }}>
-                  <img src = "/images/account_nav.png"></img>
-                </NavLink>
-              </ImageContainer>
+
               {/* <NavLink to='/signup'
                 onClick={(e) => {
                   if (window.location.pathname === '/signup') {

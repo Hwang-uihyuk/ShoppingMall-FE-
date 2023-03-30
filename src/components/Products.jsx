@@ -52,7 +52,7 @@ const ImageContainer = styled.div`
   padding : 10px;
 `
 const SearchContainer = styled.div`
-  margin : 5px 10px 0 0 ;
+  margin : 5px 5px 0 0 ;
   padding-left: 10px;
   border-radius: 25px;
   background-color: #f1f1f1;
@@ -108,8 +108,8 @@ const SortLabel = styled.label`
   }
 `
 const SortContainer = styled.div`
-  width: 100%;
-  padding : 0px 20px 10px 50px;
+  padding : 10px 15px 10px 50px;
+  margin-right : 40px;
   display: flex;
   justify-content: right;
 `
@@ -168,12 +168,12 @@ export default function Products() {
               .then((response) => {
                 setIsResult(true);
                 setProducts(response.data)})
-              .catch(setIsResult(false))))
+              .catch()))
       },[category,sort,isSearch])
     
   const onCategoryClick = (props) => {
-    setCategory(props);
-    setIsSearch(false);}
+    setIsSearch(false)
+    setCategory(props);}
 
   const onSortClick =(props)=>{
     setSort(props);}
@@ -183,18 +183,18 @@ export default function Products() {
     setKeyword(currentKeyword);}
 
   const onSearchHandeler = (event) => {
-    event.preventDefault();
-    setIsSearch(true);}
+    setIsSearch(true)
+    event.preventDefault();}
 
-    return (
+  return (
       <>
         <Container>
           <Categories categoryHandler={onCategoryClick} categories={categories} />
         </Container>
-        <Sort sortHandler={onSortClick} sorts={sorts} />
         <Search
             keywordHandler={onKeywordChangeHandeler}
             searchHandler={onSearchHandeler} />
+        <Sort sortHandler={onSortClick} sorts={sorts} />
         {/* {isLoading && <p>Loading...</p>}
         {error && <p>{error}</p>} */}
         <div className='p-10 pt-4'>

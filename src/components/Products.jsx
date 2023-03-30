@@ -148,6 +148,7 @@ export default function Products() {
     const [sort,setSort] = useState("hits");
     const [isSearch, setIsSearch] = useState(false)
     
+    console.log(products);
     useEffect(() =>{
         isSearch?(
         LoadSearchProducts(keyword,sort)
